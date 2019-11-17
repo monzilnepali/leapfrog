@@ -87,6 +87,8 @@
 .project-slider{
     max-width: 78%;
     margin:0 auto;
+   
+   
 }
 
 
@@ -96,23 +98,23 @@
 .blog-slider{
     max-width: 78%;
     margin:0 auto;
-    margin-top: 40px;
+    display: block;
+    height: auto;
     
    
 }
 .blog-slider-left{
     float: left;
     max-width: 74.444444%;
- 
    
-    height: 570px;
 
 }
 .blog-slider-right{
     float: right;
     max-width: 23.162393%;
-    height: 570px;
+   
 }
+
 
 .sidebar-bottom>p{
     text-transform: uppercase;
@@ -135,6 +137,85 @@
 .gallery>li>a>img{
     max-width: 100%;
 }
+
+.section-third{
+    max-width: 78%;
+    margin:0 auto; 
+    margin-top: 30px;
+   
+ 
+    
+   
+}
+
+
+/* card start */
+.card-wrapper{
+    width: 100%;
+   list-style-type: none;
+   display: inline-block;
+   
+}
+.card-wrapper>.card{
+   float: left;
+    width:272px;
+    height:315px;
+    background-image: url(../images/card-1-inactive.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;   
+    position: relative;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-bottom: 30px;
+   
+
+
+}
+.card-wrapper>.card:last-child{
+    margin:0;
+}
+.card-wrapper>.card:hover{
+    background-image: url(../images/card-1-active.jpg);
+}
+.card-wrapper>.card:hover .card-btn{
+    background-image: url(../images/card-btn-active.jpg);
+}
+.card>.card-content{
+width: 100%;
+text-align: center;
+margin-top: 124px;
+
+
+}
+.card>.card-content>.head{
+    font-size: 20px;
+    padding-bottom: 20px;
+    color: #7a8382;
+}
+.card>.card-content>.body{
+    font-size: 13px;
+    line-height: 21px;
+    padding:10px;
+    color:#717171;
+}
+.card>.card-btn{
+    width: 200px;
+    height: 55px;
+    background-image: url(../images/card-btn-inactive.jpg);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 35px;
+    bottom:-10px;
+    line-height: 55px;
+    text-align: center;
+    color:white;
+   
+
+}
+/* card end */
+
+
+
 
 
 
