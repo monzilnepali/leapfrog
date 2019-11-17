@@ -108,6 +108,38 @@
 /* @media only screen and (max-width:768px){
     /* iphone x */
 
+@media only screen and (max-width:1175px){
+    .header-wrapper{
+        width: 100%;
+    }
+    .nav-drawer{
+        padding-left: 10px;
+        display: inline-block;
+    }
+    .header-menu{
+        display: none;
+    }
+    .project-slider{
+        max-width: 95%;
+    }
+    .blog-slider{
+        max-width: 95%;
+    }
+    .section-third{
+        max-width: 95%;
+       
+    }
+    .accordion-left{
+        width: 100%;
+    }
+    .accordion-right{
+        display: none;
+    }
+    .section-accordion{
+        width: 95%;  
+    }
+    
+}
 
 @media only screen and (max-width:768px){
     /* ipad screen */
@@ -172,6 +204,14 @@
         font-size: 12px;
         line-height: 19px;
     }
+
+    /* accordion */
+    .section-accordion{
+        max-width: 95%;
+    }
+    .accordion-left>ul>li{
+        max-width:725px;
+    }
 }
 
 @media only screen and (max-width:375px){
@@ -218,6 +258,14 @@
         font-size: 8px;
         line-height: 8px;
     }
+     /* accordion */
+     .section-accordion{
+        max-width: 95%;
+        background-color: red;
+    }
+    .accordion-left>ul>li{
+        max-width:350px;
+    }
 
 
 }
@@ -247,6 +295,13 @@
         margin-right:0px;
         margin-left:0px;
         border:1px solid red
+    }
+     /* accordion */
+     .section-accordion{
+        max-width: 95%;
+    }
+    .accordion-left>ul>li{
+        max-width:340px;
     }
 
 
