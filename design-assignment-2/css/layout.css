@@ -302,6 +302,7 @@ margin-top: 124px;
 
 .section-tab{
     min-height: 225px;
+  
 }
 .section-tab .tab-list{
     list-style-type: none;
@@ -334,7 +335,7 @@ margin-top: 124px;
 }
 .section-tab .tab-content{
     width: 100%;
-    height: 175px;
+    min-height: 175px;
     background-image: url(../images/tab-content-bar.jpg);
     background-repeat: repeat-x;
   
@@ -349,7 +350,7 @@ padding-left: 10px;
   color:#7e8484; 
  
 }
-.section-tab .tab-content-right{
+/* .section-tab .tab-content-right{
    float: right;
     text-align: center;
     width: 25%;
@@ -357,14 +358,99 @@ padding-left: 10px;
     padding-top: 25px;
  
    
-}
+} */
 .section .tab-content-right img{
     max-width: 100%;
     height: auto;
 }
 /* tab start */
 
+/* image -card */
 
+.image-card-container{
+    width: 78%;
+    margin:0 auto; 
+    margin-top: 50px;
+    min-height: 275px;
+}
+.image-list{
+  
+    list-style-type: none;
+    
+}
+.image-list li{
+   display: inline-block;
+    width: 23.162393%;
+    height: 295px;
+    background-image: url(../images/image-card-default.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    position: relative;
+    
+}
+.image-list li:hover{
+    background-image: url(../images/image-card-overlay-bg.jpg);
+}
+.image-list .overlay{
+    display: none;
+    position: absolute;
+    text-align: center;
+    top:40%;
+    left: 30%;
+  
+}
+.image-list li:hover .overlay{
+    display: block;
+    
+}
+.image-list .overlay-btn-list{
+
+ width:100%;
+ list-style-type: none;
+ margin-bottom: 20px;
+}
+.image-list .watch-icon{
+   
+    width: 40px;
+    height: 41px;
+    
+  background-image: url(../images/watch-icon-inactive.jpg);   
+  background-repeat: no-repeat;
+}
+.image-list .watch-icon:hover{
+    background-image: url(../images/watch-icon-active.jpg); 
+}
+.image-list .link-icon{
+    
+    width: 40px;
+    height: 41px;
+   
+    background-image: url(../images/link-icon-inactive.jpg);   
+  background-repeat: no-repeat;
+}
+.image-list .link-icon:hover{
+    background-image: url(../images/link-icon-active.jpg);   
+}
+.image-list .caption{
+   color:white;
+}
+
+.image-card-container-large li{
+    width:49%;
+    border:1px solid;
+    height: 279px;
+    background-image: url(../images/image-large-card-default.jpg);
+}
+.image-card-container-large li:hover{
+    background-image: url(../images/image-large-card-overlay-bg.jpg);
+}
+.image-card-container-large .overlay{
+    top:40%;
+    left: 38%;
+}
+
+/* end of image card */
 
 
 

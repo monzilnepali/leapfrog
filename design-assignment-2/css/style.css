@@ -138,6 +138,20 @@
     .section-accordion{
         width: 95%;  
     }
+    .section-tab .tab-content-left{
+        float: none;
+        width: 90%;
+       
+    }
+    .section-tab .tab-content-right{
+        float: none;
+        width: 100%;
+        display: none;
+       
+    }
+    .image-card-container{
+        width:95%;
+    }
     
 }
 
@@ -214,14 +228,34 @@
     }
     .section-tab .tab-content-left{
         float: none;
-        width: 100%;
+        width: 90%;
        
     }
     .section-tab .tab-content-right{
         float: none;
         width: 100%;
+        display: none;
        
     }
+    .image-list li{
+        width:46%;
+    }
+    .image-list .overlay{
+       
+        left: 27%;
+    }
+
+    .image-card-container-large>.image-list>li{
+        display: block;
+        width: 95%;
+        height: 350px;
+        margin-bottom: 20px;
+    }
+    .image-card-container-large .overlay{
+        left:40%;
+        top:40%;
+    }
+  
 }
 
 @media only screen and (max-width:375px){
@@ -275,6 +309,13 @@
     }
     .accordion-left>ul>li{
         max-width:350px;
+    }
+    .image-list li{
+        height:165px;
+    }
+      .image-list .overlay{
+        top:10%;
+        left: 15%;
     }
 
 
