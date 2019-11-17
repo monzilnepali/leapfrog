@@ -212,6 +212,16 @@
     .accordion-left>ul>li{
         max-width:725px;
     }
+    .section-tab .tab-content-left{
+        float: none;
+        width: 100%;
+       
+    }
+    .section-tab .tab-content-right{
+        float: none;
+        width: 100%;
+       
+    }
 }
 
 @media only screen and (max-width:375px){
@@ -261,7 +271,7 @@
      /* accordion */
      .section-accordion{
         max-width: 95%;
-        background-color: red;
+        
     }
     .accordion-left>ul>li{
         max-width:350px;
@@ -294,7 +304,7 @@
     .card-wrapper>.card:nth-child(2n){
         margin-right:0px;
         margin-left:0px;
-        border:1px solid red
+        border:1px solid red;
     }
      /* accordion */
      .section-accordion{
@@ -302,7 +312,10 @@
     }
     .accordion-left>ul>li{
         max-width:340px;
+        font-size: 12px;
     }
+    
+   
 
 
 }
