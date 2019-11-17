@@ -1,0 +1,16 @@
+.breadcrumb{
+    list-style-type: none;
+
+}
+.breadcrumb >li{
+    display: inline;
+}
+.breadcrumb>li>a{
+    text-decoration: none;
+    color: #808a89;
+}
+.breadcrumb li+li:before {
+    padding: 9px;
+    color: #898989;
+    content: "/\00a0";
+  }

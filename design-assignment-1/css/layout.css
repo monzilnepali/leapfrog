@@ -3,6 +3,7 @@
     background-color: #76c7c1;
     height: 69px;
 }
+
 .header-wrapper{
     width: 1165px;
     margin:0 auto;
@@ -50,4 +51,35 @@
     height:11px;
         background-image: url(../images/scale-line.jpg);
         background-repeat: repeat-x;
+}
+   
+.body-header{
+    height: 80px;
+    width: 100%;
+    line-height: 80px;
+    background-color: #ececec;
+    color: #808a89;
+}
+.body-header-wrapper{
+    width: 1165px;
+    margin:0 auto;
+}
+.body-header-left{
+    float: left;
+    font-size: 17px;
+}
+.body-header-right{
+    float: right;
+}
+.triangle-down{
+    width: 1165px;
+    margin:0 auto;
+    height: 12px;
+    background-image: url(../images/dropdown.jpg);
+    background-repeat: no-repeat;
+   
+}
+.body-container-wrapper{
+    width: 1165px;
+    margin:0 auto;
 }

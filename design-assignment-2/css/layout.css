@@ -1,0 +1,141 @@
+.header-container{
+    width: 100%;
+    background-color: #76c7c1;
+    height: 71px;
+}
+
+.header-wrapper{
+    width: 78%;
+    margin:0 auto;
+   
+}
+
+.header-wrapper-left{
+    float:left;
+  padding-top: 21px;
+ 
+    
+}
+.header-wrapper-right{
+    float:right;
+    height: 71px;
+    line-height: 71px;
+  
+   
+}
+.header-menu{
+    list-style-type: none;
+    float: left;
+}
+
+
+.search-icon{
+    float:right;
+    height:34px;
+    width:34px;
+    background-image: url(../images/search-icon-inactive.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-top: 20px;
+   
+}
+.search-icon:hover{
+    background-image: url(../images/search-icon-active.png);
+}
+
+.header-menu>li{
+    display: inline-block;
+    height: 33px;
+     width: 104px;
+     line-height: 33px;
+    text-align: center;
+    font-size: 12px;
+   
+   
+} 
+
+.header-menu>li>a{
+    text-decoration: none;
+    color:white;
+    
+}
+.header-menu>li:hover{
+    background-image: url(../images/menu-hover.jpg);
+    background-repeat: no-repeat ;
+}
+
+.body-header{
+    
+    height: 80px;
+    line-height: 80px;
+    background-color: #ececec;
+    color: #808a89;
+    margin-bottom: 40px;
+}
+.body-header-wrapper{
+    width: 78%;
+    margin:0 auto;
+   
+}
+.body-header-left{
+    float: left;
+    font-size: 17px;
+}
+.body-header-right{
+    float: right;
+}
+.project-slider{
+    max-width: 78%;
+    margin:0 auto;
+}
+
+
+
+
+
+.blog-slider{
+    max-width: 78%;
+    margin:0 auto;
+    margin-top: 40px;
+    
+   
+}
+.blog-slider-left{
+    float: left;
+    max-width: 74.444444%;
+ 
+   
+    height: 570px;
+
+}
+.blog-slider-right{
+    float: right;
+    max-width: 23.162393%;
+    height: 570px;
+}
+
+.sidebar-bottom>p{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1em;
+    color: #808a89;
+    margin-bottom: 30px;
+}
+.gallery{
+    list-style-type: none;
+}
+.gallery>li{
+  display: inline-block;
+   width: 31%;
+   text-align: center;
+  
+  
+    
+}
+.gallery>li>a>img{
+    max-width: 100%;
+}
+
+
+
+
