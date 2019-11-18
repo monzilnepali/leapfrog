@@ -3,45 +3,48 @@
 <head>
     
     <title>Design Assignment -1</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-wrapper-left">
-                <img class="logo" src="./images/logo.jpg" alt="logo" >
+                <img class="nav-drawer" src="./images/Hamburger_icon.png" alt="drawer">
+                <img class="logo" src="./images/logo.jpg" alt="logo">
             </div>
             <div class="header-wrapper-right">
                 <ul class="header-menu">
                     <li><a href="#">HOME</a></li>
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="#">SERVICE</a></li>
-                    <li><a href="#">PORTFOLIO</a></li>
+                    <li><a href="#"> <img src="./images/drop-down-arrow.png" alt=""> PORTFOLIO</a></li>
                     <li><a href="#">BLOG</a></li>
                     <li><a href="#">FEATURES</a></li>
                     <li><a href="#">CONTACT</a></li>
-                    
                 </ul>
-                <img class="search-icon" src="/images/search.jpg" alt="search-icon">
+                <a href="#" class="search-icon"></a>
             </div>
         </div>
-        
+
     </div>
+    <!-- end of header-container -->
     <div class="header-bottom"></div>
 
     <div class="body-header">
         <div class="body-header-wrapper">
-        <div class="body-header-left">ABOUT US</div>
-        <div class="body-header-right">
-            <ul class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li>About Us    </li>
-            </ul>
+            <div class="body-header-left">ABOUT US</div>
+            <div class="body-header-right">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li>About Us</li>
+                </ul>
+            </div>
         </div>
     </div>
-    </div>
+    <!-- end of body-header -->
+
     <div class="triangle-down"></div>
 
      <div class="body-container">
@@ -106,13 +109,65 @@
 
         </div>
 
-        <!-- <div class="second-section">
+        <div class="image-card-container">
+                <ul class="image-list">
+                    <li>
+                        <div class="overlay">
+                            <ul class="overlay-btn-list">
+                                <li class="watch-icon"></li>
+                                <li class="link-icon"></li>
+                            </ul>
+                            <p class="caption">Lorem, ipsum.</p>
+                        </div>
+                        <div class="button-btn">Jhon Doe</div>
+                    </li>
+                    <li>
+                            <div class="overlay">
+                                <ul class="overlay-btn-list">
+                                    <li class="watch-icon"></li>
+                                    <li class="link-icon"></li>
+                                </ul>
+                                <p class="caption">Lorem, ipsum.</p>
+                            </div>
+                            <div class="button-btn">Jhon Doe</div>
+                        </li>
+                        <li>
+                                <div class="overlay">
+                                    <ul class="overlay-btn-list">
+                                        <li class="watch-icon"></li>
+                                        <li class="link-icon"></li>
+                                    </ul>
+                                    <p class="caption">Lorem, ipsum.</p>
+                                </div>
+                                <div class="button-btn">Jhon Doe</div>
+                            </li>
+                            <li>
+                                    <div class="overlay">
+                                        <ul class="overlay-btn-list">
+                                            <li class="watch-icon"></li>
+                                            <li class="link-icon"></li>
+                                        </ul>
+                                        <p class="caption">Lorem, ipsum.</p>
+                                    </div>
+                                    <div class="button-btn">Jhon Doe</div>
+                                </li>
+                    
+                   
+                    
+                    
+                </ul>
+    
+    
+            </div>
+    
+
+         <div class="second-section">
                 <h2>Best Solution is the Simplest IDEA</h2>
                 <p>Capacitance cascading integer reflective interface data development high bus cache dithering transponder. Curabitur vitae velit in neque dictum blandit.Proin in iaculis neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
 
         </div>
-
+           
         <div class="slider-container">
             <div class="slider-wrapper">
                 <div class="slider-header">
@@ -144,27 +199,75 @@
 
         <div class="scale-line-bottom"></div>
 
-        <div class="footer-top-container">
-            <div class="footer-top-wrapper">
-                <div class="footer-left">
-                    <img src="./images/logo.jpg" class="fotter-left-logo"></img>
-                    <p>Lorem ipsum dolor sit amet. consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.Sed dui lorem. adipiscing in adipiscing et. interdum nec.</p>
-                    <div class="contact-info">
-                        <li>
-                            <label>Phone:</label>
-                            <p>9898989898 </p>
-                        </li>
-                        <li>
-                                <label>Email:</label>
-                                <p>info@tollen.com </p>
-                            </li>
-                    </div>
-                </div>
-                <div class="footer-main"></div>
-
+        <div class="footer-container">
+            <div class="footer-section">
+                  <div class="section-1">
+                          <img src="./images/logo.jpg"></img>
+                          <p>Lorem ipsum dolor sit amet. consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.Sed dui lorem. adipiscing in adipiscing et. interdum nec.</p>
+                              <div class="phone">
+                                  <label>Phone:</label>
+                                  <span>981231312</span>
+                              </div>
+                              <div class="email">
+                                      <label>email:</label>
+                                      <span>info@tollen.com</span>
+                                  </div>
+                          
+                  </div>
+                  <div class="section-2">
+                      <p>Heading</p>
+                      <ul class="list-item">
+                          <li>first</li>
+                          <li>second</li>
+                          <li>third</li>
+                          <li>third</li>
+                          <li>third</li>
+                          <li>third</li>
+                      </ul>
+                  </div>
+                  <div class="section-2">
+                          <p>Heading</p>
+                          <ul class="list-item">
+                              <li>first</li>
+                              <li>second</li>
+                              <li>third</li>
+                              <li>third</li>
+                              <li>third</li>
+                              <li>third</li>
+                          </ul>
+                      </div>
+                  <div class="section-4">
+                      <p>from the blog</p>
+                      <div class="blog-post">
+                          <li class="blog-image "><img src="./images/blog-image.jpg" alt=""></li>
+                          <li class="blog-content">
+                             <a href="#">Lorem ipsum dolor sit Lorem, ipsum dolor..</a>
+                             <p class="date">26 May,2018</p>
+                          </li>
+                      </div>
+                      
+                  </div>
+              
+  
+  
             </div>
+          </div>
+
+
+
+        <div class="lower-footer-bottom-container">
+            <div class="lower-footer-bottom-wrapper">
+            <li class="lower-footer-left">2013 Tollen</li>
+            <li class="lower-footer-right">
+                <ul class="social-icon">
+                    <li><a href=""> <img src="./images/fb.png" alt="">   </a></li>
+                    <li><a href=""> <img src="./images/fb.png" alt="">   </a></li>
+                    <li><a href=""> <img src="./images/fb.png" alt="">   </a></li>
+                </ul>
+            </li>
+
         </div>
-        <div class="footer-bottom-container"></div> -->
+        </div> 
     </div> 
     
 </body>
