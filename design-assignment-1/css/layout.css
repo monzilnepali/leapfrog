@@ -101,8 +101,9 @@
    
 }
 .body-container-wrapper{
-    width: 1165px;
+    width: 77%;
     margin:0 auto;
+    border:1px solid red;
 }
 
 .body-container{
@@ -117,6 +118,7 @@
 }
 .body-container-wrapper-heading{
     padding-bottom: 76px;
+    
 }
 .body-container-wrapper-heading>h1{
     padding-bottom: 26px;
@@ -125,20 +127,16 @@
 }
 
   
-.col3-l-left{
-    height: 272px;
 
-}
 
 .left{
     float: left;
-    width: 219px;
-    height: 100%;
+    width: 22%;
+   
 }
 .right-body{
-    margin-top:14px;
-    padding:15px;
-    height: 115px;
+
+  width: 80%;  
     background-color: white;
    
 

@@ -1,3 +1,12 @@
+/*Added*/.clearfix {
+    clear: both;
+}
+.clearfix:after {
+  clear: both; 
+  content: "";
+  display: table; 
+}
+
 .breadcrumb{
     list-style-type: none;
 
@@ -32,23 +41,19 @@ margin-left: 15px;
 }
 .main-wrapper{
     float:right;
-    width:862px;
-    height: 100%;
+    width:75%;
+  
     
 }
 .main-wrapper-left{
     float:left;
-    width:552px;
-    height:100%;
+    width: 70%;
     
 
 }
 .main-wrapper-right{
     float:right;
-    width:270px;
-    height: 100%;
-  
-    
+    width: 29%;
 }
 
 .main-wrapper-left-top{
@@ -58,8 +63,8 @@ margin-left: 15px;
 }
 .main-wrapper-left-bottom{
     padding-top:59px;
-    height: 94px;
-    width: 100%; 
+    
+    
     list-style-type:none;
 
 }
