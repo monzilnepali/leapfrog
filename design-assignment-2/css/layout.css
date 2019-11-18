@@ -342,7 +342,7 @@ margin-top: 124px;
 }
 .section-tab .tab-content{
     width: 100%;
-    min-height: 175px;
+    padding:20px;
     background-image: url(../images/tab-content-bar.jpg);
     background-repeat: repeat-x;
   
@@ -350,22 +350,19 @@ margin-top: 124px;
 }
 .section-tab .tab-content-left{
    float: left;
-   min-height: 112px;
-  width: 72%;
-   padding-top: 35px;
-padding-left: 10px;
+  width: 70%;
   color:#7e8484; 
  
 }
-/* .section-tab .tab-content-right{
+ .section-tab .tab-content-right{
    float: right;
     text-align: center;
-    width: 25%;
+    width: 20%;
     height: 112px;
-    padding-top: 25px;
+    
  
    
-} */
+} 
 .section .tab-content-right img{
     max-width: 100%;
     height: auto;
