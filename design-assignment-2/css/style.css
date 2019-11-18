@@ -122,10 +122,6 @@
 
 .lower-footer-bottom-container .lower-footer-left{
    float: left;
-   width: 25%;
-    width: auto;
-    height: 50px;
-    padding-left: 25px;
     color: white;
    
 }
@@ -197,6 +193,14 @@
     .image-card-container{
         width:95%;
     }
+    .card-wrapper>.card{
+        width:30%;
+    }
+    .card>.card-btn{
+        width:50%;
+
+       
+    }
     
 }
 
@@ -237,7 +241,7 @@
     .card-wrapper>.card{
         width:272px;
         height:315px;
-        margin-right: 35px;
+       
     }
     .card-wrapper>.card:nth-child(2n){
       

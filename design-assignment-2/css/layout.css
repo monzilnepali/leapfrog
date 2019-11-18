@@ -70,7 +70,7 @@
     line-height: 80px;
     background-color: #ececec;
     color: #808a89;
-    margin-bottom: 40px;
+  
 }
 .body-header-wrapper{
     width: 78%;
@@ -159,18 +159,19 @@
     width: 100%;
    list-style-type: none;
    display: inline-block;
+  
    
 }
 .card-wrapper>.card{
    float: left;
-    width:272px;
+    width:24%;
     height:315px;
     background-image: url(../images/card-1-inactive.jpg);
     background-repeat: no-repeat;
     background-size: cover;   
     position: relative;
     cursor: pointer;
-    margin-right: 30px;
+    margin-right: 10px;
     margin-bottom: 30px;
    
 
@@ -204,14 +205,16 @@ margin-top: 124px;
     color:#717171;
 }
 .card>.card-btn{
-    width: 200px;
-    height: 55px;
+    width: 80%;
+   height: 55px;
     background-image: url(../images/card-btn-inactive.jpg);
     background-repeat: no-repeat;
     position: absolute;
-    left: 35px;
-    bottom:-20px;
+    background-size: contain;
     line-height: 55px;
+    left: 12%;
+    bottom:-20px;
+   
     text-align: center;
     color:white;
    
@@ -496,7 +499,7 @@ padding-left: 10px;
 
 .paragraph-col-2-second{
     margin-top: 50px;
-  border:1px solid white;
+  
   
 }
 .paragraph-col-2-second .left{
@@ -512,6 +515,7 @@ padding-left: 10px;
 .paragraph-col-2-third{
     list-style-type: none;
     margin-top: 50px;
+   
 
 
 }
@@ -524,8 +528,9 @@ padding-left: 10px;
 .list-section{
     width: 78%;
     margin:0 auto; 
-    margin-top: 50px;
     color:#7e8484; 
+    margin-top: 50px;
+  
   
     
 }
@@ -595,8 +600,8 @@ padding-left: 10px;
     width: 78%;
     margin:0 auto; 
     margin-top: 50px;
-    height: auto;
-    
+    margin-bottom: 50px;
+ 
 }
 .table-section table{
     width: 100%;
@@ -631,16 +636,12 @@ table td{
 }
 .table-section .table-section-left{
     display: inline-block;
-    width: 49%;
-    height: 250px;
-    
+    width: 49%;    
     margin-left: 10px;
 }
 .table-section .table-section-right{
     display: inline-block;
-    width: 49%;
-    height: 250px;
-    
+    width: 49%;    
     margin-left: 2px;
 }
 
@@ -681,8 +682,8 @@ table td{
 .footer-section{
     width: 78%;
     margin:0 auto;
-    display: block; 
-    height: 245px;
+    display: block;
+    padding-top: 20px;
    
 }
 .footer-section .section-1{
@@ -691,9 +692,7 @@ width: 35%;
 height: inherit;
 
 }
-.section-1 img{
-padding-top: 20px;
-}
+
 .section-1 p{
     padding-top: 20px;
     font-size: 14px;
@@ -723,13 +722,13 @@ padding-top: 20px;
     float: left;
     width: 13%;
     height: inherit;
-    margin-top: 20px;
+   
     }
 .footer-section .section-3{
     float: left;
         width: 15%;
         height: inherit;
-        background-color: green;
+      
         }
 .footer-section .section-4{
     float: left;
@@ -753,10 +752,7 @@ padding-top: 20px;
    margin-left: 30px;
 }    
 
-.section-4 p{
-    padding-top:22px;
-    padding-left: 15px;   
-}
+
 .section-4 .blog-post{
     width: 100%;
     height: 60px;
@@ -765,7 +761,6 @@ padding-top: 20px;
 }
 .section-4 .blog-post li{
     list-style-type: none;
-    padding-left: 10px;
     
 }
 .section-4 .blog-image{
