@@ -105,7 +105,53 @@
 
 
 
+/* footer lower  */
+.lower-footer-bottom-container{
+    width: 100%;
+  background-color: #6bb4ad;
+   
+}
+.lower-footer-bottom-wrapper{
+    margin:0 auto;
+    width: 78%;
+    height: 50px;
+    list-style-type: none;
+    line-height: 50px;
+    
+}
 
+.lower-footer-bottom-container .lower-footer-left{
+   float: left;
+   width: 25%;
+    width: auto;
+    height: 50px;
+    padding-left: 25px;
+    color: white;
+   
+}
+
+
+.lower-footer-bottom-container .lower-footer-right{
+    
+   float: right;
+    width: auto;
+    height: 50px;
+   
+}
+
+.social-icon{
+    list-style-type: none;
+}
+.social-icon li{
+    float: left;
+    margin-left: 20px;
+  
+   
+}
+
+
+
+/* end of footer lower */
 
 @media only screen and (max-width:1175px){
     .header-wrapper{
@@ -411,3 +457,4 @@
 .second{
     max-width: 871px;
 }
+
