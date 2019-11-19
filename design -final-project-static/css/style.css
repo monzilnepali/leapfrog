@@ -1,0 +1,37 @@
+/*Added*/.clearfix {
+    clear: both;
+}
+.clearfix:after {
+  clear: both; 
+  content: "";
+  display: table; 
+}
+
+.heading-text{
+    font-size: 40px;
+    font-weight: 400;
+}
+.wrapper{
+    width: 73.1875em;
+   margin: 0 auto;
+}
+
+.btn{
+    height: 70px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    line-height: 70px;
+    padding:0 60px;
+    cursor: pointer;
+    color:white;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgb(255,108,84);
+background: -moz-linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+background: -webkit-linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+background: linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endColorstr="#ff2b59",GradientType=1);
+
+}
+
