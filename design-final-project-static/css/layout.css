@@ -549,14 +549,171 @@ padding-bottom: 46px;
   font-size: 13px;
   color:#929ba0;
 }
-
-
-
-
 /* end of website-project-info */
 
+
+
 /* mobile modern design */
+.mobile-modern{
+  width: 100%;
+  background: rgb(109,255,198);
+ 
+background: -moz-linear-gradient(164deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
+background: -webkit-linear-gradient(164deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
+background: linear-gradient(164deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endColorstr="#3fd2ce",GradientType=1);
+}
 
+.mobile-modern>.wrapper{
+  width: 73.1875em;
+  margin: 0 auto;
+  position: relative;
+}
+.mobile-modern .left{
+  float: left;
+  width: 40%;
+  
 
+}
+
+.mobile-modern img{
+  position:absolute;
+  left: 15%;
+  bottom: -10%;
+  
+ 
+}
+.mobile-modern .right{
+  float: right;
+  width: 55%;
+  padding-top: 221px;
+  padding-bottom: 167px;
+  
+}
+
+.mobile-modern .heading{
+  font-size: 25px;
+  text-transform: uppercase;
+  padding-bottom: 19px;
+}
+.mobile-modern .subheading{
+  font-size: 15px;
+  font-weight: 500;
+  color: #243638;
+  padding-bottom: 27px;
+}
+.mobile-modern .content{
+  font-size: 13px;
+  color:white;
+}
 
 /* end of mobile modern design */
+
+
+/* .client feedbacl */
+
+.client-feedback{
+  width: 100%;
+  background-color: white;
+
+}
+.client-feedback>.wrapper{
+  width: 73.1875em;
+  margin: 0 auto;
+}
+
+.client-feedback .project-header{
+  padding-top:118px;
+  padding-bottom: 82px;
+}
+.client-feedback .heading{
+  color:#3f4244;
+  padding-bottom: 33px;
+}
+.client-feedback .content-text{
+  color:#929ba0;  
+  
+}
+
+.client .project-card{
+  width: 31%;
+  margin-right: 36px;
+}
+.client .project-card:nth-child(3n){
+  margin-right: 0px;
+}
+.client .project-card .content{
+  color:white;
+  width:80%;
+}
+.client .project-card .team-job{
+  color:#243638;
+}
+.client .project-card .heading{
+  color: white  ;
+}
+.client .project-card .card-desc{
+  padding-top: 45px ;
+}
+/* end of client feedback */
+
+/* contact us */
+
+.contact-us{
+  background: rgb(255,108,84);
+background: -moz-linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+background: -webkit-linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+background: linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endColorstr="#ff2b59",GradientType=1);
+}
+
+
+.contact-us .contact-form{
+  width: 65%;
+  margin:0 auto;  
+}
+.contact-us input{
+  background-color: transparent;
+  border:1px solid white;
+  width: 98.2%;
+  font-size: 15px;  
+  height: 50px;
+  padding-left: 10px;
+
+}
+.contact-us .col-2{
+  padding-bottom: 88px;
+}
+
+.contact-us input::placeholder{
+  color:white;
+  
+}
+.contact-us .col-2 input:first-child{
+  float: left;
+ width: 47%;
+  
+}
+.contact-us .col-2 input:last-child{
+  float: right;
+  width: 45%;
+  
+
+}
+.contact-us .submit-btn-wrapper{
+  width: 100%;
+  padding-bottom: 90px;
+ 
+}
+.contact-us button{
+  background-color: #233537;
+  color:white;
+  border:0;
+  outline: none;
+  height: 50px;
+  padding:0 36px;
+  margin-top:36px;
+  float: right;
+  
+}
+/* end contact us */

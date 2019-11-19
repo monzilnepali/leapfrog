@@ -35,3 +35,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 
 }
 
+.main-container{
+    width:100%
+}
+
+.main-wrapper{
+    width: 73.1875em;
+    margin: 0 auto;
+}
