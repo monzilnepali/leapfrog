@@ -158,9 +158,49 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   font-weight: 300;
  margin: 0 auto;
   text-align: center;
-  padding-bottom: 146px;
+  
 }
 
+.desktop-services-section .browser-tab{
+  padding-top: 240px;
+}
+
+.browser-tab-list{
+  position: relative;
+}
+.browser-tab-list img{
+  display: block;
+}
+.browser-tab-list li{
+  list-style-type: none;
+  
+  
+}
+.browser-tab-list .left{
+  float: left;
+}
+
+.browser-tab-list .left img{
+ width:459px;
+ height: 312x;
+}
+.browser-tab-list .right img{
+  width:459px;
+  height: 312x;
+ }
+
+
+.browser-tab-list .right{
+  float: right;
+}
+
+.browser-tab-list .center{
+  position: absolute;
+ bottom: 0;
+ left: 25%;
+ 
+
+}
 
 
 /* mobile section start */
@@ -692,14 +732,13 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 .contact-us .col-2 input:first-child{
   float: left;
  width: 47%;
-  
 }
 .contact-us .col-2 input:last-child{
   float: right;
   width: 45%;
   
 
-}
+} 
 .contact-us .submit-btn-wrapper{
   width: 100%;
   padding-bottom: 90px;
@@ -717,3 +756,4 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
   
 }
 /* end contact us */
+
