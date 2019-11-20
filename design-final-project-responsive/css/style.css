@@ -60,10 +60,13 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 }
 .iphone-small img{
     width: 87%;
-    padding-left: 8px;
+    padding-left: 0px;
     padding-top:35px;
 }
 
+.mobile-services-section .front img{
+    padding-left: 0;
+}
 
 .main-container{
     width:100%

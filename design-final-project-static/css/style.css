@@ -45,3 +45,30 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 }
 
 
+
+.iphone{
+    position: absolute;
+    bottom: -40px;
+    width: 220px;
+    height: 446px;
+    background: url(../images/mobile-design-frame.png);
+    background-repeat: no-repeat;
+   
+}
+.iphone-small{
+    width: 165px;
+    height: 335px;
+    background: url(../images/mobile-design-frame-small.png);
+    background-repeat: no-repeat;
+}
+
+.iphone img{
+    width: 87%;
+    padding-top:55px;
+    padding-left: 14px;
+}
+.iphone-small img{
+    width: 87%;
+    padding-left: 8px;
+    padding-top:35px;
+}

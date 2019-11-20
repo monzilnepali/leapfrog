@@ -255,10 +255,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 }
 .mobile-services-section .front{
   z-index: 20;
+  top:15%;
+  left: 10%;
 }
 .mobile-services-section .back{
   z-index: 10;
-  left: 30%;
+  left: 25%;
   top:30%;
 
 }
@@ -270,10 +272,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   left: 10px;
 }
 
-.mobile-services-section img{
-  margin: auto;
-  display: block;
-}
+
 
 
 .mobile-services-section .right{
@@ -677,6 +676,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 .mobile-modern .left{
   float: left;
   width: 40%;
+  padding-left:150px;
   
 
 }
@@ -757,9 +757,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   
 }
 
-.client{
-  padding-bottom: 64px;
-}
+
 .client .project-card{
   width: 31%;
   margin-right: 35px;
@@ -770,6 +768,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 .client .project-card .content{
   color:white;
   width:80%;
+  padding-bottom: 60px;
 }
 .client .project-card .team-job{
   color:#243638;
