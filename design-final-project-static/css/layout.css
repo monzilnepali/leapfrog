@@ -139,6 +139,18 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   background: linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endColorstr="#ff2b59",GradientType=1);
 }
+
+
+.desktop-device .desktop-frame{
+  position: relative;
+  z-index: 10;
+}
+.desktop-device .desktop-screen{
+  position: absolute;
+  top:17%;
+  z-index: 20;
+}
+
 .desktop-services-section .wrapper{
   width: 73.1875em;
   margin: 0 auto;
@@ -238,6 +250,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   left: 30%;
   top:30%;
 
+}
+.mobile-services-section .back .mobile-frame{
+  width: 162px;
 }
 .mobile-services-section .back .mobile-screen-only{
   top:40px;
@@ -664,6 +679,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   position: absolute;
   top:53px;
   left: 14px;
+  width:86.448598%;
 }
 
 
