@@ -1,0 +1,291 @@
+/*Added*/.clearfix {
+    clear: both;
+}
+.clearfix:after {
+  clear: both; 
+  content: "";
+  display: table; 
+}
+
+.heading-text{
+    font-size: 40px;
+    font-weight: 400;
+}
+.wrapper{
+    width: 73.1875em;
+   margin: 0 auto;
+}
+
+.btn{
+    height: 70px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    line-height: 70px;
+    padding:0 60px;
+    cursor: pointer;
+    color:white;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgb(255,108,84);
+background: -moz-linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+background: -webkit-linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+background: linear-gradient(190deg, rgba(255,108,84,1) 0%, rgba(255,43,89,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endColorstr="#ff2b59",GradientType=1);
+
+}
+
+.main-container{
+    width:100%
+}
+
+.main-wrapper{
+    width: 73.1875em;
+    margin: 0 auto;
+}
+
+
+/* navbar start */
+.nav-icon{
+    display: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+
+
+
+/* navbar end */
+
+
+
+/* for ipad */
+
+@media only screen and (max-width:768px){
+
+    .wrapper{
+        width: 100%;
+       margin: 0 auto;
+    }
+    header {
+        
+       width: 100%;
+    }
+    header .header-wrapper{
+        width: 100%;
+    }
+    header nav {
+        display: none;
+     }
+     .nav-icon{
+        display: inline-block;
+
+    }
+    .heading-section .heading-wrapper{
+        width: 100%;
+    }
+
+    /* services start */
+    .services-section .services-section-wrapper{
+        width: 100%;
+    }
+    .services-section-wrapper .services-card{
+        width: 45%;
+
+    }
+
+    /* services end */
+
+    /* browser tab*/
+    .desktop-services-section{
+        display: none;
+    }
+
+    /* end of browser */
+
+    /* .mobil-section */
+    .mobile-services-section .wrapper{
+        width: 100%;
+    }
+    .mobile-services-section .left{
+        width: 100%;
+        
+    }
+    .mobile-services-section .right{
+        width: 100%;
+       
+    }
+    .mobile-services-section .back{
+        display: none;
+    }
+    .mobile-services-section .front{
+        position: static;
+    }
+    .mobile-device .mobile-screen-only{
+       
+        width: 15%;
+    }
+    .mobile-services-section .front{
+        background-color: green;
+    }
+    .mobile-device .mobile-frame{
+       
+    }
+    .mobile-services-section .heading{
+        text-align: center;
+        padding-top: 0;
+    }
+    .mobile-services-section .content{
+        width: 85%;
+        text-align: center;
+        margin: 0 auto;
+    }
+    .btn-section{
+        width: 100%;
+        text-align:center;
+    }
+    
+
+    /* end of mobile -section */
+
+    /* project section start */
+
+    .project-header .content-text{
+        width: 85%;
+        font-size:16px;
+    }
+
+    .project-list .project-card{
+        width: 45%;
+        margin-bottom: 25px;
+       
+    }
+
+    .project-list-item{
+        margin-left:40px;
+    }
+
+    /* end of project section start */
+
+    /* project stats start */
+    .project-stats .stats-card{
+        width: 50%;
+    }
+
+    /* end of project stats  */
+
+    /* team start */
+    .team-list .project-card{
+        margin-right: 25px;
+    }
+
+    /* team end */
+
+    /* some website  */
+    .website-project-info .left{
+        width: 100%;
+    }
+    .website-project-info .right{
+        width: 100%;
+    }
+    .website-project-info .img{
+        display: block;
+       margin: 0 auto;
+    }
+    .website-project-info h2{
+        text-align: center;
+    }
+    .website-project-info p{
+        margin: 0 auto;
+    width: 80%;
+    text-align: center;
+    }
+        .website-project-info img{
+            display: block;
+    margin: 0 auto;
+        }
+
+
+    /* end of some website */
+
+    /* modern design */
+    .mobile-modern .left{
+        width: 100%;
+    }
+    .mobile-modern .right{
+        width: 100%;
+    }
+    .mobile-modern .mobile-device{
+        position: static;
+    }
+    .mobile-modern .mobile-device img{
+        display: block;
+        margin: 0 auto;
+    }
+    .mobile-modern .heading{
+        text-align: center;
+    }
+    .mobile-modern .subheading{
+        text-align: center;
+    }
+    .mobile-modern .content{
+        width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 10px;
+    }
+    .mobile-modern .right{
+        padding-top: 100px;
+        padding-bottom: 50px;
+    }
+
+    /* end of modern design */
+
+    /* contact form */
+
+    .contact-us .col-2 input:first-child{
+        width: 100%;
+        float: left;
+        margin-bottom: 20px;
+    }
+    .contact-us .col-2 input:last-child{
+        width: 100%;
+        float: left;
+        margin-bottom: 20px;
+    }
+    .contact-us .col-2{
+        padding-bottom: 0px;
+    }
+
+    /* end of contact form */
+
+    /* maps section start */
+ 
+    .map .contact-info-overlay{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    line-height: 30px;
+    padding-left: 25px;
+    padding-right: 25px;
+    right: 5%;
+    }
+     /* maps end */
+}
+
+
+
+/* for iphone */
+
+@media only screen and (max-width:375px){
+
+    
+}
+
+
+/* for s5 */
+
+@media only screen and (max-width:360px){
+
+    
+}
