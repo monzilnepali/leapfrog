@@ -154,6 +154,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 .desktop-services-section .wrapper{
   width: 73.1875em;
   margin: 0 auto;
+  position: relative;
 }
 .desktop-services-section .heading{
   padding-top:91px;
@@ -172,9 +173,14 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   text-align: center;
   
 }
-
+.desktop-device .desktop-screen{
+  width: 100%;
+  height:auto;
+  
+}
 .desktop-services-section .browser-tab{
   padding-top: 240px;
+ 
 }
 
 .browser-tab-list{
@@ -194,11 +200,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 
 .browser-tab-list .left img{
  width:459px;
- height: 312x;
 }
 .browser-tab-list .right img{
   width:459px;
-  height: 312x;
  }
 
 
@@ -573,17 +577,31 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   padding-bottom: 96px;
 } 
 
+.button-wrapper a{
+  display: block;
+}
+.button-wrapper a:hover .inner-wrapper{
+
+ background-color: transparent;
+}
 .newsletter .subscribe-btn{
   height: 50px;
-  padding:0 53px;
   display: inline-block;
-  line-height: 50px;
-  border:2px solid red;
+  line-height: 40px;
   text-decoration: none;
-  color:white;
+  color:white;  
+  background: rgb(109,255,198);
+background: -moz-linear-gradient(164deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
+background: -webkit-linear-gradient(164deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
+background: linear-gradient(164deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endColorstr="#3fd2ce",GradientType=1);
 
-
-   
+}
+.subscribe-btn>.inner-wrapper{
+  height: 45px;
+  padding:0 53px;
+  margin:3px;
+  background-color: #233537;
 }
 
 /* newsletter end */
