@@ -100,8 +100,6 @@ padding-top: 269px;
   background-color: white;
 }
 .services-section .services-section-wrapper{
-  width: 73.1875em;
-  margin: 0 auto;
   padding-top: 86px; 
   text-align:center;
 
@@ -237,8 +235,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   background-color: white;
 }
 .mobile-services-section .wrapper{
-  width: 73.1875em;
-  margin: 0 auto;
   position: relative;
   padding-top:68px;
   margin-bottom: 68px;
@@ -259,10 +255,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 }
 .mobile-services-section .front{
   z-index: 20;
+  top:15%;
+  left: 10%;
 }
 .mobile-services-section .back{
   z-index: 10;
-  left: 30%;
+  left: 25%;
   top:30%;
 
 }
@@ -274,10 +272,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   left: 10px;
 }
 
-.mobile-services-section img{
+/* .mobile-services-section img{
   margin: auto;
   display: block;
-}
+} */
 
 
 .mobile-services-section .right{
@@ -833,7 +831,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 
 
 /* map start */
-.map>.wrapper{
+.map{
   position: relative;
 }
 .map img{
@@ -842,7 +840,7 @@ height: 100%;
 }
 .map .contact-info-overlay{
   position:absolute;
-  top: 20%;
+  top: 35%;
   right: 10%;
   padding-top:38px;
   padding-left: 53px;

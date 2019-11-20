@@ -35,6 +35,36 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 
 }
 
+
+
+.iphone{
+    position: absolute;
+    bottom: -40px;
+    width: 220px;
+    height: 446px;
+    background: url(../images/mobile-design-frame.png);
+    background-repeat: no-repeat;
+   
+}
+.iphone-small{
+    width: 165px;
+    height: 335px;
+    background: url(../images/mobile-design-frame-small.png);
+    background-repeat: no-repeat;
+}
+
+.iphone img{
+    width: 87%;
+    padding-top:55px;
+    padding-left: 14px;
+}
+.iphone-small img{
+    width: 87%;
+    padding-left: 8px;
+    padding-top:35px;
+}
+
+
 .main-container{
     width:100%
 }
@@ -65,8 +95,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 @media only screen and (max-width:768px){
 
     .wrapper{
-        width: 100%;
+        width: 95%;
        margin: 0 auto;
+    }
+    .heading-text{
+        padding:0 10px;
     }
     header {
         
@@ -87,11 +120,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     }
 
     /* services start */
-    .services-section .services-section-wrapper{
-        width: 100%;
-    }
+   
     .services-section-wrapper .services-card{
         width: 45%;
+        margin-bottom: 30px;
 
     }
 
@@ -104,10 +136,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 
     /* end of browser */
 
-    /* .mobil-section */
-    .mobile-services-section .wrapper{
-        width: 100%;
+    /* .mobile-section */
+
+
+
+    .iphone{
+        position: static;
+        margin: 0  auto;
     }
+   
     .mobile-services-section .left{
         width: 100%;
         
@@ -124,14 +161,18 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     }
     .mobile-device .mobile-screen-only{
        
-        width: 15%;
-    }
-    .mobile-services-section .front{
-        background-color: green;
-    }
-    .mobile-device .mobile-frame{
+        width: 25%;
+        top:8%;
        
     }
+    .mobile-services-section .wrapper{
+        padding-top: 0px;
+        
+    }
+    .mobile-services-section .left{
+        padding-top:0px;
+    }
+    
     .mobile-services-section .heading{
         text-align: center;
         padding-top: 0;
@@ -198,7 +239,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     }
     .website-project-info p{
         margin: 0 auto;
-    width: 80%;
+       width: 100%;
     text-align: center;
     }
         .website-project-info img{
@@ -212,6 +253,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     /* modern design */
     .mobile-modern .left{
         width: 100%;
+        padding-top: 50px;
     }
     .mobile-modern .right{
         width: 100%;
@@ -219,10 +261,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     .mobile-modern .mobile-device{
         position: static;
     }
-    .mobile-modern .mobile-device img{
+    /* .mobile-modern .mobile-device img{
         display: block;
         margin: 0 auto;
-    }
+    } */
     .mobile-modern .heading{
         text-align: center;
     }
@@ -254,10 +296,19 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
         float: left;
         margin-bottom: 20px;
     }
+    .contact-us input{
+        width: 100%;
+    }
     .contact-us .col-2{
         padding-bottom: 0px;
     }
-
+    .contact-us button{
+        float: none;
+        display: inline-block;
+    }
+    .contact-us .submit-btn-wrapper{
+        text-align: center;
+    }
     /* end of contact form */
 
     /* maps section start */
@@ -275,11 +326,118 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 
 
 
+
+
+
 /* for iphone */
 
 @media only screen and (max-width:375px){
+    .wrapper{
+        width: 92%;
+       margin: 0 auto;
+    }
+    /* service section start */
+    .services-section-wrapper .services-card{
+        width: 95%;
+    }
 
-    
+    .services-section-wrapper .btn{
+        margin-bottom:0px;
+        margin-top: 30px;
+    }
+    .services-section .services-section-wrapper{
+        padding-bottom: 20px;
+    }
+
+    /* service section end */
+
+    /* mobile responsive */
+
+    .mobile-services-section img{
+        display: inline;
+    }
+    .mobile-services-section .wrapper{
+        padding-top: 68px;
+
+    }
+
+    /* .mobile-device .mobile-screen-only{
+        width:55%;
+        top:13%;
+    } */
+    .mobile-services-section .left{
+        padding-top: 0px;
+    }
+    /* end of mobile responsive */
+  
+    /* project card starrt */
+
+    .project-list .project-card{
+        width: 99%;
+    }
+    .project-list-item{
+        margin-left: 5px;
+    }
+    /* project end */
+
+
+    /* project stats start */
+    .project-stats .stats-card{
+        width: 49%;
+    }
+    .project-stats .stats-number{
+        font-size: 30px;
+    }
+    .project-stats .stats-icon{
+        padding-bottom: 20px;
+    }
+    /*? project list end */
+    .project-list .project-tag ul li{
+        margin-left: 5px;
+        font-size: 10px;
+    }
+    .project-list .project-tag ul li a{
+        font-size: 15px;
+    }
+
+    /*! project list end */
+
+    /*? about some site start*/
+
+    .website-project-info img{
+        width: 100%;
+    }
+
+    /*! end of about some site */
+
+
+    /*? contact form start */
+
+    .contact-us .contact-form{
+        width: 100%;
+    }
+    .contact-us input{
+        width: 97%;
+    }
+    .contact-us .col-2 input:first-child{
+        width: 97%;
+    }
+    .contact-us .col-2 input:last-child{
+        width: 97%;
+    }
+
+    /* ! end of contact form */
+
+    /*? map start */
+    .map img{
+        display: block;
+
+    }
+    .map .contact-info-overlay{
+        position: static;
+    }
+
+    /*! map end */
 }
 
 
