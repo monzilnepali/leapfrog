@@ -8,7 +8,7 @@
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>static</title>
+    <title>Static</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -18,14 +18,17 @@
 
     <header>
 
-        <div class="header-wrapper">
+        <div class="header-wrapper clearfix">
+            <div class="logo">
+                
                 <a href="#">
-            <figure class="logo">
-                <img src="./images/logo.png" alt="logo">
-            </figure>
-        </a>
-            <nav>
-                <ul>
+                    <figure>
+                        <img src="./images/logo.png" alt="logo">
+                    </figure>
+                </a>
+            </div>
+            <nav class="nav-link active">
+                <ul class="clearfix">
                     <li><a href="#" >home</a></li>
                     <li><a href="#">service</a>   </li>
                     <li><a href="#">portfolio</a></li>
@@ -42,16 +45,16 @@
     </header>
 
     <section class="heading-section">
-            <div class="heading-overlay">
+        <div class="heading-overlay">
         <div class="heading-wrapper">
-            <h2>Try Design, You'll Like It.</h2>
+            <h1 class="heading-text">Try Design, You'll Like It.</h1>
             <a href="#" class="btn">SHOW ME THEN !!!</a>
         </div>
-</div>
+    </div>
     </section>
 
     <section class="services-section">
-        <div class="services-section-wrapper ">
+        <div class="wrapper services-section-wrapper ">
             <div class="services-list clearfix">
                 <div class="services-card">
                     <figure class="img">
@@ -64,27 +67,27 @@
                 </div>
                 <div class="services-card">
                     <figure class="img">
-                        <img src="./images/services-image-1.png" alt="">
+                        <img src="./images/services-image-2.png" alt="">
                     </figure>
-                    <p class="heading">web services</p>
+                    <p class="heading"> graphic design</p>
 
                     <p class="content">Eum cu tantas legere complectitur.Tantas legere complectitur, hinc utamur ea eam
                         ustolion mplectitur, hinc utal.</p>
                 </div>
                 <div class="services-card">
                     <figure class="img">
-                        <img src="./images/services-image-1.png" alt="">
+                        <img src="./images/services-image-3.png" alt="">
                     </figure>
-                    <p class="heading">web services</p>
+                    <p class="heading">programming</p>
 
                     <p class="content">Eum cu tantas legere complectitur.Tantas legere complectitur, hinc utamur ea eam
                         ustolion mplectitur, hinc utal. lorem43</p>
                 </div>
                 <div class="services-card">
                     <figure class="img">
-                        <img src="./images/services-image-1.png" alt="">
+                        <img src="./images/services-image-4.png" alt="">
                     </figure>
-                    <p class="heading">web services</p>
+                    <p class="heading">photography</p>
 
                     <p class="content">Eum cu tantas legere complectitur.Tantas legere complectitur, hinc utamur ea eam
                         ustolion mplectitur, hinc utal. Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -98,7 +101,7 @@
     </section>
     <section class="desktop-services-section">
         <div class="wrapper">
-            <p class="heading heading-text">The Design That Likes To Say Yes.</p>
+            <h2 class="heading">The Design That Likes To Say Yes.</h2>
             <p class="content">Eum cu tantas legere complectitur, hinc utamur ea eam. Eum patrioque mnesarchum eu, diam
                 erant convenire et vis. Et essent evertitur sea, vis cu ubique referrentur, sed eu dicant expetendis.
             </p>
@@ -147,36 +150,22 @@
     <section class="mobile-services-section">
         <div class="wrapper clearfix">
             <div class="left">
-                <!-- <div class="mobile-device front">
-                    <figure>
-                        <img class="mobile-frame" src="./images/mobile-design-frame.png" alt="">
-                    </figure>
-                    <figure>
-                        <img class="mobile-screen-only" src="./images/iphone.jpg" alt="">
-                    </figure>
-                </div>
-                <div class="mobile-device back">
-                    <figure>
-                        <img class="mobile-frame" src="./images/mobile-design-frame.png" alt="">
-                    </figure>
-                    <figure>
-                        <img class="mobile-screen-only" src="./images/iphone.jpg" alt="">
-                    </figure>
-                </div> -->
-                <div class="iphone front">
-                    <img src="./images/mobile-screen-1.png" alt="">
-                 </div>
-                 <div class="iphone iphone-small back">
-                        <img src="./images/mobile-screen-1.png" alt="">
-                     </div>
+                    <div class="iphone front">
+                            <img src="./images/mobile-screen-1.png" alt="">
+                         </div>
+                         <div class="iphone iphone-small back">
+                                <img src="./images/mobile-screen-1.png" alt="">
+                             </div>
             </div>
             <div class="right">
-                <p class="heading heading-text">Fully Responsive</p>
+                <h2 class="heading heading-text">Fully Responsive</h2>
                 <p class="content">Eum cu tantas legere complectitur, hinc utamur ea eam. Lorem ipsum dolor sit amet,
                     volumus temporibus definitionem id ius, vel ut magna timeam appareat, movet timeam maiorum an ius.
                     Sea libris dictas lucilius et. Ne cibo urbanitas pri, qui ad populo accusamus. Quod congue ea ius,
                     nisl aperiri sit ut.</p>
-                <a href="#" class="btn">order me one</a>
+                    <div class="btn-section">
+                   <a href="#" class="btn">order me one</a>
+               </div>
             </div>
         </div>
     </section>
@@ -184,7 +173,7 @@
     <section class="project-section">
         <div class="wrapper">
             <div class="project-header">
-                <p class="heading heading-text">The Design That Likes To Say Yes.</p>
+                <h2 class="heading">The Design That Likes To Say Yes.</h2>
                 <p class="content-text">Eum cu tantas legere complectitur, hinc utamur ea eam. Eum patrioque mnesarchum
                     eu, diam erant convenire et vis. Et essent evertitur sea, vis cu ubique referrentur, sed eu dicant
                     expetendis.</p>
@@ -214,10 +203,10 @@
                     <!-- end of project card -->
                     <div class="project-card">
                         <figure class="card-image">
-                            <img src="./images/project-image-1.jpg" alt="">
+                            <img src="./images/project-image-2.jpg" alt="">
                         </figure>
                         <div class="card-desc">
-                            <p class="heading">web design</p>
+                            <p class="heading">photography</p>
                             <p class="content">Eum cu tantas legere complectitur, hinc utamur ea eaum cu tantas legere
                                 complectitur.</p>
                         </div>
@@ -317,7 +306,7 @@
                 <!-- card start -->
                 <div class="stats-card">
                     <figure class="stats-icon">
-                        <img src="./images/stats-image-2.png" alt="">
+                        <img src="./images/stats-image-3.png" alt="">
                     </figure>
                     <div class="stats-data">
                         <p class="stats-number heading-text">2093</p>
@@ -328,7 +317,7 @@
                 <!-- card start -->
                 <div class="stats-card">
                     <figure class="stats-icon">
-                        <img src="./images/stats-image-2.png" alt="">
+                        <img src="./images/stats-image-4.png" alt="">
                     </figure>
                     <div class="stats-data">
                         <p class="stats-number heading-text">2093</p>
@@ -344,7 +333,7 @@
     <section class="team">
         <div class="wrapper">
             <div class="project-header">
-                <p class="heading heading-text">Behold the Power of Team.</p>
+                <h2 class="heading heading-text">Behold the Power of Team.</h2>
                 <p class="content-text">Eum cu tantas legere complectitur, hinc utamur ea eam. Eum patrioque mnesarchum
                     eu, diam erant convenire et vis. Et essent evertitur sea, vis cu ubique referrentur, sed eu dicant
                     expetendis.</p>
@@ -352,7 +341,7 @@
             <div class="project-list team-list">
 
                 <div class="project-list-item clearfix">
-                    <!-- card start -->
+                    <!-- ? card start -->
                     <div class="project-card">
                         <figure class="card-image">
                             <img src="./images/team-1.jpg" alt="">
@@ -365,12 +354,12 @@
                         </div>
 
                     </div>
-                    <!-- end of project card -->
+                    <!--! end of project card -->
 
-                    <!-- card start -->
+                    <!-- ? card start -->
                     <div class="project-card">
                         <figure class="card-image">
-                            <img src="./images/team-1.jpg" alt="">
+                            <img src="./images/team-2.jpg" alt="">
                         </figure>
                         <div class="card-desc">
                             <p class="heading">web design</p>
@@ -380,12 +369,12 @@
                         </div>
 
                     </div>
-                    <!-- end of project card -->
+                    <!--! end of project card -->
 
-                    <!-- card start -->
+                    <!-- ? card start -->
                     <div class="project-card">
                         <figure class="card-image">
-                            <img src="./images/team-1.jpg" alt="">
+                            <img src="./images/team-3.jpg" alt="">
                         </figure>
                         <div class="card-desc">
                             <p class="heading">web design</p>
@@ -395,12 +384,12 @@
                         </div>
 
                     </div>
-                    <!-- end of project card -->
+                    <!-- ! end of project card -->
 
-                    <!-- card start -->
+                    <!-- ? card start -->
                     <div class="project-card">
                         <figure class="card-image">
-                            <img src="./images/team-1.jpg" alt="">
+                            <img src="./images/team-4.jpg" alt="">
                         </figure>
                         <div class="card-desc">
                             <p class="heading">web design</p>
@@ -410,7 +399,8 @@
                         </div>
 
                     </div>
-                    <!-- end of project card -->
+                    <!-- ! end of project card -->
+                    
 
 
 
@@ -439,33 +429,21 @@
                 </div>
 
                 <div class="slider-icon-list">
-                    <span>
+                    <span class="left">
+                        <a href="#">
                             <figure>
                                     <img src="./images/arrow-left.png" alt="arrow-left"> 
                                    </figure>
+                                </a>
                     </span>
-                    <span>
+                    <span class="right">
+                            <a href="#">
                             <figure>
                                     <img src="./images/arrow-right.png" alt="arrow-left"> 
                                    </figure>
+                                   </a>
                         </span>
                 </div>
-                <!-- <ul class="slider-icon-list clearfix">
-                    <li class="slide-left">
-                        
-                        <figure>
-                         <img src="./images/arrow-left.png" alt="arrow-left"> 
-                        </figure>
-                    </a>
-                        </li>
-                    <li class="siide-right">
-                            <a href="#">
-                        <figure>
-                        <img src="./images/arrow-right.png" alt="">
-                    </figure>
-                    </a>
-                    </li>
-                </ul> -->
 
 
             </div>
@@ -517,9 +495,18 @@
     <section class="mobile-modern">
         <div class="wrapper clearfix">
             <div class="left">
+                <!-- <div class="mobile-device">
+                    <figure>
+                        <img class="mobile-frame" src="./images/mobile-design-frame.png" alt="">
+                    </figure>
+                    <figure>
+                        <img class="mobile-screen-only" src="./images/mobile-screen-1.png" alt="">
+                    </figure>
+                </div> -->
                 <div class="iphone">
-                    <img src="./images/mobile-screen-1.png" alt="">
-                 </div>
+                        <img src="./images/mobile-screen-1.png" alt="">
+                     </div>
+
             </div>
             <div class="right">
                 <h2 class="heading">modern design</h2>
@@ -592,7 +579,7 @@
     <section class="main-container contact-us">
         <div class="main-wrapper wrapper">
             <div class="project-header">
-                <p class="heading heading-text">What clients say</p>
+                <h2 class="heading">What clients say</h2>
                 <p class="content-text">Eum cu tantas legere complectitur, hinc utamur ea eam. Eum patrioque mnesarchum
                     eu, diam erant convenire et vis. Et essent evertitur sea, vis cu ubique referrentur, sed eu dicant
                     expetendis.</p>
@@ -617,15 +604,15 @@
 
     <section class="main-container map">
         
-                <figure>
-                        <img src="./images/map.jpg" alt="location">
-                    </figure>
+            <figure>
+                <img src="./images/map.jpg" alt="location">
+            </figure>
             <div class="contact-info-overlay">
                 <p class="company-address">Charkhal Rd, Kathmandu 44605</p>
                 <p class="company-email">info@lftechnology.com</p>
                 <p class="company-contact-no">01-4419766</p>
 
-            
+                
         </div>
 
     </section>
