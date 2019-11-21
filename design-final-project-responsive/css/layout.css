@@ -7,14 +7,15 @@ header {
 header .header-wrapper {
   width: 73.1875em;
   margin: 0 auto;
-  height: 100px;
+  
 
 
 }
 
 header .logo {
   float: left;
-  padding-top: 39px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 
 }
 
@@ -24,6 +25,8 @@ header nav {
 
 nav ul {
   list-style-type: none;
+  margin-top: 15px;
+    margin-bottom: 15px;
 
 
 }
@@ -32,16 +35,12 @@ nav ul li {
 
   float: left;
   margin-left: 20px;
-  margin-top: 26px;
-  height: 45px;
-  line-height: 45px;
-  padding-right: 26px;
-  padding-left: 33px;
-  text-align: center;
+  
+    text-align: center;
   color: #3f4244;
   font-size: 15px;
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -54,8 +53,11 @@ nav ul li:hover a{
   color: white;
 }
 nav ul li a{
+  display: block;
   text-decoration: none;
   color: #3f4244;
+  padding:12px  30px;
+ 
 }
 
 .heading-section{
@@ -67,7 +69,11 @@ position: relative;
 }
 .heading-overlay{
   width: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(60,250,176);
+background: -moz-linear-gradient(164deg, rgba(60,250,176,0.8018557764902836) 0%, rgba(52,162,159,0.5441526952577906) 100%);
+background: -webkit-linear-gradient(164deg, rgba(60,250,176,0.8018557764902836) 0%, rgba(52,162,159,0.5441526952577906) 100%);
+background: linear-gradient(164deg, rgba(60,250,176,0.8018557764902836) 0%, rgba(52,162,159,0.5441526952577906) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3cfab0",endColorstr="#34a29f",GradientType=1);
 
 }
 .heading-section .heading-wrapper{
@@ -83,10 +89,7 @@ padding-top: 269px;
   
 }
 
-.heading-section .heading-wrapper h2{
-
-  font-size: 60px;
-  font-weight: 300;
+.heading-section .heading-wrapper .heading-text{
   text-align:center;
   padding-bottom: 53px;
 }
@@ -112,14 +115,7 @@ padding-top: 269px;
 .services-card .img{
   margin: 0 auto;
   margin-bottom:27px;
- height: 131px;
- width: 131px;
- border-radius: 50%;
- background: rgb(109,255,198);
-background: -moz-linear-gradient(167deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
-background: -webkit-linear-gradient(167deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
-background: linear-gradient(167deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endColorstr="#3fd2ce",GradientType=1);
+ 
 }
  .services-card .heading{
   text-transform: uppercase;
@@ -160,18 +156,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   z-index: 20;
 }
 
-.desktop-services-section .wrapper{
-  width: 73.1875em;
-  margin: 0 auto;
-  position: relative;
-}
+
 .desktop-services-section .heading{
-  padding-top:91px;
-  font-weight: 400;
-  color: white;
  
+  color: white;
   text-align: center;
-  padding-bottom: 36px;
 }
 .desktop-services-section .content{
   width: 64em;
@@ -236,7 +225,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 }
 .mobile-services-section .wrapper{
   position: relative;
-  padding-top:68px;
   margin-bottom: 68px;
  
 }
@@ -286,7 +274,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 }
 .mobile-services-section .heading{
   padding-top: 147px;
-  padding-bottom: 50px;
+
 }
 .mobile-services-section .content{
   padding-bottom: 61px;
@@ -316,13 +304,12 @@ background: linear-gradient(163deg, rgba(109,255,198,1) 0%, rgba(63,210,206,1) 1
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endColorstr="#3fd2ce",GradientType=1);
 }
  .project-header{
-  padding-top: 88px;
   padding-bottom: 115px;
   text-align: center;
 }
  .project-header .heading{
   color: white;
-  padding-bottom: 45px;
+
  
 }
  .project-header .content-text{
@@ -518,7 +505,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 
 .quote-section .icon{
   text-align: center;
-  padding-top: 96px;
 }
 
 .quote-section .quote{
@@ -540,16 +526,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 }
 
 .quote-section .slider-icon-list{
-  list-style-type: none;
-  width: 95px;
-  margin: 0 auto;
-  padding-bottom: 101px;
+  display: block;
+    text-align: center;
+    padding-bottom: 101px;
 }
-.quote-section .slider-icon-list li{
-  float: left;
+.quote-section .slider-icon-list  img{
+  padding-right: 15px;
 }
-.quote-section .slider-icon-list li:last-child{
-  float: right;
+.quote-section .slider-icon-list figure{
+  display: inline;
 }
 
 /* quote end */
@@ -570,7 +555,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   font-size: 20px;
   text-align: center;
   color: white;
-  padding-top: 92px;
+ 
   padding-bottom: 43px;
 }
 .newsletter .button-wrapper{
@@ -614,7 +599,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   background-color: white;
 }
 .website-project-info>.wrapper{
-  padding-top: 104px;
+
   padding-bottom: 95px;
  
 }
@@ -665,7 +650,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 .mobile-modern .left{
   float: left;
   width: 40%;
-  
+  padding-left: 150px;
 
 }
 
@@ -673,7 +658,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 .mobile-modern .right{
   float: right;
   width: 55%;
-  padding-top: 221px;
+  padding-top: 100px;
   padding-bottom: 167px;
   
 }
@@ -702,9 +687,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 /* mobile frame and screen end */
 
 .mobile-modern .heading{
-  font-size: 25px;
   text-transform: uppercase;
   padding-bottom: 19px;
+  color:white;
 }
 .mobile-modern .subheading{
   font-size: 15px;
@@ -730,7 +715,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 
 
 .client-feedback .project-header{
-  padding-top:118px;
+
   padding-bottom: 82px;
 }
 .client-feedback .heading{
@@ -800,11 +785,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
   color:white;
   
 }
-.contact-us .col-2 input:first-child{
+.contact-us .col-2 input[name="name"]{
   float: left;
  width: 47%;
 }
-.contact-us .col-2 input:last-child{
+.contact-us .col-2 input[name="email"]{
   float: right;
   width: 45%;
   
@@ -862,8 +847,12 @@ box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 
 /* footer section */
 
-footer[class="main-container"]{
+footer{
+  width: 100%;
   background-color: #233537;
+}
+footer>.wrapper{
+  padding-top:0px;
 }
 footer p{
   text-align: center;

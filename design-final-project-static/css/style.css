@@ -72,3 +72,20 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     padding-left: 8px;
     padding-top:35px;
 }
+
+.heading-section{
+    width: 100%;
+  background-image: url(../images/heading-bg-image.jpg);
+  position: relative;
+  
+  
+  }
+  .heading-overlay{
+    width: 100%;
+    background: rgb(60,250,176);
+  background: -moz-linear-gradient(164deg, rgba(60,250,176,0.8018557764902836) 0%, rgba(52,162,159,0.5441526952577906) 100%);
+  background: -webkit-linear-gradient(164deg, rgba(60,250,176,0.8018557764902836) 0%, rgba(52,162,159,0.5441526952577906) 100%);
+  background: linear-gradient(164deg, rgba(60,250,176,0.8018557764902836) 0%, rgba(52,162,159,0.5441526952577906) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3cfab0",endColorstr="#34a29f",GradientType=1);
+  
+  }

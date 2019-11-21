@@ -8,7 +8,7 @@
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>static</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -42,11 +42,12 @@
     </header>
 
     <section class="heading-section">
+            <div class="heading-overlay">
         <div class="heading-wrapper">
             <h2>Try Design, You'll Like It.</h2>
             <a href="#" class="btn">SHOW ME THEN !!!</a>
         </div>
-
+</div>
     </section>
 
     <section class="services-section">
@@ -437,7 +438,19 @@
                     <p class="quote-by">John Doe CEO</p>
                 </div>
 
-                <ul class="slider-icon-list clearfix">
+                <div class="slider-icon-list">
+                    <span>
+                            <figure>
+                                    <img src="./images/arrow-left.png" alt="arrow-left"> 
+                                   </figure>
+                    </span>
+                    <span>
+                            <figure>
+                                    <img src="./images/arrow-right.png" alt="arrow-left"> 
+                                   </figure>
+                        </span>
+                </div>
+                <!-- <ul class="slider-icon-list clearfix">
                     <li class="slide-left">
                         
                         <figure>
@@ -452,7 +465,7 @@
                     </figure>
                     </a>
                     </li>
-                </ul>
+                </ul> -->
 
 
             </div>
@@ -603,16 +616,16 @@
     </section>
 
     <section class="main-container map">
-        <div class="main-wrapper wrapper">
-            <figure>
-                <img src="./images/map.png" alt="location">
-            </figure>
+        
+                <figure>
+                        <img src="./images/map.jpg" alt="location">
+                    </figure>
             <div class="contact-info-overlay">
                 <p class="company-address">Charkhal Rd, Kathmandu 44605</p>
                 <p class="company-email">info@lftechnology.com</p>
                 <p class="company-contact-no">01-4419766</p>
 
-            </div>
+            
         </div>
 
     </section>

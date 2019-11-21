@@ -7,13 +7,11 @@
   display: table; 
 }
 
-.heading-text{
-    font-size: 40px;
-    font-weight: 400;
-}
+
 .wrapper{
     width: 73.1875em;
    margin: 0 auto;
+   padding-top:91px;
 }
 
 .btn{
@@ -64,10 +62,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     padding-top:35px;
 }
 
-.mobile-services-section .front img{
-    padding-left: 0;
-}
-
 .main-container{
     width:100%
 }
@@ -86,6 +80,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     cursor: pointer;
 }
 
+.active{
+ display: block;
+ 
+ 
+}
 
 
 
@@ -111,8 +110,16 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     header .header-wrapper{
         width: 100%;
     }
+    header figure{
+        display: inline;
+    }
     header nav {
         display: none;
+        float: none;
+     }
+     nav ul li{
+         float: none;
+         display: block;
      }
      .nav-icon{
         display: inline-block;
@@ -257,6 +264,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
     .mobile-modern .left{
         width: 100%;
         padding-top: 50px;
+        padding-left: 0;
     }
     .mobile-modern .right{
         width: 100%;

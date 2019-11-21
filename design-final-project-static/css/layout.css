@@ -495,11 +495,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 }
 
 .team-list .project-card{
-  margin-right:46px;
+  margin-right:35px;
 }
-.team-list .project-card:nth-child(4n){
-  margin-right: 0;
-}
+
 /* team end  */
 
 
@@ -543,19 +541,19 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
   color: white;
   padding-bottom: 51px;
 }
-
+.quote-section .icon{
+  display: block;
+}
 .quote-section .slider-icon-list{
-  list-style-type: none;
-  width: 95px;
-  margin: 0 auto;
+  display: block;
+  text-align:center;
   padding-bottom: 101px;
 }
-.quote-section .slider-icon-list li{
-  float: left;
+
+.quote-section .slider-icon-list figure{
+  display: inline;
 }
-.quote-section .slider-icon-list li:last-child{
-  float: right;
-}
+
 
 /* quote end */
 
@@ -760,7 +758,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6dffc6",endCo
 
 .client .project-card{
   width: 31%;
-  margin-right: 35px;
+  margin-right: 27px;
 }
 .client .project-card:nth-child(3n){
   margin-right: 0px;
@@ -814,11 +812,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
   color:white;
   
 }
-.contact-us .col-2 input:first-child{
+.contact-us .col-2 input[name="name"]{
   float: left;
  width: 47%;
 }
-.contact-us .col-2 input:last-child{
+.contact-us .col-2 input[name="email"]{
   float: right;
   width: 45%;
   
@@ -845,7 +843,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff6c54",endCo
 
 
 /* map start */
-.map>.wrapper{
+.map{
   position: relative;
 }
 .map img{
