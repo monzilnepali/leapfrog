@@ -14,7 +14,6 @@
 
 .carousel-image-wrapper {
   position: absolute;
-  width: 100%;
   left: 0px;
 }
 
@@ -22,17 +21,20 @@
   position: absolute;
   display: block;
   top: 45%;
-  background-color: red;
+  background-color: rgb(248, 248, 248);
   width: 60px;
   height: 70px;
   line-height: 70px;
   font-size: 45px;
   text-align: center;
   font-weight: bold;
-  color: white;
+  color: black;
   cursor: pointer;
   user-select: none;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.carousel-container a:hover {
+  color: red;
 }
 
 #prevSlide {
@@ -57,4 +59,11 @@
   font-size: 25px;
   cursor: pointer;
   margin-right: 8px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .carousel-container {
+    height: 300px;
+    width: 90%;
+  }
 }

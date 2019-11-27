@@ -24,9 +24,10 @@ window.onload = function() {
     ulElement.appendChild(liElement);
     console.log(liElement);
   }
-  //   setInterval(function() {
-  //     nextSlide(currentSlideIndex);
-  //   }, 2000);
+  //  var loop = 1;
+  //  setInterval(function() {
+  //    nextSlide();
+  //  }, 2000);
 
   document.getElementById("nextSlide").addEventListener("click", function() {
     nextSlide();
