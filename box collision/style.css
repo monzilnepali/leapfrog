@@ -1,0 +1,16 @@
+.app {
+  height: 700px;
+  width: 1000px;
+  background-color: rgb(204, 203, 203);
+  position: relative;
+}
+
+.box {
+
+  position: absolute;
+  border-radius: 50%;
+}
+
+.green {
+  background-color: green;
+}
