@@ -8,7 +8,7 @@ window.onload = function() {
   for (var i = 0; i < imageslen; i++) {
     images[i].style.left = IMAGE_WIDTH * i + "px";
     //adding indicator
-    var ulElement = document.getElementById("carousel-indicator");
+    var ulElement = document.getElementById("carousel-indicator1");
     var liElement = document.createElement("li");
     liElement.id = "circle" + i;
     var iconElement = document.createElement("i");
@@ -22,17 +22,17 @@ window.onload = function() {
     });
     liElement.appendChild(iconElement);
     ulElement.appendChild(liElement);
-    console.log(liElement);
+    
   }
   //  var loop = 1;
   //  setInterval(function() {
   //    nextSlide();
   //  }, 2000);
 
-  document.getElementById("nextSlide").addEventListener("click", function() {
+  document.getElementById("nextSlide1").addEventListener("click", function() {
     nextSlide();
   });
-  document.getElementById("prevSlide").addEventListener("click", function() {
+  document.getElementById("prevSlide1").addEventListener("click", function() {
     prevSlide();
   });
 
