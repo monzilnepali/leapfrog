@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #container1 {
+      float: left;
+      position: relative;
+      height: 500px;
+      width: 500px;
+      border: 1px solid black;
+      margin-right: 50px;
+    }
+
+    #container2 {
+      float: left;
+      position: relative;
+      height: 500px;
+      width: 500px;
+      border: 1px solid black;
+    }
+
+    .circle {
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background-color: green;
+    }
+
+    .ball {
+      position: absolute;
+
+      left: 40%;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container1"></div>
+  <div id="container2">
+    <div class="ball" style="top:0px"></div>
+  </div>
+  <script>
+    var points = [{
+        x: 10,
+        y: 20
+      },
+      {
+        x: 40,
+        y: 40
+      },
+      {
+        x: 60,
+        y: 20
+      },
+      {
+        x: 70,
+        y: 60
+      },
+      {
+        x: 80,
+        y: 80
+      },
+      {
+        x: 90,
+        y: 20
+      },
+      {
+        x: 100,
+        y: 90
+      },
+
+    ];
+    points.forEach(function (element) {
+
+      draw1(element.x, element.y)
+
+    });
+
+    function draw1(x, y) {
+      var element = document.getElementById('container1');
+      var circleElement = document.createElement('div')
+      circleElement.className = "circle"
+      circleElement.style.top = x + "px";
+      circleElement.style.left = y + "px";
+
+
+      element.append(circleElement)
+      console.log(circleElement)
+
+
+      //second
+
+      var dy = 2;
+      var top = 5;
+
+      function init() {
+        setInterval(draw2, 5)
+      }
+
+      function draw2() {
+        //top 
+        var currentElement = document.getElementsByClassName('ball')[0];
+        console.log(currentElement)
+
+        currentElement.style.height = "50px"
+        if (top < 5 || top >= 450) {
+
+
+          dy = -dy;
+        }
+
+        top += dy;
+        currentElement.style.top = top + "px"
+      }
+      init()
+
+
+
+    }
+  </script>
+</body>
+
+</html>
