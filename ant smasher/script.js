@@ -1,16 +1,29 @@
 var boxes = [];
 const distance = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
 
-function Box(parentElement, width, height, speed) {
+function removeElement(index) {
+
+  console.log(boxes)
+
+  boxes = boxes.filter(function (value) {
+    console.log("chekcing" + value.index + "!=" + index)
+    return value.index !== index;
+  });
+
+
+}
+
+function Box(parentElement, width, height, index) {
   this.x = 10;
   this.y = 10;
   this.dx = 2;
   this.dy = 2;
-  this.speed = Math.random() || 0.1;
+  this.speed = 1;
   this.width = width;
   this.height = height;
   this.element = null;
   this.parentElement = parentElement;
+  this.index = index;
 
 
   this.init = function () {
@@ -18,7 +31,8 @@ function Box(parentElement, width, height, speed) {
     var antImg = document.createElement('img');
     box.style.width = this.width + 'px';
     box.style.height = this.height + 'px';
-    antImg.setAttribute('src', "source.gif");
+
+    antImg.setAttribute('src', "./images/ant.png");
     box.appendChild(antImg);
     box.classList.add('box');
     this.parentElement.appendChild(box);
@@ -33,24 +47,9 @@ function Box(parentElement, width, height, speed) {
 Box.prototype.boxClicked = function () {
 
   console.log("clicked");
-  //removing from list
-  this.element.addEventListener("click", function (event) {
-    var x = event.x;
-    var y = event.y;
-
-    for (var i = 0; i < boxes.length; i++) {
-      if (distance(x, y, boxes[i].x, boxes[i].y) <= boxes[i].width) {
-        var updated = boxes.filter(function (val, index) {
-          boxes[i].element.style.display = 'none';
-          return i !== index;
-        });
-        ants = updated;
-
-
-      }
-    }
-
-  });
+  console.log(this.index);
+  this.element.children[0].setAttribute('src', './images/source.png')
+  removeElement(this.index)
 
 }
 
@@ -142,7 +141,7 @@ Game.prototype.startGame = function () {
   while (tempLen !== 0) {
     var flag = 0;
 
-    var box = new Box(parentElement, 45, 45, 1);
+    var box = new Box(parentElement, 55, 55, tempLen);
     var x1 = getRandomArbitrary(0, this.MAX_WIDTH - box.width);
     var y1 = getRandomArbitrary(0, this.MAX_HEIGHT - box.height);
     var checkBox = boxes;
@@ -166,10 +165,11 @@ Game.prototype.startGame = function () {
 
 
   } //end of drawing
+  console.log(boxes)
   this.animate = setInterval(this.moveBoxes.bind(this), 20);
 }
 Game.prototype.moveBoxes = function () {
-  for (var i = 0; i < this.boxCount; i++) {
+  for (var i = 0; i < boxes.length; i++) {
     //checking collision in wall
     //  console.log(this.boxes[i])
     if (boxes[i].checkBorderCollisionX()) {
@@ -222,137 +222,7 @@ Game.prototype.CheckCollision = function (box, index) {
 }
 
 
+
+
 var parentElement = document.getElementById('app');
 new Game(parentElement).startGame();
-// var boundary = new Rect(500, 350, 1000, 700);
-// var q = new QuadTree(boundary, 4);
-// console.log(q)
-
-
-function Rect(centerx, centery, w, h) {
-  this.x = centerx;
-  this.y = centery;
-  this.width = w;
-  this.height = h;
-}
-
-
-function QuadTree(boundary, capacity) {
-  this.boundary = boundary;
-  this.capacity = capacity;
-  this.boxes = [];
-  this.nodes = []; //quadrant
-
-
-}
-QuadTree.prototype.split = function () {
-  var subWidth = Math.round(this.boundary.width / 2);
-  var subHeignt = Math.round(this.boundary.height / 2);
-  var x = Math.round(this.boundary.x / 2);
-  var y = Math.round(this.boundary.x / 2);
-
-  //top right node
-  this.nodes[0] = new Quadtree({
-    x: x + subWidth,
-    y: y,
-    width: subWidth,
-    height: subHeight
-  }, 4);
-
-  //top left node
-  this.nodes[1] = new Quadtree({
-    x: x,
-    y: y,
-    width: subWidth,
-    height: subHeight
-  }, 4);
-
-  //bottom left node
-  this.nodes[2] = new Quadtree({
-    x: x,
-    y: y + subHeight,
-    width: subWidth,
-    height: subHeight
-  }, 4);
-
-  //bottom right node
-  this.nodes[3] = new Quadtree({
-    x: x + subWidth,
-    y: y + subHeight,
-    width: subWidth,
-    height: subHeight
-  }, 4);
-
-
-};
-//Determine which node the object belongs to
-QuadTree.prototype.getIndex = function (pRect) {
-
-  var index = -1,
-    verticalMidpoint = this.boundary.x + (this.boundary.width / 2),
-    horizontalMidpoint = this.boundary.y + (this.boundary.height / 2),
-
-    //pRect can completely fit within the top quadrants
-    topQuadrant = (pRect.y < horizontalMidpoint && pRect.y + pRect.height < horizontalMidpoint),
-
-    //pRect can completely fit within the bottom quadrants
-    bottomQuadrant = (pRect.y > horizontalMidpoint);
-
-  //pRect can completely fit within the left quadrants
-  if (pRect.x < verticalMidpoint && pRect.x + pRect.width < verticalMidpoint) {
-    if (topQuadrant) {
-      index = 1;
-    } else if (bottomQuadrant) {
-      index = 2;
-    }
-
-    //pRect can completely fit within the right quadrants	
-  } else if (pRect.x > verticalMidpoint) {
-    if (topQuadrant) {
-      index = 0;
-    } else if (bottomQuadrant) {
-      index = 3;
-    }
-  }
-
-  return index;
-};
-
-
-QuadTree.prototype.insert = function (pRect) {
-
-  var i = 0,
-    index;
-
-  //if we have subnodes ...
-  if (typeof this.nodes[0] !== 'undefined') {
-    index = this.getIndex(pRect);
-
-    if (index !== -1) {
-      this.nodes[index].insert(pRect);
-      return;
-    }
-  }
-
-  this.objects.push(pRect);
-
-  if (this.objects.length > this.max_objects && this.level < this.max_levels) {
-
-    //split if we don't already have subnodes
-    if (typeof this.nodes[0] === 'undefined') {
-      this.split();
-    }
-
-    //add all objects to there corresponding subnodes
-    while (i < this.objects.length) {
-
-      index = this.getIndex(this.objects[i]);
-
-      if (index !== -1) {
-        this.nodes[index].insert(this.objects.splice(i, 1)[0]);
-      } else {
-        i = i + 1;
-      }
-    }
-  }
-};
