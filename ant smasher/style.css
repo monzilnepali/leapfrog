@@ -6,7 +6,12 @@
 }
 
 .box {
-  background-color: red;
+
   position: absolute;
   /* border-radius: 50%; */
+}
+
+img {
+  width: 100%;
+  height: auto;
 }

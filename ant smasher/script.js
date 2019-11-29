@@ -12,15 +12,24 @@ function Box(parentElement, width, height, speed) {
 
   this.init = function () {
     var box = document.createElement('div');
+    var antImg = document.createElement('img');
     box.style.width = this.width + 'px';
     box.style.height = this.height + 'px';
+    antImg.setAttribute('src', "https://www.animatedimages.org/data/media/183/animated-ant-image-0071.gif");
+    box.appendChild(antImg);
     box.classList.add('box');
     this.parentElement.appendChild(box);
     this.element = box;
+    this.element.onclick = this.boxClicked.bind(this);
     return this;
 
   }
 
+}
+
+Box.prototype.boxClicked = function () {
+
+  console.log("clicked");
 }
 
 //setting position
@@ -43,6 +52,7 @@ Box.prototype.changeSpeed = function (speed) {
 Box.prototype.move = function () {
   this.x += this.dx * this.speed;
   this.y += this.dy * this.speed;
+  this.rotate();
   this.draw();
 }
 Box.prototype.changeX = function () {
@@ -64,6 +74,25 @@ Box.prototype.checkBorderCollisionY = function () {
   }
   return false;
 }
+
+Box.prototype.rotate = function () {
+
+  if (this.dx > 0 && this.dy > 0) {
+    this.element.style.transform = 'rotate(' + 135 + 'deg)';
+  }
+  if (this.dx < 0 && this.dy > 0) {
+    this.element.style.transform = 'rotate(' + -135 + 'deg)';
+  }
+  if (this.dx < 0 && this.dy < 0) {
+    this.element.style.transform = 'rotate(' + -45 + 'deg)';
+  }
+  if (this.dx > 0 && this.dy < 0) {
+    this.element.style.transform = 'rotate(' + 45 + 'deg)';
+  }
+
+}
+
+
 
 function getRandomArbitrary(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -123,9 +152,11 @@ Game.prototype.moveBoxes = function () {
     //  console.log(this.boxes[i])
     if (this.boxes[i].checkBorderCollisionX()) {
       this.boxes[i].changeX();
+
     }
     if (this.boxes[i].checkBorderCollisionY()) {
       this.boxes[i].changeY();
+
     }
     this.boxes[i].move();
     this.CheckCollision(this.boxes[i], i);
@@ -144,7 +175,7 @@ Game.prototype.CheckCollision = function (box, index) {
         x1 + box.width > checkBox[j].x &&
         y1 < checkBox[j].y + checkBox[j].height &&
         y1 + box.width > checkBox[j].y) {
-        box.changebg();
+        //  box.changebg();
         // console.log("collide")
         //if fast speed ball hit slow ball
         //slow ball will get little momentum and fast ball loose momentum
