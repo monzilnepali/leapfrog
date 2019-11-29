@@ -142,7 +142,7 @@ Game.prototype.startGame = function () {
   while (tempLen !== 0) {
     var flag = 0;
 
-    var box = new Box(parentElement, 20, 20, 1);
+    var box = new Box(parentElement, 45, 45, 1);
     var x1 = getRandomArbitrary(0, this.MAX_WIDTH - box.width);
     var y1 = getRandomArbitrary(0, this.MAX_HEIGHT - box.height);
     var checkBox = boxes;

@@ -1,8 +1,9 @@
 .app {
   height: 700px;
   width: 1000px;
-  background-color: rgb(204, 203, 203);
+  background-image: url(./images/texture.jpg);
   position: relative;
+
 }
 
 .box {
@@ -10,9 +11,10 @@
   position: absolute;
   /* border-radius: 50%; */
   border: 1px solid black;
+
 }
 
 img {
-  width: 18px;
+  width: 100%;
   height: auto;
 }
