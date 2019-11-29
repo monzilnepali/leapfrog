@@ -1,8 +1,11 @@
+var boxes = [];
+const distance = (x1, y1, x2, y2) => Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+
 function Box(parentElement, width, height, speed) {
   this.x = 10;
   this.y = 10;
-  this.dx = 5;
-  this.dy = 5;
+  this.dx = 2;
+  this.dy = 2;
   this.speed = Math.random() || 0.1;
   this.width = width;
   this.height = height;
@@ -15,7 +18,7 @@ function Box(parentElement, width, height, speed) {
     var antImg = document.createElement('img');
     box.style.width = this.width + 'px';
     box.style.height = this.height + 'px';
-    antImg.setAttribute('src', "https://www.animatedimages.org/data/media/183/animated-ant-image-0071.gif");
+    antImg.setAttribute('src', "source.gif");
     box.appendChild(antImg);
     box.classList.add('box');
     this.parentElement.appendChild(box);
@@ -30,6 +33,25 @@ function Box(parentElement, width, height, speed) {
 Box.prototype.boxClicked = function () {
 
   console.log("clicked");
+  //removing from list
+  this.element.addEventListener("click", function (event) {
+    var x = event.x;
+    var y = event.y;
+
+    for (var i = 0; i < boxes.length; i++) {
+      if (distance(x, y, boxes[i].x, boxes[i].y) <= boxes[i].width) {
+        var updated = boxes.filter(function (val, index) {
+          boxes[i].element.style.display = 'none';
+          return i !== index;
+        });
+        ants = updated;
+
+
+      }
+    }
+
+  });
+
 }
 
 //setting position
@@ -102,7 +124,7 @@ function getRandomArbitrary(min, max) {
 
 
 function Game(parentElement, boxCount) {
-  this.boxes = [];
+
   this.MAX_WIDTH = 1000;
   this.MAX_HEIGHT = 700;
   this.parentElement = parentElement
@@ -120,10 +142,10 @@ Game.prototype.startGame = function () {
   while (tempLen !== 0) {
     var flag = 0;
 
-    var box = new Box(parentElement, 50, 50, 1);
-    var x1 = getRandomArbitrary(0, this.MAX_WIDTH - box.width - 5);
-    var y1 = getRandomArbitrary(0, this.MAX_HEIGHT - box.height - 5);
-    var checkBox = this.boxes;
+    var box = new Box(parentElement, 20, 20, 1);
+    var x1 = getRandomArbitrary(0, this.MAX_WIDTH - box.width);
+    var y1 = getRandomArbitrary(0, this.MAX_HEIGHT - box.height);
+    var checkBox = boxes;
     for (var j = 0; j < checkBox.length; j++) {
       if (x1 < checkBox[j].width + checkBox[j].x &&
         x1 + box.width > checkBox[j].x &&
@@ -138,7 +160,7 @@ Game.prototype.startGame = function () {
       box.init();
       box.setPosition(x1, y1);
       box.draw();
-      this.boxes.push(box);
+      boxes.push(box);
       tempLen--;
     }
 
@@ -150,24 +172,25 @@ Game.prototype.moveBoxes = function () {
   for (var i = 0; i < this.boxCount; i++) {
     //checking collision in wall
     //  console.log(this.boxes[i])
-    if (this.boxes[i].checkBorderCollisionX()) {
-      this.boxes[i].changeX();
+    if (boxes[i].checkBorderCollisionX()) {
+      boxes[i].changeX();
 
     }
-    if (this.boxes[i].checkBorderCollisionY()) {
-      this.boxes[i].changeY();
+    if (boxes[i].checkBorderCollisionY()) {
+      boxes[i].changeY();
 
     }
-    this.boxes[i].move();
-    this.CheckCollision(this.boxes[i], i);
+    boxes[i].move();
+    this.CheckCollision(boxes[i], i);
   }
 }
+
 
 Game.prototype.CheckCollision = function (box, index) {
 
   var x1 = box.x;
   var y1 = box.y;
-  var checkBox = this.boxes;
+  var checkBox = boxes;
   for (var j = 0; j < checkBox.length; j++) {
     if (j !== index) {
       //only for other
