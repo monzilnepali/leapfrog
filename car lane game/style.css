@@ -3,6 +3,15 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: "bubble";
+  src: url("./images/bubbleboddy.fat.ttf") format("truetype");
+}
+
+/* body {
+  background-color: black;
+} */
+
 .app {
   height: 785px;
   width: 804px;
@@ -13,12 +22,42 @@
   overflow: hidden;
 }
 
+.start-screen {
+  height: inherit;
+  width: inherit;
+  background-color: #192D39;
+  position: relative;
+}
+
+.start-btn {
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+  height: 200px;
+  width: 200px;
+  line-height: 180px;
+  border: 15px solid rgb(16, 28, 36);
+  border-radius: 50%;
+  background-color: #9CDD07;
+  background-repeat: no-repeat;
+  text-align: center;
+  font-family: "bubble";
+  font-size: 70px;
+  color: white;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+
+.start-btn:hover {
+  background-color: rgb(146, 207, 2);
+}
+
 .road-asset {
   height: 270px;
   width: 100%;
   position: absolute;
   background-repeat: no-repeat;
-  /* background-color: rgba(255, 0, 0, 0); */
+  background-color: rgba(255, 0, 0, 0.37);
   /* border: 1px solid red; */
 }
 
@@ -29,6 +68,7 @@
   background-image: url(./images/assets/car-main.png);
   background-repeat: no-repeat;
   z-index: 20;
+  border: 1.5px solid green;
 }
 
 .other-car {
@@ -37,5 +77,5 @@
   position: absolute;
   background-repeat: no-repeat;
   z-index: 20;
-  border: 1px solid red;
+  border: 1.5px solid red;
 }
