@@ -24,22 +24,35 @@ Lane.prototype.draw = function () {
 
 function Game(parentElement) {
   this.lane = [];
+  var height = 700;
 
   Game.prototype.init = function () {
 
-    for (var i = )
-      var lane = new Lane(parentElement, 50, 20);
-    lane.create();
-    console.log("lane crated")
-
-
-    setInterval(function () {
-      lane.move();
-    }, 100);
-
-
+    //crating five lane
+    for (var j = 0; j < 2; j++) {
+      for (var i = 0; i < 5; i++) {
+        var lane = new Lane(parentElement, 170 + 80 * j, 40 * j + (85 + 80) * i);
+        lane.create();
+        this.lane.push(lane);
+        console.log("lane created")
+      }
+    }
+    this.animateLane();
 
   }
+}
+Game.prototype.animateLane = function () {
+  var that = this;
+  var interval = setInterval(function () {
+    that.lane.forEach(element => {
+      element.move();
+      if (element.y >= 680) {
+        console.log("crossed")
+        element.y = 0;
+      }
+    });
+  }, 10);
+
 }
 
 var parentElement = document.getElementById('app');

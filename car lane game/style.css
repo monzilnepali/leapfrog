@@ -6,11 +6,12 @@
   background-image: url(./images/road-pixel.jpg);
   background-repeat: repeat-y;
   position: relative;
+  overflow: hidden;
 }
 
 .lane {
-  height: 45px;
-  width: 10px;
+  height: 85px;
+  width: 5px;
   background-color: white;
   position: absolute;
 
