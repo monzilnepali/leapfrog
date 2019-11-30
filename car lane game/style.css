@@ -57,7 +57,7 @@
   width: 100%;
   position: absolute;
   background-repeat: no-repeat;
-  background-color: rgba(255, 0, 0, 0.37);
+  /* background-color: rgba(255, 0, 0, 0.37); */
   /* border: 1px solid red; */
 }
 

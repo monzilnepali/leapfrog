@@ -6,17 +6,23 @@ var LEFT_LANE_POSITION = (157 + 72);
 var MIDDLE_LANE_POSITION = LEFT_LANE_POSITION + LANE_SHIFT;
 var RIGHT_LANE_POSITION = MIDDLE_LANE_POSITION + LANE_SHIFT;
 var FPS = 60;
-var UPDATE_Y = 10;
+var UPDATE_Y = 8;
 var gameLoop = null;
 var gameStopFlag = true;
+var carHeight = 110;
+var carWidth = 55;
+var carLaneSwitch = false;
+var distanceBetweenCar = 0;
+var gameScore = 0;
+//carlaneswitch use to keep track whether car switch lane when distance between two car is less 200;so if distance is less 200 and any carlaneswitch will increase score
 
-function Road(parent, x, y) {
-  this.x = x;
-  this.y = y;
-  this.dy = UPDATE_Y;
-  this.element = null;
-  this.parent = parent;
+
+function findDistance(x1, y1, x2, y2) {
+  //distance between two car
+  return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
 }
+
+
 
 //car A D and event handler
 
@@ -26,17 +32,37 @@ document.addEventListener("keypress", function (event) {
   //for a event handling
   if (gameStopFlag) {
     if (event.keyCode == 97 && mainCar.currentLane != 1) {
-      console.log("moving to left")
+      console.log("moving to left");
       mainCar.steerLeft();
+
+      if (distanceBetweenCar <= 100) {
+        gameScore += Math.floor(distanceBetweenCar / 100 * 0.5);
+        console.log(gameScore)
+
+      }
 
     }
     if (event.keyCode == 100 && mainCar.currentLane != 3) {
-      console.log("moving to right")
+      console.log("moving to right");
       mainCar.steerRight();
+      if (distanceBetweenCar <= 100) {
+        gameScore += Math.floor(distanceBetweenCar * 0.5);
+        console.log(gameScore)
+
+
+      }
     }
   }
 
 });
+
+function Road(parent, x, y) {
+  this.x = x;
+  this.y = y;
+  this.dy = UPDATE_Y;
+  this.element = null;
+  this.parent = parent;
+}
 
 Road.prototype.create = function () {
   var lanDiv = document.createElement("div");
@@ -45,7 +71,6 @@ Road.prototype.create = function () {
   lanDiv.classList.add("road-asset");
   //setting image of road
   var randomImage = Math.floor(Math.random() * 4) + 1;
-  console.log("rand" + randomImage)
   lanDiv.style.backgroundImage = "url(./images/assets/road-asset-" + randomImage + ".png";
   this.element = lanDiv
   this.parent.appendChild(lanDiv)
@@ -131,6 +156,7 @@ Car.prototype.steerLeft = function () {
     this.x = this.x - LANE_SHIFT;
     this.currentLane = this.currentLane - 1;
     this.draw();
+
   }
 
 
@@ -143,6 +169,7 @@ Car.prototype.steerRight = function () {
     this.x = this.x + LANE_SHIFT;
     this.currentLane = this.currentLane + 1;
     this.draw();
+
   }
 }
 
@@ -166,17 +193,17 @@ function Game(parentElement) {
 
 
       var rand = Math.floor(Math.random() * 3) + 1;
-      console.log(rand)
+
       if (rand === 1) {
-        console.log("move to left");
+
         car.moveToLeftLane();
       }
       if (rand === 2) {
-        console.log("move to midelle");
+
         car.moveToMiddleLane();
       }
       if (rand === 3) {
-        console.log("move to right");
+
         car.moveToRightLane();
       }
       this.otherCar.push(car);
@@ -193,7 +220,7 @@ Game.prototype.animateLane = function () {
       //checking collision with main car
       if (mainCar.x == that.otherCar[index].x) {
         //check collision with other car in same line
-        console.log("same lane" + that.otherCar[index]);
+
         that.checkCollision(that.otherCar[index]);
       }
 
@@ -212,13 +239,14 @@ Game.prototype.animateLane = function () {
   }, 1000 / FPS);
 
 }
+
 Game.prototype.checkCollision = function (otherCar) {
-  console.log("check collision")
+
   if (mainCar.x < otherCar.x + otherCar.width &&
     mainCar.x + mainCar.width > otherCar.x &&
     mainCar.y < otherCar.y + otherCar.height &&
     mainCar.y + otherCar.height > otherCar.y) {
-    console.log("collision");
+    //  console.log("collision");
     //terminate game
 
     // if (mainCar.y != otherCar.y) {
@@ -228,10 +256,18 @@ Game.prototype.checkCollision = function (otherCar) {
     //     mainCar.moveTo(otherCar.x - otherCar.width);
     //   }
     // }
-
     gameStopFlag = false;
     //move to
     clearInterval(gameLoop);
+  } else {
+    //if not collide mean user change lane
+    //giving points to use based on distance between main car other car in same //lane
+    if (mainCar.currentLane == otherCar.currentLane) {
+      distanceBetweenCar = findDistance(mainCar.x, mainCar.y, otherCar.x, otherCar.y + carHeight);
+      console.log("distannce>>>" + distanceBetweenCar)
+    }
+
+
   }
 
 }
