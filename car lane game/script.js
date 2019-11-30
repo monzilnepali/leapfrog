@@ -147,8 +147,9 @@ function Game(parentElement) {
     for (var i = 0; i < 3; i++) {
       var lane = new Road(parentElement, 0, (270 + 50) * i)
       lane.create();
-      var car = new Car(parentElement, 20 * i, (55 + 50) * i, 1).createCar();
-      var rand = Math.floor(Math.random() * 4) + 1;
+      var car = new Car(parentElement, 20 * i, (270 + 50) * i, 1).createCar();
+      var rand = Math.floor(Math.random() * 3) + 1;
+      console.log(rand)
       if (rand === 1) {
         console.log("move to left");
         car.moveToLeftLane();
@@ -179,7 +180,7 @@ Game.prototype.animateLane = function () {
       //checking border for roadelement
       if (roadElement.y >= 730) {
         roadElement.y = -270;
-        that.otherCar[index].y = 0;
+        that.otherCar[index].y = -270;
         //updaing lane image
         // var randomImage = Math.floor(Math.random() * 4) + 1;
         // console.log(randomImage)

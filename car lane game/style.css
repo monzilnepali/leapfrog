@@ -37,4 +37,5 @@
   position: absolute;
   background-repeat: no-repeat;
   z-index: 20;
+  border: 1px solid red;
 }
