@@ -1,0 +1,17 @@
+.app {
+  height: 700px;
+  width: 550px;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-image: url(./images/road-pixel.jpg);
+  background-repeat: repeat-y;
+  position: relative;
+}
+
+.lane {
+  height: 45px;
+  width: 10px;
+  background-color: white;
+  position: absolute;
+
+}

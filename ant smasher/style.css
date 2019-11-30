@@ -1,20 +1,145 @@
-.app {
-  height: 700px;
-  width: 1000px;
-  background-image: url(./images/texture.jpg);
-  position: relative;
+@font-face {
+  font-family: "bubble";
+  src: url("bubbleboddy.fat.ttf") format("truetype");
+}
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #2BE7AA;
+}
+
+
+.app {
+  height: 600px;
+  width: 1000px;
+  background-color: #651e56;
+  position: relative;
+  cursor: crosshair;
+  margin: 0 auto;
+  margin-top: 20px;
+  border: 20px solid #ffc801;
+  border-radius: 80px;
 }
 
 .box {
-
   position: absolute;
   /* border-radius: 50%; */
   /* border: 1px solid black; */
-
+  user-select: none;
+  z-index: 5;
 }
 
 img {
   width: 100%;
   height: auto;
+  user-select: none;
 }
+
+.point {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  color: #ffc801;
+  font-family: "bubble";
+  font-size: 35px;
+  font-weight: bold;
+  display: block;
+  animation-name: popup;
+  animation-duration: 0.5s;
+}
+
+@keyframes popup {
+  0% {}
+
+  100% {
+    top: 0;
+
+  }
+}
+
+.start-btn {
+  position: absolute;
+  top: 48%;
+  left: 42%;
+  display: inline-block;
+  padding: 12px 35px;
+  font-family: "bubble";
+  font-size: 35px;
+  color: black;
+  background-color: #ffc801;
+  border-radius: 15px;
+  z-index: 15;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.overlay {
+  position: absolute;
+  height: 600px;
+  width: 1000px;
+  background-color: rgba(43, 42, 42, 0.438);
+  z-index: 10;
+  left: -20px;
+  top: -20px;
+  cursor: pointer;
+  border: 20px solid rgba(43, 42, 42, 0.438);
+  border-radius: 80px;
+  /* overflow: hidden; */
+}
+
+.game-stats {
+  position: absolute;
+  bottom: -100px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.game-stats .score {
+  background-color: #651e56;
+  width: 49%;
+  float: left;
+  font-size: 55px;
+  border-radius: 50px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-family: "bubble";
+  color: #ffc801;
+  margin-right: 19px;
+  background-image: url(./images/star.png);
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  background-position: 35% 50%;
+
+
+}
+
+.game-stats .timer {
+  background-color: #651e56;
+  width: 49%;
+  float: left;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 55px;
+  font-family: "bubble";
+  color: #ffc801;
+  padding-bottom: 10px;
+  background-image: url(./images/clock.png);
+  background-repeat: no-repeat;
+  background-size: 35px 40px;
+  background-position: 35% 50%;
+
+}
+
+/* .score {
+
+  padding: 15px 50px;
+  left: 50%;
+  font-family: "bubble";
+  color: #ffc801;
+  background-color: #651e56;
+  border-radius: 15px;
+} */
