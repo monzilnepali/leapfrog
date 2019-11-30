@@ -9,7 +9,7 @@ Lane.prototype.create = function () {
   var lanDiv = document.createElement("div");
   lanDiv.style.left = this.x + "px";
   lanDiv.style.top = this.y + "px";
-  lanDiv.classList.add("lane");
+  lanDiv.classList.add("road-asset");
   this.element = lanDiv
   this.parent.appendChild(lanDiv)
 }
@@ -31,11 +31,12 @@ function Game(parentElement) {
     //crating five lane
     for (var j = 0; j < 2; j++) {
       //two lane
-      for (var i = 0; i < 5; i++) {
-        var lane = new Lane(parentElement, 320 + 150 * j, (85 + 80) * i);
+      for (var i = 0; i < 3; i++) {
+        // var lane = new Lane(parentElement, 320 + 150 * j, (85 + 80) * i);
+        var lane = new Lane(parentElement, 0, (270 + 50) * i)
         lane.create();
         this.lane.push(lane);
-        console.log("lane created")
+        // console.log("lane created")
       }
     }
     this.animateLane();
@@ -47,12 +48,12 @@ Game.prototype.animateLane = function () {
   var interval = setInterval(function () {
     that.lane.forEach(element => {
       element.move();
-      if (element.y >= 790) {
+      if (element.y >= 700) {
         console.log("crossed")
-        element.y = -50;
+        element.y = -270;
       }
     });
-  }, 50);
+  }, 10);
 
 }
 

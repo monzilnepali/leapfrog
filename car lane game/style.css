@@ -9,11 +9,11 @@
   overflow: hidden;
 }
 
-.lane {
-  height: 152px;
-  width: 166px;
+.road-asset {
+  height: 270px;
+  width: 100%;
   position: absolute;
-  /* background-image: url(./images/assets/brush-1.png);
-  background-repeat: no-repeat; */
-  background-color: red;
+  background-image: url(./images/assets/road.png);
+  background-repeat: no-repeat;
+  /* background-color: red; */
 }
