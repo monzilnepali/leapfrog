@@ -39,7 +39,8 @@ Road.prototype.create = function () {
   lanDiv.style.top = this.y + "px";
   lanDiv.classList.add("road-asset");
   //setting image of road
-  var randomImage = Math.floor(Math.random() * 3) + 1;
+  var randomImage = Math.floor(Math.random() * 4) + 1;
+  console.log("rand" + randomImage)
   lanDiv.style.backgroundImage = "url(./images/assets/road-asset-" + randomImage + ".png";
   this.element = lanDiv
   this.parent.appendChild(lanDiv)
@@ -54,16 +55,23 @@ Road.prototype.draw = function () {
 }
 
 
-function Car(parentElement, x, y) {
+function Car(parentElement, x, y, flag) {
   this.x = x;
   this.y = y;
   this.element = null;
   this.currentLane = 0;
   this.parent = parentElement;
+  this.flag = flag || 0; //0 mean main car and 1 mean obstacle car
+  this.dy = 5;
 }
 Car.prototype.createCar = function () {
   var car = document.createElement('div');
-  car.classList.add('main-car');
+  if (this.flag == 0) {
+    car.classList.add('main-car');
+  } else {
+    car.classList.add('other-car');
+    car.style.backgroundImage = "url(./images/assets/car-1.png)";
+  }
   car.style.left = this.x + 'px';
   car.style.top = this.y + 'px';
   this.element = car;
@@ -77,12 +85,32 @@ Car.prototype.move = function () {
   this.element.style.top = this.y + 'px';
 
 }
+Car.prototype.update = function () {
+  this.y += this.dy;
+  this.move();
+}
 
-Car.prototype.moveToMiddle = function () {
+Car.prototype.moveToMiddleLane = function () {
   this.x = MIDDLE_LANE_POSITION;
   this.currentLane = 2;
   this.move();
 }
+
+Car.prototype.moveToLeftLane = function () {
+  this.x = LEFT_LANE_POSITION;
+  this.currentLane = 1;
+  this.move();
+}
+
+Car.prototype.moveToRightLane = function () {
+  this.x = RIGHT_LANE_POSITION;
+  this.currentLane = 3;
+  this.move();
+}
+
+
+
+
 Car.prototype.steerLeft = function () {
   //decreasing value of x
   //if current lane index =1 mean end of road from left side
@@ -108,32 +136,57 @@ Car.prototype.steerRight = function () {
 
 function Game(parentElement) {
   this.roadElements = [];
-  var height = 795;
+  this.otherCar = [];
 
   Game.prototype.init = function () {
-
     //creating main car
     mainCar = new Car(parentElement, 10, 655).createCar();
-    mainCar.moveToMiddle();
+    mainCar.moveToMiddleLane();
 
     //road asset creation
     for (var i = 0; i < 3; i++) {
       var lane = new Road(parentElement, 0, (270 + 50) * i)
       lane.create();
+      var car = new Car(parentElement, 20 * i, (55 + 50) * i, 1).createCar();
+      var rand = Math.floor(Math.random() * 4) + 1;
+      if (rand === 1) {
+        console.log("move to left");
+        car.moveToLeftLane();
+      }
+      if (rand === 2) {
+        console.log("move to midelle");
+        car.moveToMiddleLane();
+      }
+      if (rand === 3) {
+        console.log("move to right");
+        car.moveToRightLane();
+      }
+      this.otherCar.push(car);
       this.roadElements.push(lane);
     }
     this.animateLane();
   }
 }
 Game.prototype.animateLane = function () {
+
   var that = this;
+  console.log(this.otherCar)
   var interval = setInterval(function () {
-    that.roadElements.forEach(element => {
-      element.move();
-      if (element.y >= 730) {
-        // console.log("crossed")
-        element.y = -270;
+
+
+    that.roadElements.forEach((roadElement, index) => {
+
+      //checking border for roadelement
+      if (roadElement.y >= 730) {
+        roadElement.y = -270;
+        that.otherCar[index].y = 0;
+        //updaing lane image
+        // var randomImage = Math.floor(Math.random() * 4) + 1;
+        // console.log(randomImage)
+        // roadElement.element.style.backgroundImage = "url(./images/assets/road-asset-" + randomImage + ".png";
       }
+      that.otherCar[index].update();
+      roadElement.move();
     });
   }, 10);
 

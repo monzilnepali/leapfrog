@@ -4,7 +4,7 @@
 }
 
 .app {
-  height: 780px;
+  height: 785px;
   width: 804px;
   margin: 0 auto;
   background-image: url(./images/road-pixel.jpg);
@@ -19,6 +19,7 @@
   position: absolute;
   background-repeat: no-repeat;
   /* background-color: rgba(255, 0, 0, 0); */
+  /* border: 1px solid red; */
 }
 
 .main-car {
@@ -26,6 +27,14 @@
   height: 110px;
   position: absolute;
   background-image: url(./images/assets/car-main.png);
+  background-repeat: no-repeat;
+  z-index: 20;
+}
+
+.other-car {
+  width: 55px;
+  height: 110px;
+  position: absolute;
   background-repeat: no-repeat;
   z-index: 20;
 }
