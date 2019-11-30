@@ -24,14 +24,15 @@ Lane.prototype.draw = function () {
 
 function Game(parentElement) {
   this.lane = [];
-  var height = 700;
+  var height = 795;
 
   Game.prototype.init = function () {
 
     //crating five lane
     for (var j = 0; j < 2; j++) {
+      //two lane
       for (var i = 0; i < 5; i++) {
-        var lane = new Lane(parentElement, 170 + 80 * j, 40 * j + (85 + 80) * i);
+        var lane = new Lane(parentElement, 320 + 150 * j, (85 + 80) * i);
         lane.create();
         this.lane.push(lane);
         console.log("lane created")
@@ -46,12 +47,12 @@ Game.prototype.animateLane = function () {
   var interval = setInterval(function () {
     that.lane.forEach(element => {
       element.move();
-      if (element.y >= 680) {
+      if (element.y >= 790) {
         console.log("crossed")
-        element.y = 0;
+        element.y = -50;
       }
     });
-  }, 10);
+  }, 50);
 
 }
 
