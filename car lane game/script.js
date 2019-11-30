@@ -14,6 +14,7 @@ var carWidth = 55;
 var carLaneSwitch = false;
 var distanceBetweenCar = 0;
 var gameScore = 0;
+var scoreContainer = null;
 //carlaneswitch use to keep track whether car switch lane when distance between two car is less 200;so if distance is less 200 and any carlaneswitch will increase score
 
 
@@ -35,9 +36,10 @@ document.addEventListener("keypress", function (event) {
       console.log("moving to left");
       mainCar.steerLeft();
 
-      if (distanceBetweenCar <= 100) {
-        gameScore += Math.floor(distanceBetweenCar / 100 * 0.5);
-        console.log(gameScore)
+      if (distanceBetweenCar <= 80) {
+        gameScore += 5;
+        console.log(gameScore);
+        scoreContainer.innerText = gameScore;
 
       }
 
@@ -45,9 +47,10 @@ document.addEventListener("keypress", function (event) {
     if (event.keyCode == 100 && mainCar.currentLane != 3) {
       console.log("moving to right");
       mainCar.steerRight();
-      if (distanceBetweenCar <= 100) {
-        gameScore += Math.floor(distanceBetweenCar * 0.5);
-        console.log(gameScore)
+      if (distanceBetweenCar <= 80) {
+        gameScore += 5;
+        console.log(gameScore);
+        scoreContainer.innerText = gameScore;
 
 
       }
@@ -183,6 +186,12 @@ function Game(parentElement) {
     mainCar = new Car(parentElement, 10, 655).createCar();
     mainCar.moveToMiddleLane();
 
+    //creating game element
+    scoreContainer = document.createElement('div');
+    scoreContainer.classList.add('score');
+    parentElement.appendChild(scoreContainer);
+
+
     //road asset creation
 
     for (var i = 0; i < 3; i++) {
@@ -190,16 +199,11 @@ function Game(parentElement) {
       lane.create();
 
       var car = new Car(parentElement, 0, (55 + 100) * i, 1).createCar();
-
-
       var rand = Math.floor(Math.random() * 3) + 1;
-
       if (rand === 1) {
-
         car.moveToLeftLane();
       }
       if (rand === 2) {
-
         car.moveToMiddleLane();
       }
       if (rand === 3) {

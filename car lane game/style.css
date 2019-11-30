@@ -13,7 +13,7 @@
 } */
 
 .app {
-  height: 785px;
+  height: 795px;
   width: 804px;
   margin: 0 auto;
   background-image: url(./images/road-pixel.jpg);
@@ -78,4 +78,19 @@
   background-repeat: no-repeat;
   z-index: 20;
   border: 1.5px solid red;
+}
+
+.score {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  width: 95px;
+  height: 45px;
+  background-color: red;
+  border-radius: 25px;
+  text-align: center;
+  font-family: 'bubble';
+  color: white;
+  font-size: 30px;
+  z-index: 30;
 }
