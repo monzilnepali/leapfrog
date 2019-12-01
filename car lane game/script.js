@@ -35,6 +35,7 @@ document.addEventListener("keypress", function (event) {
   if (gameStopFlag) {
     if (event.keyCode == 97 && mainCar.currentLane != 1) {
       console.log("moving to left");
+
       mainCar.steerLeft();
 
       if (distanceBetweenCar <= 80) {
@@ -92,8 +93,8 @@ Road.prototype.draw = function () {
 function Car(parentElement, x, y, flag, currentRoadSegment) {
   this.x = x;
   this.y = y;
-  this.width = 55;
-  this.height = 110;
+  this.width = 52;
+  this.height = 105;
   this.element = null;
   this.currentLane = 0;
   this.currentRoadSegment = currentRoadSegment || 0;
@@ -196,7 +197,8 @@ function Game(parentElement) {
 
     //creating game element
     scoreContainer = document.createElement('div');
-    scoreContainer.classList.add('score');
+    scoreContainer.classList.add('score-top');
+    scoreContainer.innerText = '0';
     parentElement.appendChild(scoreContainer);
     //road asset creation
     for (var i = 0; i < 3; i++) {
@@ -222,13 +224,21 @@ Game.prototype.generateObstacle = function (index, temp) {
     if (this.obstacleIndex.length == 0) {
       //its mean first car pattern no to check with other
       obstacleFlag = true;
-      console.log("first element in obstacle index")
+      //  console.log("first element in obstacle index")
     } else {
       //ORing  current pattern with previous pattern 
       var oring = randomNumber | this.obstacleIndex[index - 1];
       if (oring < 7) {
         //mean space for main car to passby obstacle
+        //  if(this.obstacleIndex.indexOf)
         obstacleFlag = true;
+
+        //   if (this.obstacleIndex.indexOf(oring) == -1) {
+
+        // } else {
+        //    console.log("repeate no addition")
+        //  }
+
       }
     }
 
@@ -241,15 +251,15 @@ Game.prototype.generateObstacle = function (index, temp) {
   //console.log(this.obstacleIndex)
 
   var currentRoadSegment = index || temp;
-  console.log("index" + index)
-  console.log("currentroad segment" + currentRoadSegment);
+  //  console.log("index" + index)
+  // console.log("currentroad segment" + currentRoadSegment);
   for (var i = 2; i >= 0; i--) {
     //creating max two car object in single lane element
     if (parseInt(pattern[i]) === 1) {
       //create car if pattern value =1
       var car = new Car(parentElement, 0, -(55 + 300) * index - 80, 1, currentRoadSegment).createCar();
-      console.log("new car");
-      console.log(car)
+      //  console.log("new car");
+      //  console.log(car)
       this.otherCar.push(car);
       //shifting position
       if (i == 0) {
@@ -270,21 +280,21 @@ Game.prototype.generateObstacle = function (index, temp) {
 
 Game.prototype.updateObstaclePosition = function (car) {
 
-  console.log("current road segement" + car.currentRoadSegment);
+  //console.log("current road segement" + car.currentRoadSegment);
   if (car.currentRoadSegment == counter) {
     this.obstacleIndex.shift();
-    console.log(this.obstacleIndex)
+    // console.log(this.obstacleIndex)
     //getting all car object current road segment
     this.otherCar = this.otherCar.filter(function (element) {
 
       if (element.currentRoadSegment === car.currentRoadSegment) {
-        console.log("removed")
+        //   console.log("removed")
         element.delete();
       }
       return element.currentRoadSegment != car.currentRoadSegment;
     });
 
-    console.log(this.otherCar)
+    //  console.log(this.otherCar)
 
     this.generateObstacle(0, car.currentRoadSegment);
     counter = (counter + 1) % 3;
@@ -308,10 +318,10 @@ Game.prototype.animateLane = function () {
   gameLoop = setInterval(function () {
     that.roadElements.forEach(function (roadElement, index) {
       //checking collision with main car
-      // if (mainCar.x == that.otherCar[index].x) {
-      //check collision with other car in same line
-      //that.checkCollision(that.otherCar[index]);
-      //  }
+      if (mainCar.x == that.otherCar[index].x) {
+        //check collision with other car in same line
+        that.checkCollision(that.otherCar[index]);
+      }
       //checking border for road element
       //if exceed reset its position
       if (roadElement.y >= 785) {
@@ -342,25 +352,33 @@ Game.prototype.checkCollision = function (otherCar) {
     mainCar.x + mainCar.width > otherCar.x &&
     mainCar.y < otherCar.y + otherCar.height &&
     mainCar.y + otherCar.height > otherCar.y) {
-    //  console.log("collision");
+    console.log("collision");
     //terminate game
 
     // if (mainCar.y != otherCar.y) {
+    //   console.log("othercar" + otherCar.x);
+    //   console.log("maincar" + mainCar.x);
     //   if (otherCar.x < mainCar.x) {
+
+    //     console.log("stick to right side of left car")
     //     mainCar.moveTo(otherCar.x + otherCar.width);
     //   } else {
+    //     console.log("stick to left side of right car")
     //     mainCar.moveTo(otherCar.x - otherCar.width);
     //   }
     // }
     gameStopFlag = false;
     //move to
     clearInterval(gameLoop);
+    //showing game over screen
+    tryAgainContainer();
+
   } else {
     //if not collide mean user change lane
     //giving points to use based on distance between main car other car in same //lane
     if (mainCar.currentLane == otherCar.currentLane) {
       distanceBetweenCar = findDistance(mainCar.x, mainCar.y, otherCar.x, otherCar.y + carHeight);
-      console.log("distannce>>>" + distanceBetweenCar)
+      //  console.log("distannce>>>" + distanceBetweenCar)
     }
 
 
@@ -370,9 +388,69 @@ Game.prototype.checkCollision = function (otherCar) {
 
 var parentElement = document.getElementById('app');
 var startElement = document.getElementById('start-btn');
+var scoreElement = document.getElementById('score-value');
+var gameOverElement = document.getElementById('game-over-container');
+var tryAgainElement = document.getElementById('try-again');
 
-startElement.addEventListener('click', function () {
-  var game = new Game(parentElement);
-  startElement.parentElement.style.display = 'none';
-  game.init()
-});
+function startScreen() {
+
+  //start screen
+  var startContainer = document.createElement('div');
+  startContainer.classList.add('start-screen');
+  var startElement = document.createElement('div');
+  startElement.classList.add('start-btn');
+  startElement.setAttribute('id', 'start-btn');
+  startElement.innerText = 'play';
+  startContainer.appendChild(startElement);
+  parentElement.appendChild(startContainer);
+  startElement.addEventListener('click', function () {
+
+    var game = new Game(parentElement);
+    startElement.parentElement.style.display = 'none';
+    game.init()
+  });
+
+
+}
+
+function tryAgainContainer() {
+  console.log("tru gaing contonare")
+  var mainContainer = document.createElement('div');
+  mainContainer.classList.add('game-over-container');
+  var mainWrapper = document.createElement('div');
+  mainWrapper.classList.add('game-over-wrapper');
+  var heading = document.createElement('div');
+  heading.classList.add('heading');
+  heading.innerText = 'Game Over';
+  var subHeading = document.createElement('p');
+  subHeading.classList.add('subheading');
+  subHeading.innerText = 'your score';
+  var scoreValue = document.createElement('div');
+  scoreValue.classList.add('score-value');
+  scoreValue.innerText = gameScore;
+  var tryAgain = document.createElement('div');
+  tryAgain.classList.add('try-again');
+
+  mainWrapper.appendChild(heading);
+  mainWrapper.appendChild(subHeading);
+  mainWrapper.appendChild(scoreValue);
+  mainWrapper.appendChild(tryAgain);
+
+  mainContainer.appendChild(mainWrapper);
+  parentElement.appendChild(mainContainer);
+
+  tryAgain.addEventListener('click', function () {
+
+    //remove all element from parentElement
+    parentElement.innerHTML = "";
+    var game = new Game(parentElement);
+    gameStopFlag = true;
+    game.init();
+
+  });
+
+
+
+}
+
+startScreen();
