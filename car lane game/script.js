@@ -5,7 +5,7 @@ var LANE_SHIFT = 72 * 2;
 var LEFT_LANE_POSITION = (157 + 72);
 var MIDDLE_LANE_POSITION = LEFT_LANE_POSITION + LANE_SHIFT;
 var RIGHT_LANE_POSITION = MIDDLE_LANE_POSITION + LANE_SHIFT;
-var FPS = 6;
+var FPS = 60;
 var UPDATE_Y = 8;
 var gameLoop = null;
 var gameStopFlag = true;
@@ -16,7 +16,8 @@ var distanceBetweenCar = 0;
 var gameScore = 0;
 var scoreContainer = null;
 var laneIndex = ['001', '010', '011', '100', '101', '110'];
-
+var obstaclePositionUpdateFlag = false;
+var counter = 0;
 
 function findDistance(x1, y1, x2, y2) {
   //distance between two car
@@ -88,13 +89,14 @@ Road.prototype.draw = function () {
 }
 
 
-function Car(parentElement, x, y, flag) {
+function Car(parentElement, x, y, flag, currentRoadSegment) {
   this.x = x;
   this.y = y;
   this.width = 55;
   this.height = 110;
   this.element = null;
   this.currentLane = 0;
+  this.currentRoadSegment = currentRoadSegment || 0;
   this.parent = parentElement;
   this.flag = flag || 0; //0 mean main car and 1 mean obstacle car
   this.dy = UPDATE_Y;
@@ -113,6 +115,10 @@ Car.prototype.createCar = function () {
   this.element = car;
   this.parent.appendChild(car);
   return this;
+}
+
+Car.prototype.delete = function () {
+  this.parent.removeChild(this.element);
 }
 
 Car.prototype.draw = function () {
@@ -180,7 +186,6 @@ Car.prototype.steerRight = function () {
 function Game(parentElement) {
   this.roadElements = [];
   this.otherCar = [];
-  this.obstacletemp = 0;
   this.obstacleIndex = [];
 
 
@@ -200,11 +205,12 @@ function Game(parentElement) {
       this.generateObstacle(i);
       this.roadElements.push(lane);
     }
+    console.log(this.obstacleIndex)
     this.animateLane();
   }
 }
 
-Game.prototype.generateObstacle = function (index) {
+Game.prototype.generateObstacle = function (index, temp) {
   var pattern = [];
   var randomNumber;
   var obstacleFlag = false;
@@ -213,9 +219,10 @@ Game.prototype.generateObstacle = function (index) {
     randomNumber = Math.floor(Math.random() * 6) + 1;
     //comparing with previous random no;
     //ORing random number and less than 7 accept
-    if (index == 0) {
+    if (this.obstacleIndex.length == 0) {
       //its mean first car pattern no to check with other
       obstacleFlag = true;
+      console.log("first element in obstacle index")
     } else {
       //ORing  current pattern with previous pattern 
       var oring = randomNumber | this.obstacleIndex[index - 1];
@@ -228,15 +235,21 @@ Game.prototype.generateObstacle = function (index) {
   } while (!obstacleFlag);
 
   this.obstacleIndex.push(randomNumber);
+  console.log(">>>>>>" + this.obstacleIndex)
   pattern = laneIndex[randomNumber - 1].split("");
-  // console.log(pattern);
-  console.log(this.obstacleIndex)
+  //console.log(pattern);
+  //console.log(this.obstacleIndex)
 
+  var currentRoadSegment = index || temp;
+  console.log("index" + index)
+  console.log("currentroad segment" + currentRoadSegment);
   for (var i = 2; i >= 0; i--) {
     //creating max two car object in single lane element
     if (parseInt(pattern[i]) === 1) {
       //create car if pattern value =1
-      var car = new Car(parentElement, 0, -(55 + 150) * index, 1).createCar();
+      var car = new Car(parentElement, 0, -(55 + 300) * index - 80, 1, currentRoadSegment).createCar();
+      console.log("new car");
+      console.log(car)
       this.otherCar.push(car);
       //shifting position
       if (i == 0) {
@@ -255,6 +268,39 @@ Game.prototype.generateObstacle = function (index) {
 
 }
 
+Game.prototype.updateObstaclePosition = function (car) {
+
+  console.log("current road segement" + car.currentRoadSegment);
+  if (car.currentRoadSegment == counter) {
+    this.obstacleIndex.shift();
+    console.log(this.obstacleIndex)
+    //getting all car object current road segment
+    this.otherCar = this.otherCar.filter(function (element) {
+
+      if (element.currentRoadSegment === car.currentRoadSegment) {
+        console.log("removed")
+        element.delete();
+      }
+      return element.currentRoadSegment != car.currentRoadSegment;
+    });
+
+    console.log(this.otherCar)
+
+    this.generateObstacle(0, car.currentRoadSegment);
+    counter = (counter + 1) % 3;
+  }
+
+
+
+
+
+
+  //this.generateObstacle(car.currentRoadSegment)
+
+
+
+
+}
 
 Game.prototype.animateLane = function () {
   var that = this;
@@ -276,8 +322,10 @@ Game.prototype.animateLane = function () {
 
     that.otherCar.forEach(function (car, index) {
 
-      if (car.y >= 785) {
-        car.y = 0;
+      if (car.y >= 785 + 250) {
+        that.updateObstaclePosition(car);
+
+
       }
       car.move(); //update position
 
