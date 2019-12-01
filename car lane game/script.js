@@ -5,7 +5,7 @@ var LANE_SHIFT = 72 * 2;
 var LEFT_LANE_POSITION = (157 + 72);
 var MIDDLE_LANE_POSITION = LEFT_LANE_POSITION + LANE_SHIFT;
 var RIGHT_LANE_POSITION = MIDDLE_LANE_POSITION + LANE_SHIFT;
-var FPS = 60;
+var FPS = 6;
 var UPDATE_Y = 8;
 var gameLoop = null;
 var gameStopFlag = true;
@@ -15,7 +15,7 @@ var carLaneSwitch = false;
 var distanceBetweenCar = 0;
 var gameScore = 0;
 var scoreContainer = null;
-//carlaneswitch use to keep track whether car switch lane when distance between two car is less 200;so if distance is less 200 and any carlaneswitch will increase score
+var laneIndex = ['001', '010', '011', '100', '101', '110'];
 
 
 function findDistance(x1, y1, x2, y2) {
@@ -180,6 +180,9 @@ Car.prototype.steerRight = function () {
 function Game(parentElement) {
   this.roadElements = [];
   this.otherCar = [];
+  this.obstacletemp = 0;
+  this.obstacleIndex = [];
+
 
   Game.prototype.init = function () {
     //creating main car
@@ -190,59 +193,100 @@ function Game(parentElement) {
     scoreContainer = document.createElement('div');
     scoreContainer.classList.add('score');
     parentElement.appendChild(scoreContainer);
-
-
     //road asset creation
-
     for (var i = 0; i < 3; i++) {
       var lane = new Road(parentElement, 0, (270 + 50) * i)
       lane.create();
-
-      var car = new Car(parentElement, 0, (55 + 100) * i, 1).createCar();
-      var rand = Math.floor(Math.random() * 3) + 1;
-      if (rand === 1) {
-        car.moveToLeftLane();
-      }
-      if (rand === 2) {
-        car.moveToMiddleLane();
-      }
-      if (rand === 3) {
-
-        car.moveToRightLane();
-      }
-      this.otherCar.push(car);
+      this.generateObstacle(i);
       this.roadElements.push(lane);
     }
     this.animateLane();
   }
 }
+
+Game.prototype.generateObstacle = function (index) {
+  var pattern = [];
+  var randomNumber;
+  var obstacleFlag = false;
+  do {
+
+    randomNumber = Math.floor(Math.random() * 6) + 1;
+    //comparing with previous random no;
+    //ORing random number and less than 7 accept
+    if (index == 0) {
+      //its mean first car pattern no to check with other
+      obstacleFlag = true;
+    } else {
+      //ORing  current pattern with previous pattern 
+      var oring = randomNumber | this.obstacleIndex[index - 1];
+      if (oring < 7) {
+        //mean space for main car to passby obstacle
+        obstacleFlag = true;
+      }
+    }
+
+  } while (!obstacleFlag);
+
+  this.obstacleIndex.push(randomNumber);
+  pattern = laneIndex[randomNumber - 1].split("");
+  // console.log(pattern);
+  console.log(this.obstacleIndex)
+
+  for (var i = 2; i >= 0; i--) {
+    //creating max two car object in single lane element
+    if (parseInt(pattern[i]) === 1) {
+      //create car if pattern value =1
+      var car = new Car(parentElement, 0, -(55 + 150) * index, 1).createCar();
+      this.otherCar.push(car);
+      //shifting position
+      if (i == 0) {
+        car.moveToLeftLane();
+      }
+      if (i == 1) {
+        car.moveToMiddleLane();
+      }
+      if (i == 2) {
+        car.moveToRightLane();
+      }
+    }
+
+  }
+
+
+}
+
+
 Game.prototype.animateLane = function () {
   var that = this;
 
   gameLoop = setInterval(function () {
-    that.roadElements.forEach((roadElement, index) => {
+    that.roadElements.forEach(function (roadElement, index) {
       //checking collision with main car
-      if (mainCar.x == that.otherCar[index].x) {
-        //check collision with other car in same line
-
-        that.checkCollision(that.otherCar[index]);
-      }
-
+      // if (mainCar.x == that.otherCar[index].x) {
+      //check collision with other car in same line
+      //that.checkCollision(that.otherCar[index]);
+      //  }
       //checking border for road element
       //if exceed reset its position
       if (roadElement.y >= 785) {
         roadElement.y = -200; //reset y into intial position
-
       }
-      if (that.otherCar[index].y >= 785) {
-        that.otherCar[index].y = -200;
-      }
-      that.otherCar[index].move(); //update position
       roadElement.move();
+    });
+
+    that.otherCar.forEach(function (car, index) {
+
+      if (car.y >= 785) {
+        car.y = 0;
+      }
+      car.move(); //update position
+
     });
   }, 1000 / FPS);
 
 }
+
+
 
 Game.prototype.checkCollision = function (otherCar) {
 
