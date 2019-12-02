@@ -194,6 +194,7 @@ function Game(parentElement) {
   this.ammoValueContainer = null;
   this.totalAmmo = 0;
   this.pointElement = null;
+  this.pointAmmoElement = null;
   this.gameStopFlag = false;
   this.gameTime = 0;
 
@@ -204,9 +205,16 @@ function Game(parentElement) {
     mainCarElement.moveToMiddleLane();
     this.mainCar = mainCarElement;
     var pointPop = document.createElement('div');
-    pointPop.classList.add('points');
+    pointPop.classList.add('hit-points');
     this.parentElement.appendChild(pointPop);
     this.pointElement = pointPop;
+
+    var pointAmmo = document.createElement('div');
+    pointAmmo.classList.add('hit-ammo');
+    this.parentElement.appendChild(pointAmmo);
+    this.pointAmmoElement = pointAmmo;
+
+
 
 
 
@@ -431,13 +439,23 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
         this.gameStopFlag = true;
         //move to
         //showing game over screen
-        tryAgainContainer();
+        this.tryAgainContainer();
         this.storeScore();
       } else if (otherCar.flag == 2) {
         //ammo increase
         this.totalAmmo += 1;
         console.log("poinst up");
+        //create point element
+        this.pointAmmoElement.style.left = (otherCar.x + otherCar.width / 2 - 10) + 'px';
+        this.pointAmmoElement.style.top = (otherCar.y + otherCar.height / 2) + 'px';
+        this.pointAmmoElement.style.display = 'block';
+        this.pointAmmoElement.innerText = '+1';
+        setTimeout(function () {
+          this.pointAmmoElement.style.display = 'none';
+        }.bind(this), 210);
+
         this.ammoValueContainer.innerText = this.totalAmmo;
+
         this.otherCar = this.otherCar.filter(function (element) {
           return element != otherCar;
         }.bind(this));
@@ -531,7 +549,7 @@ function playSFX(src, loop) {
   return audio;
 }
 
-function tryAgainContainer() {
+Game.prototype.tryAgainContainer = function () {
   console.log("try again called")
   var mainContainer = document.createElement('div');
   mainContainer.classList.add('game-over-container');
@@ -545,7 +563,7 @@ function tryAgainContainer() {
   subHeading.innerText = 'your score';
   var scoreValue = document.createElement('div');
   scoreValue.classList.add('score-value');
-  //scoreValue.innerText = gameScore;
+  scoreValue.innerText = this.gameScore;
   var tryAgain = document.createElement('div');
   tryAgain.classList.add('try-again');
 
