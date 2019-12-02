@@ -86,17 +86,16 @@ Road.prototype.draw = function () {
 }
 
 
-function Car(parentElement, x, y, flag, currentRoadSegment) {
+function Car(parentElement, x, y, flag) {
   this.x = x;
   this.y = y;
   this.width = 52;
   this.height = 105;
   this.element = null;
   this.currentLane = 0;
-  this.currentRoadSegment = currentRoadSegment || 0;
   this.parent = parentElement;
   this.flag = flag || 0; //0 mean main car and 1 mean obstacle car
-  this.dy = UPDATE_Y;
+  this.dy = 7;
 }
 Car.prototype.createCar = function () {
   var car = document.createElement('div');
@@ -126,7 +125,7 @@ Car.prototype.draw = function () {
 }
 Car.prototype.moveY = function () {
 
-  this.y += UPDATE_Y;
+  this.y += this.dy;
   this.draw();
 }
 Car.prototype.moveTo = function (valuex) {
@@ -188,12 +187,6 @@ Car.prototype.laneSwitchAnimation = function (temp) {
   var dx = 10;
   laneInterval = setInterval(function () {
     steps += dx;
-    // if (temp === 0) {
-    //   that.x -= dx;
-    // } else {
-    //   that.x += dx;
-    // }
-    // that.draw();
     if (steps >= 35) {
       clearInterval(laneInterval);
       audio.pause();
@@ -268,7 +261,7 @@ function Game(parentElement) {
         bullet.fire();
         this.bullets.push(bullet);
 
-        //check collision
+
       }
 
     }.bind(this));
@@ -276,47 +269,18 @@ function Game(parentElement) {
   }
 }
 
-Game.prototype.generateObstacle = function (index, temp) {
-  var pattern = [];
-  var randomNumber;
-  var obstacleFlag = false;
-  do {
-
-    randomNumber = Math.floor(Math.random() * 6) + 1;
-    //comparing with previous random no;
-    //ORing random number and less than 7 accept
-    if (this.obstacleIndex.length == 0) {
-      //its mean first car pattern no to check with other
-      obstacleFlag = true;
+Game.prototype.generateObstacle = function (index) {
 
 
-    } else {
-      //ORing  current pattern with previous pattern 
-      var oring = randomNumber | this.obstacleIndex[index - 1];
-      if (oring < 6) {
-        //mean space for main car to passby obstacle
-        //  if(this.obstacleIndex.indexOf)
-        obstacleFlag = true;
-
-      }
-    }
-
-  } while (!obstacleFlag);
-
-  this.obstacleIndex.push(randomNumber);
-
-  pattern = laneIndex[randomNumber - 1].split("");
-
-
-
-  var currentRoadSegment = index || temp;
-
+  var random = Math.floor(Math.random() * 6);
+  console.log(random)
+  var pattern = laneIndex[random].split("");
 
   for (var i = 2; i >= 0; i--) {
     //creating max two car object in single lane element
     if (parseInt(pattern[i]) === 1) {
       //create car if pattern value =1
-      var car = new Car(parentElement, 0, -(55 + 350) * index - 80, 1, currentRoadSegment).createCar();
+      var car = new Car(parentElement, 0, -380 * index, 1).createCar();
       this.otherCar.push(car);
       //shifting position
       if (i == 0) {
@@ -335,37 +299,7 @@ Game.prototype.generateObstacle = function (index, temp) {
 
 }
 
-Game.prototype.updateObstaclePosition = function (car) {
-
-
-
-  if (car.currentRoadSegment == counter) {
-    this.obstacleIndex.shift();
-
-
-    this.otherCar = this.otherCar.filter(function (element) {
-
-      if (element.currentRoadSegment === car.currentRoadSegment) {
-
-        element.delete();
-      }
-      return element.currentRoadSegment != car.currentRoadSegment;
-    }.bind(this));
-
-
-
-    this.generateObstacle(0, car.currentRoadSegment);
-    counter = (counter + 1) % 3;
-  }
-
-}
-
-
-
 Game.prototype.animateLane = function () {
-  var that = this;
-
-
   gameLoop = setInterval(function () {
     //make car move faster after each 15 sec
 
@@ -376,26 +310,40 @@ Game.prototype.animateLane = function () {
     this.roadElements.forEach(function (roadElement, index) {
       if (roadElement.y >= 785) {
         roadElement.y = -200; //reset y into intial position
+        this.generateObstacle(3);
       }
+
       roadElement.moveY();
     }.bind(this));
 
     this.otherCar.forEach(function (car, otherCarIndex) {
-
       this.checkCollision(mainCar, car, 0);
+
       if (this.bullets.length != 0) {
         //  console.log("checking bullet");
         this.bullets.forEach(function (element, index) {
           this.checkCollision(element, car, 1);
         }.bind(this));
       }
+      if (car.y >= 800) {
+        //remove car
+        car.element.remove();
+        this.otherCar = this.otherCar.filter(function (element) {
+          return element != car;
+        }.bind(this));
 
-      if (car.y >= 785 + 220) {
-        gameScore += 5;
-        scoreContainer.innerText = gameScore;
-        this.updateObstaclePosition(car);
+
       }
 
+      if (this.otherCar.length == 0) {
+        //regenerate all car
+        this.obstacleIndex = [];
+        console.log("car regneraterd")
+        for (var i = 0; i < 3; i++) {
+          this.generateObstacle(i);
+
+        }
+      }
       car.moveY(); //update position
 
     }.bind(this));
@@ -413,8 +361,6 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
 
   //flag 0 checking main car with others 1 bullet and other cars
   var mainObject = mainObject;
-  console.log("collision checking" + mainObject)
-
   if (mainObject.x < otherCar.x + otherCar.width &&
     mainObject.x + mainObject.width > otherCar.x &&
     mainObject.y < otherCar.y + otherCar.height &&
@@ -424,7 +370,6 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
       //terminate game
       playSFX('./audio/car-crash.ogg', false)
       clearInterval(laneInterval);
-      console.log("collision")
       gameStopFlag = false;
       //move to
       clearInterval(gameLoop);
@@ -434,8 +379,6 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
     }
     if (flag == 1) {
       //bullet impact with other object
-      //  console.log("bullet impact");
-
       //remove other car from list and dom
       this.otherCar = this.otherCar.filter(function (element) {
         return element != otherCar;
@@ -449,7 +392,7 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
       mainObject.element.remove();
 
 
-      //remove bullet from bullet list and dom
+
     }
 
 
