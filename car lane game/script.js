@@ -5,7 +5,7 @@ var LEFT_LANE_POSITION = (157 + 72);
 var MIDDLE_LANE_POSITION = LEFT_LANE_POSITION + LANE_SHIFT;
 var RIGHT_LANE_POSITION = MIDDLE_LANE_POSITION + LANE_SHIFT;
 var FPS = 60;
-var UPDATE_Y = 5;
+var UPDATE_Y = 6;
 var gameLoop = null;
 var gameStopFlag = true; //true means game is not stopped
 var carHeight = 110;
@@ -18,6 +18,44 @@ var laneIndex = ['001', '010', '011', '100', '101', '110'];
 var counter = 0; //to prevent two car of same road section to call obstacle generate function
 var laneInterval = null;
 var mainCar = null;
+
+
+function Bullet(x, y, parent) {
+  this.x = x;
+  this.y = y;
+  this.height = 50;
+  this.width = 10;
+  this.element = null;
+  this.parent = parent;
+
+}
+Bullet.prototype.create = function () {
+
+  var bullet = document.createElement('div');
+  bullet.classList.add('bullet');
+  bullet.style.top = this.y + 'px';
+  bullet.style.left = (this.x + 26) + 'px';
+  this.element = bullet;
+  this.parent.appendChild(bullet);
+  return this;
+}
+Bullet.prototype.move = function () {
+  this.y -= 5;
+  this.draw();
+}
+Bullet.prototype.draw = function () {
+  this.element.style.top = this.y + 'px';
+}
+Bullet.prototype.fire = function () {
+  var fireInterval = setInterval(function () {
+    console.log("fire")
+    this.move();
+  }.bind(this), 16);
+  setTimeout(function () {
+    clearInterval(fireInterval);
+  }.bind(this), 5000);
+
+}
 
 
 
@@ -148,22 +186,20 @@ Car.prototype.laneSwitchAnimation = function (temp) {
   var audio = playSFX('./audio/cardrift.mp3', false);
   var steps = 0;
   var dx = 10;
-  var that = this;
   laneInterval = setInterval(function () {
-      steps += dx;
-      // if (temp === 0) {
-      //   that.x -= dx;
-      // } else {
-      //   that.x += dx;
-      // }
-      // that.draw();
-      if (steps >= 35) {
-        clearInterval(laneInterval);
-        audio.pause();
-        that.element.style.transform = 'rotate(0deg)';
-      }
-    },
-    23);
+    steps += dx;
+    // if (temp === 0) {
+    //   that.x -= dx;
+    // } else {
+    //   that.x += dx;
+    // }
+    // that.draw();
+    if (steps >= 35) {
+      clearInterval(laneInterval);
+      audio.pause();
+      this.element.style.transform = 'rotate(0deg)';
+    }
+  }.bind(this), 23);
 
 }
 
@@ -172,21 +208,32 @@ function Game(parentElement) {
   this.roadElements = [];
   this.otherCar = [];
   this.obstacleIndex = [];
+  this.highScore = 0;
+  this.highScoreContainer = null;
+  this.bullets = [];
 
 
 
   Game.prototype.init = function () {
-    console.log("hight score" + localStorage.getItem('highScore'))
+    this.highScore = localStorage.getItem('highScore');
+
     //creating main car
     mainCar = new Car(parentElement, 10, 655).createCar();
     mainCar.moveToMiddleLane();
     console.log(mainCar);
 
-    //creating game element
+    //creating score element
     scoreContainer = document.createElement('div');
     scoreContainer.classList.add('score-top');
     scoreContainer.innerText = '0';
-    parentElement.appendChild(scoreContainer);
+    parentElement.appendChild(scoreContainer)
+    //creating high score element
+    var highScoreCont = document.createElement('div');
+    highScoreCont.classList.add('high-score');
+    highScoreCont.innerText = this.highScore;
+    parentElement.appendChild(highScoreCont);
+    this.highScoreContainer = highScoreCont;
+
     //road asset creation
     for (var i = 0; i < 3; i++) {
       var lane = new Road(parentElement, 0, (270 + 50) * i)
@@ -199,14 +246,13 @@ function Game(parentElement) {
 
     document.addEventListener("keypress", function (event) {
       console.log("key press");
-      console.log(mainCar);
-      var that = this;
+      //  console.log(mainCar);
+
       //a=97 d =100
       //for a event handling
       // if (gameStopFlag) {
       if (event.keyCode == 97 && mainCar.currentLane != 1) {
         //console.log("moving to left");
-
         mainCar.steerLeft();
 
       }
@@ -214,9 +260,18 @@ function Game(parentElement) {
         // console.log("moving to right");
         mainCar.steerRight();
       }
-      // }
 
-    });
+      if (event.keyCode == 32) {
+        console.log("bullet fire")
+        //fire bullet
+        var bullet = new Bullet(mainCar.x, mainCar.y, parentElement).create();
+        bullet.fire();
+        this.bullets.push(bullet);
+
+        //check collision
+      }
+
+    }.bind(this));
 
   }
 }
@@ -262,8 +317,6 @@ Game.prototype.generateObstacle = function (index, temp) {
     if (parseInt(pattern[i]) === 1) {
       //create car if pattern value =1
       var car = new Car(parentElement, 0, -(55 + 350) * index - 80, 1, currentRoadSegment).createCar();
-
-
       this.otherCar.push(car);
       //shifting position
       if (i == 0) {
@@ -297,7 +350,7 @@ Game.prototype.updateObstaclePosition = function (car) {
         element.delete();
       }
       return element.currentRoadSegment != car.currentRoadSegment;
-    });
+    }.bind(this));
 
 
 
@@ -320,53 +373,84 @@ Game.prototype.animateLane = function () {
       UPDATE_Y += 0.5;
     }
 
-    that.roadElements.forEach(function (roadElement, index) {
-      //checking collision with main car
-      // if (mainCar.x == that.otherCar[index].x) {
-      //check collision with other car in same line
-      that.checkCollision(that.otherCar[index]);
-      // }
-      //checking border for road element
-      //if exceed reset its position
+    this.roadElements.forEach(function (roadElement, index) {
       if (roadElement.y >= 785) {
         roadElement.y = -200; //reset y into intial position
       }
       roadElement.moveY();
-    });
-    that.otherCar.forEach(function (car, index) {
-      if (car.y >= 785 + 250) {
+    }.bind(this));
+
+    this.otherCar.forEach(function (car, otherCarIndex) {
+
+      this.checkCollision(mainCar, car, 0);
+      if (this.bullets.length != 0) {
+        //  console.log("checking bullet");
+        this.bullets.forEach(function (element, index) {
+          this.checkCollision(element, car, 1);
+        }.bind(this));
+      }
+
+      if (car.y >= 785 + 220) {
         gameScore += 5;
         scoreContainer.innerText = gameScore;
-        that.updateObstaclePosition(car);
+        this.updateObstaclePosition(car);
       }
+
       car.moveY(); //update position
-    });
+
+    }.bind(this));
+
+    //checking collision 
     //update game time
     gameTime += Math.ceil((1000 / FPS) / 1000);
-  }, 1000 / FPS);
+  }.bind(this), 1000 / FPS);
 
 }
 
 
 
-Game.prototype.checkCollision = function (otherCar) {
+Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
 
-  if (mainCar.x < otherCar.x + otherCar.width &&
-    mainCar.x + mainCar.width > otherCar.x &&
-    mainCar.y < otherCar.y + otherCar.height &&
-    mainCar.y + otherCar.height > otherCar.y) {
+  //flag 0 checking main car with others 1 bullet and other cars
+  var mainObject = mainObject;
+  console.log("collision checking" + mainObject)
 
-    //terminate game
-    playSFX('./audio/car-crash.ogg', false)
-    clearInterval(laneInterval);
-    console.log("collision")
-    gameStopFlag = false;
-    //move to
-    clearInterval(gameLoop);
-    //showing game over screen
-    tryAgainContainer();
-    this.storeScore();
+  if (mainObject.x < otherCar.x + otherCar.width &&
+    mainObject.x + mainObject.width > otherCar.x &&
+    mainObject.y < otherCar.y + otherCar.height &&
+    mainObject.y + otherCar.height > otherCar.y) {
+    console.log('impact')
+    if (flag == 0) {
+      //terminate game
+      playSFX('./audio/car-crash.ogg', false)
+      clearInterval(laneInterval);
+      console.log("collision")
+      gameStopFlag = false;
+      //move to
+      clearInterval(gameLoop);
+      //showing game over screen
+      tryAgainContainer();
+      this.storeScore();
+    }
+    if (flag == 1) {
+      //bullet impact with other object
+      //  console.log("bullet impact");
 
+      //remove other car from list and dom
+      this.otherCar = this.otherCar.filter(function (element) {
+        return element != otherCar;
+      }.bind(this));
+      otherCar.element.remove();
+
+
+      this.bullets = this.bullets.filter(function (element) {
+        return element != mainObject;
+      }.bind(this));
+      mainObject.element.remove();
+
+
+      //remove bullet from bullet list and dom
+    }
 
 
   }
@@ -448,6 +532,12 @@ function tryAgainContainer() {
   parentElement.appendChild(mainContainer);
 
   tryAgain.addEventListener('click', function () {
+    // var allElement = parentElement.querySelectorAll('div');
+    // console.log(allElement);
+    // allElement.forEach(function (element) {
+    //   element.remove();
+    // });
+    // startScreen()
     location.reload();
 
   });

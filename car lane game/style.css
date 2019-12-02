@@ -103,7 +103,7 @@ body {
   padding-right: 30px;
 }
 
-.timer-top {
+.high-score {
   position: absolute;
   top: 10px;
   left: 30px;
@@ -234,4 +234,15 @@ body {
   text-align: center;
   padding-top: 50px;
   padding-bottom: 20px;
+}
+
+.bullet {
+  height: 50px;
+  width: 10px;
+  background-color: white;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 50;
+
 }
