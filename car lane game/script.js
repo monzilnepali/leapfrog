@@ -5,20 +5,16 @@ var LEFT_LANE_POSITION = (157 + 72);
 var MIDDLE_LANE_POSITION = LEFT_LANE_POSITION + LANE_SHIFT;
 var RIGHT_LANE_POSITION = MIDDLE_LANE_POSITION + LANE_SHIFT;
 var FPS = 60;
-var UPDATE_Y = 6;
 var gameLoop = null;
-var gameStopFlag = true; //true means game is not stopped
 var carHeight = 110;
 var carWidth = 55;
 var distanceBetweenCar = 0;
-var gameScore = 0;
-var scoreContainer = null;
 var gameTime = 0;
 var laneIndex = ['001', '010', '011', '100', '101', '110'];
 var counter = 0; //to prevent two car of same road section to call obstacle generate function
 var laneInterval = null;
-var mainCar = null;
 
+var eventListener = null;
 
 function Bullet(x, y, parent) {
   this.x = x;
@@ -39,21 +35,22 @@ Bullet.prototype.create = function () {
   this.parent.appendChild(bullet);
   return this;
 }
-Bullet.prototype.move = function () {
-  this.y -= 5;
-  this.draw();
-}
+// Bullet.prototype.move = function () {
+//   this.y -= 10;
+//   this.draw();
+// }
 Bullet.prototype.draw = function () {
   this.element.style.top = this.y + 'px';
 }
 Bullet.prototype.fire = function () {
-  var fireInterval = setInterval(function () {
-    console.log("fire")
-    this.move();
-  }.bind(this), 16);
-  setTimeout(function () {
-    clearInterval(fireInterval);
-  }.bind(this), 5000);
+
+  // var fireInterval = setInterval(function () {
+  //   console.log("fire")
+  //   this.move();
+  // }.bind(this), 16);
+  // setTimeout(function () {
+  //   clearInterval(fireInterval);
+  // }.bind(this), 5000);
 
 }
 
@@ -77,25 +74,21 @@ Road.prototype.create = function () {
   this.element = lanDiv
   this.parent.appendChild(lanDiv)
 }
-Road.prototype.moveY = function () {
-  this.y += UPDATE_Y;
-  this.draw();
-}
+
 Road.prototype.draw = function () {
   this.element.style.top = this.y + 'px';
 }
 
 
-function Car(parentElement, x, y, flag) {
+function Car(parentElement, x, y, flag, width, height) {
   this.x = x;
   this.y = y;
-  this.width = 52;
-  this.height = 105;
+  this.width = width || 52;
+  this.height = height || 105;
   this.element = null;
   this.currentLane = 0;
   this.parent = parentElement;
   this.flag = flag || 0; //0 mean main car and 1 mean obstacle car
-  this.dy = 7;
 }
 Car.prototype.createCar = function () {
   var car = document.createElement('div');
@@ -108,6 +101,8 @@ Car.prototype.createCar = function () {
   }
   car.style.left = this.x + 'px';
   car.style.top = this.y + 'px';
+  car.style.width = this.width + 'px';
+  car.style.height = this.height + 'px';
   this.element = car;
   this.parent.appendChild(car);
   return this;
@@ -123,11 +118,7 @@ Car.prototype.draw = function () {
   this.element.style.top = this.y + 'px';
 
 }
-Car.prototype.moveY = function () {
 
-  this.y += this.dy;
-  this.draw();
-}
 Car.prototype.moveTo = function (valuex) {
   this.x = valuex;
   this.draw();
@@ -184,9 +175,10 @@ Car.prototype.steerRight = function () {
 Car.prototype.laneSwitchAnimation = function (temp) {
   var audio = playSFX('./audio/cardrift.mp3', false);
   var steps = 0;
-  var dx = 10;
+  var dx = 6;
   laneInterval = setInterval(function () {
     steps += dx;
+
     if (steps >= 35) {
       clearInterval(laneInterval);
       audio.pause();
@@ -198,131 +190,132 @@ Car.prototype.laneSwitchAnimation = function (temp) {
 
 
 function Game(parentElement) {
+  this.mainCar = null;
+  this.parentElement = parentElement;
   this.roadElements = [];
   this.otherCar = [];
-  this.obstacleIndex = [];
   this.highScore = 0;
-  this.highScoreContainer = null;
   this.bullets = [];
+  this.speed = 7;
+  this.bulletSpeed = 8;
+  this.gameScore = 0;
+  this.scoreContainer = null;
+  this.highScoreContainer = null;
+  this.pointElement = null;
+  this.gameStopFlag = false;
 
 
 
   Game.prototype.init = function () {
     this.highScore = localStorage.getItem('highScore');
+    var mainCarElement = new Car(this.parentElement, 10, 655, 0, 53, 132).createCar();
+    mainCarElement.moveToMiddleLane();
+    this.mainCar = mainCarElement;
+    var pointPop = document.createElement('div');
+    pointPop.classList.add('points');
+    this.parentElement.appendChild(pointPop);
+    this.pointElement = pointPop;
 
-    //creating main car
-    mainCar = new Car(parentElement, 10, 655).createCar();
-    mainCar.moveToMiddleLane();
-    console.log(mainCar);
+
 
     //creating score element
-    scoreContainer = document.createElement('div');
+    var scoreContainer = document.createElement('div');
     scoreContainer.classList.add('score-top');
     scoreContainer.innerText = '0';
-    parentElement.appendChild(scoreContainer)
+    this.scoreContainer = scoreContainer;
+    this.parentElement.appendChild(scoreContainer)
     //creating high score element
     var highScoreCont = document.createElement('div');
     highScoreCont.classList.add('high-score');
     highScoreCont.innerText = this.highScore;
-    parentElement.appendChild(highScoreCont);
+    this.parentElement.appendChild(highScoreCont);
     this.highScoreContainer = highScoreCont;
 
     //road asset creation
     for (var i = 0; i < 3; i++) {
-      var lane = new Road(parentElement, 0, (270 + 50) * i)
+      var lane = new Road(this.parentElement, 0, (270 + 50) * i)
       lane.create();
-      this.generateObstacle(i);
+      if (i == 0) {
+        this.generateObstacle(i);
+      }
       this.roadElements.push(lane);
     }
+
+
     this.animateLane();
     //car A D and event handler
 
-    document.addEventListener("keypress", function (event) {
+    document.addEventListener("keypress", eventListener = function (event) {
       console.log("key press");
-      //  console.log(mainCar);
-
       //a=97 d =100
-      //for a event handling
-      // if (gameStopFlag) {
-      if (event.keyCode == 97 && mainCar.currentLane != 1) {
-        //console.log("moving to left");
-        mainCar.steerLeft();
 
+      if (!this.gameStopFlag) {
+        if (event.keyCode == 97 && this.mainCar.currentLane != 1) {
+          //console.log("moving to left");
+          this.mainCar.steerLeft();
+        }
+        if (event.keyCode == 100 && this.mainCar.currentLane != 3) {
+          // console.log("moving to right");
+          this.mainCar.steerRight();
+        }
+        if (event.keyCode == 32) {
+          console.log("bullet fire")
+          //fire bullet
+          var bullet = new Bullet(this.mainCar.x, this.mainCar.y, this.parentElement).create();
+          bullet.fire();
+          this.bullets.push(bullet);
+        }
       }
-      if (event.keyCode == 100 && mainCar.currentLane != 3) {
-        // console.log("moving to right");
-        mainCar.steerRight();
-      }
-
-      if (event.keyCode == 32) {
-        console.log("bullet fire")
-        //fire bullet
-        var bullet = new Bullet(mainCar.x, mainCar.y, parentElement).create();
-        bullet.fire();
-        this.bullets.push(bullet);
-
-
-      }
-
     }.bind(this));
 
   }
 }
 
-Game.prototype.generateObstacle = function (index) {
-
-
-  var random = Math.floor(Math.random() * 6);
-  console.log(random)
-  var pattern = laneIndex[random].split("");
-
-  for (var i = 2; i >= 0; i--) {
-    //creating max two car object in single lane element
-    if (parseInt(pattern[i]) === 1) {
-      //create car if pattern value =1
-      var car = new Car(parentElement, 0, -380 * index, 1).createCar();
-      this.otherCar.push(car);
-      //shifting position
-      if (i == 0) {
-        car.moveToLeftLane();
-      }
-      if (i == 1) {
-        car.moveToMiddleLane();
-      }
-      if (i == 2) {
-        car.moveToRightLane();
-      }
-    }
-
-  }
-
-
-}
 
 Game.prototype.animateLane = function () {
   gameLoop = setInterval(function () {
     //make car move faster after each 15 sec
 
     if (gameTime % 500 == 0) {
-      UPDATE_Y += 0.5;
+      this.speed += 0.5;
     }
 
     this.roadElements.forEach(function (roadElement, index) {
-      if (roadElement.y >= 785) {
-        roadElement.y = -200; //reset y into intial position
-        this.generateObstacle(3);
-      }
+      if (roadElement.y >= 790) {
+        roadElement.y = -170; //reset y into intial position
+        this.generateObstacle(2);
+        console.log("obstacle generated")
 
-      roadElement.moveY();
+
+      }
+      roadElement.y += this.speed;
+      roadElement.draw();
+
     }.bind(this));
 
     this.otherCar.forEach(function (car, otherCarIndex) {
-      this.checkCollision(mainCar, car, 0);
+      this.checkCollision(this.mainCar, car, 0);
 
       if (this.bullets.length != 0) {
         //  console.log("checking bullet");
-        this.bullets.forEach(function (element, index) {
-          this.checkCollision(element, car, 1);
+        this.bullets.forEach(function (bullet, index) {
+          bullet.y -= this.speed;
+          bullet.draw();
+          if (bullet.x == car.x) {
+            this.checkCollision(bullet, car, 1);
+          }
+
+          if (bullet.y <= 20) {
+            console.log("bullet removed")
+            //remove the bullet element
+            this.bullets = this.bullets.filter(function (element1) {
+              return element1 != bullet;
+            }.bind(this));
+            bullet.element.remove();
+
+
+          }
+
         }.bind(this));
       }
       if (car.y >= 800) {
@@ -337,21 +330,56 @@ Game.prototype.animateLane = function () {
 
       if (this.otherCar.length == 0) {
         //regenerate all car
-        this.obstacleIndex = [];
         console.log("car regneraterd")
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 2; i++) {
           this.generateObstacle(i);
 
         }
       }
-      car.moveY(); //update position
+      car.y += this.speed
+      car.draw(); //update position
 
     }.bind(this));
+    //if bullet y=0 then remove it
 
-    //checking collision 
+
     //update game time
     gameTime += Math.ceil((1000 / FPS) / 1000);
   }.bind(this), 1000 / FPS);
+
+}
+
+
+Game.prototype.generateObstacle = function (index) {
+
+
+  var random = Math.floor(Math.random() * 6);
+  console.log(random)
+  var pattern = laneIndex[random].split("");
+
+  for (var i = 2; i >= 0; i--) {
+    //creating max two car object in single lane element
+    if (parseInt(pattern[i]) === 1) {
+      //create car if pattern value =1
+      var car = new Car(this.parentElement, 0, -170 * index, 1).createCar();
+      this.otherCar.push(car);
+      //shifting position
+      switch (i) {
+        case 0:
+          car.moveToLeftLane();
+          break;
+        case 1:
+          car.moveToMiddleLane();
+          break;
+        case 2:
+          car.moveToRightLane();
+          break;
+      }
+
+    }
+
+  }
+
 
 }
 
@@ -367,10 +395,12 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
     mainObject.y + otherCar.height > otherCar.y) {
     console.log('impact')
     if (flag == 0) {
+      // this.parentElement.removeEventListener('keypress', eventListener);
+      clearInterval(gameLoop);
       //terminate game
       playSFX('./audio/car-crash.ogg', false)
       clearInterval(laneInterval);
-      gameStopFlag = false;
+      this.gameStopFlag = true;
       //move to
       clearInterval(gameLoop);
       //showing game over screen
@@ -378,7 +408,22 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
       this.storeScore();
     }
     if (flag == 1) {
+      //removing event listenter
+
       //bullet impact with other object
+
+      //create point element
+      this.pointElement.style.left = (otherCar.x + otherCar.width / 2 - 10) + 'px';
+      this.pointElement.style.top = (otherCar.y + otherCar.height / 2) + 'px';
+      this.pointElement.style.display = 'block';
+      this.pointElement.innerText = '5';
+      setTimeout(function () {
+        this.pointElement.style.display = 'none';
+      }.bind(this), 210);
+
+      //increase point
+      this.gameScore += 5;
+      this.scoreContainer.innerText = this.gameScore;
       //remove other car from list and dom
       this.otherCar = this.otherCar.filter(function (element) {
         return element != otherCar;
@@ -405,14 +450,15 @@ Game.prototype.storeScore = function () {
   var prevScore = parseInt(localStorage.getItem('highScore'));
   console.log('prevstorage', prevScore);
 
-  if (gameScore > prevScore) {
-    localStorage.setItem('highScore', gameScore);
+  if (this.gameScore > prevScore) {
+    localStorage.setItem('highScore', this.gameScore);
   }
 
 
 }
 
 var parentElement = document.getElementById('app');
+
 var startElement = document.getElementById('start-btn');
 var scoreElement = document.getElementById('score-value');
 var gameOverElement = document.getElementById('game-over-container');
@@ -462,7 +508,7 @@ function tryAgainContainer() {
   subHeading.innerText = 'your score';
   var scoreValue = document.createElement('div');
   scoreValue.classList.add('score-value');
-  scoreValue.innerText = gameScore;
+  //scoreValue.innerText = gameScore;
   var tryAgain = document.createElement('div');
   tryAgain.classList.add('try-again');
 
