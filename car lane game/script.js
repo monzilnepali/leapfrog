@@ -1,4 +1,3 @@
-var mainCar = null;
 var WIDTH = 804;
 var HEIGHT = 780;
 var LANE_SHIFT = 72 * 2;
@@ -11,7 +10,6 @@ var gameLoop = null;
 var gameStopFlag = true; //true means game is not stopped
 var carHeight = 110;
 var carWidth = 55;
-var carLaneSwitch = false;
 var distanceBetweenCar = 0;
 var gameScore = 0;
 var scoreContainer = null;
@@ -19,28 +17,9 @@ var gameTime = 0;
 var laneIndex = ['001', '010', '011', '100', '101', '110'];
 var counter = 0; //to prevent two car of same road section to call obstacle generate function
 var laneInterval = null;
+var mainCar = null;
 
 
-//car A D and event handler
-
-document.addEventListener("keypress", function (event) {
-
-  //a=97 d =100
-  //for a event handling
-  if (gameStopFlag) {
-    if (event.keyCode == 97 && mainCar.currentLane != 1) {
-      //console.log("moving to left");
-
-      mainCar.steerLeft();
-
-    }
-    if (event.keyCode == 100 && mainCar.currentLane != 3) {
-      // console.log("moving to right");
-      mainCar.steerRight();
-    }
-  }
-
-});
 
 function Road(parent, x, y) {
   this.x = x;
@@ -142,10 +121,11 @@ Car.prototype.steerLeft = function () {
   //decreasing value of x
   //if current lane index =1 mean end of road from left side
   if (this.currentLane != 1) {
-    // this.x = this.x - LANE_SHIFT;
+    this.x = this.x - LANE_SHIFT;
     this.currentLane = this.currentLane - 1;
     this.element.style.transform = 'rotate(-40deg)';
     this.laneSwitchAnimation(0);
+    this.draw();
 
   }
 
@@ -155,29 +135,29 @@ Car.prototype.steerLeft = function () {
 Car.prototype.steerRight = function () {
   //if current lane index =3 mean end of road from right side
   if (this.currentLane != 3) {
-    //this.x = this.x + LANE_SHIFT;
+    this.x = this.x + LANE_SHIFT;
     this.currentLane = this.currentLane + 1;
     this.element.style.transform = 'rotate(40deg)';
     this.laneSwitchAnimation(1);
+    this.draw();
 
   }
 }
 
 Car.prototype.laneSwitchAnimation = function (temp) {
   var audio = playSFX('./audio/cardrift.mp3', false);
-
   var steps = 0;
-  var dx = 20;
+  var dx = 10;
   var that = this;
   laneInterval = setInterval(function () {
       steps += dx;
-      if (temp === 0) {
-        that.x -= dx;
-      } else {
-        that.x += dx;
-      }
-      that.draw();
-      if (steps >= LANE_SHIFT) {
+      // if (temp === 0) {
+      //   that.x -= dx;
+      // } else {
+      //   that.x += dx;
+      // }
+      // that.draw();
+      if (steps >= 35) {
         clearInterval(laneInterval);
         audio.pause();
         that.element.style.transform = 'rotate(0deg)';
@@ -194,10 +174,13 @@ function Game(parentElement) {
   this.obstacleIndex = [];
 
 
+
   Game.prototype.init = function () {
+    console.log("hight score" + localStorage.getItem('highScore'))
     //creating main car
     mainCar = new Car(parentElement, 10, 655).createCar();
     mainCar.moveToMiddleLane();
+    console.log(mainCar);
 
     //creating game element
     scoreContainer = document.createElement('div');
@@ -211,9 +194,30 @@ function Game(parentElement) {
       this.generateObstacle(i);
       this.roadElements.push(lane);
     }
-
-
     this.animateLane();
+    //car A D and event handler
+
+    document.addEventListener("keypress", function (event) {
+      console.log("key press");
+      console.log(mainCar);
+      var that = this;
+      //a=97 d =100
+      //for a event handling
+      // if (gameStopFlag) {
+      if (event.keyCode == 97 && mainCar.currentLane != 1) {
+        //console.log("moving to left");
+
+        mainCar.steerLeft();
+
+      }
+      if (event.keyCode == 100 && mainCar.currentLane != 3) {
+        // console.log("moving to right");
+        mainCar.steerRight();
+      }
+      // }
+
+    });
+
   }
 }
 
@@ -311,13 +315,11 @@ Game.prototype.animateLane = function () {
 
   gameLoop = setInterval(function () {
     //make car move faster after each 15 sec
-    console.log(gameTime)
+
     if (gameTime % 500 == 0) {
       UPDATE_Y += 0.5;
-      console.log("updarted y" + UPDATE_Y)
     }
 
-    console.log(gameTime);
     that.roadElements.forEach(function (roadElement, index) {
       //checking collision with main car
       // if (mainCar.x == that.otherCar[index].x) {
@@ -355,29 +357,31 @@ Game.prototype.checkCollision = function (otherCar) {
     mainCar.y + otherCar.height > otherCar.y) {
 
     //terminate game
-    clearInterval(laneInterval);
     playSFX('./audio/car-crash.ogg', false)
-
-    // if (mainCar.x < otherCar.x) {
-    //   console.log("main car" + mainCar.x)
-    //   console.log("main car" + otherCar.x)
-    //   console.log("right")
-    //   mainCar.moveTo(otherCar.x - otherCar.width)
-    // } else {
-    //   console.log("main car" + mainCar.x)
-    //   console.log("main car" + otherCar.x)
-    //   console.log("left")
-    //   mainCar.moveTo(otherCar.x + otherCar.width)
-    // }
-
+    clearInterval(laneInterval);
+    console.log("collision")
     gameStopFlag = false;
     //move to
     clearInterval(gameLoop);
     //showing game over screen
     tryAgainContainer();
+    this.storeScore();
+
 
 
   }
+
+}
+
+Game.prototype.storeScore = function () {
+
+  var prevScore = parseInt(localStorage.getItem('highScore'));
+  console.log('prevstorage', prevScore);
+
+  if (gameScore > prevScore) {
+    localStorage.setItem('highScore', gameScore);
+  }
+
 
 }
 
@@ -388,7 +392,6 @@ var gameOverElement = document.getElementById('game-over-container');
 var tryAgainElement = document.getElementById('try-again');
 
 function startScreen() {
-
 
   //start screen
   var startContainer = document.createElement('div');
@@ -401,6 +404,7 @@ function startScreen() {
   parentElement.appendChild(startContainer);
   startElement.addEventListener('click', function () {
 
+    console.log("start")
     var game = new Game(parentElement);
     startElement.parentElement.style.display = 'none';
     game.init()
@@ -418,6 +422,7 @@ function playSFX(src, loop) {
 }
 
 function tryAgainContainer() {
+
   var mainContainer = document.createElement('div');
   mainContainer.classList.add('game-over-container');
   var mainWrapper = document.createElement('div');
@@ -443,15 +448,7 @@ function tryAgainContainer() {
   parentElement.appendChild(mainContainer);
 
   tryAgain.addEventListener('click', function () {
-
-    //resetting all global variable
-    counter = 0;
-    gameScore = 0;
-    //remove all element from parentElement
-    parentElement.innerHTML = "";
-    var game = new Game(parentElement);
-    gameStopFlag = true;
-    game.init();
+    location.reload();
 
   });
 
