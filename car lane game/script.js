@@ -5,16 +5,9 @@ var LEFT_LANE_POSITION = (157 + 72);
 var MIDDLE_LANE_POSITION = LEFT_LANE_POSITION + LANE_SHIFT;
 var RIGHT_LANE_POSITION = MIDDLE_LANE_POSITION + LANE_SHIFT;
 var FPS = 60;
-var gameLoop = null;
 var carHeight = 110;
 var carWidth = 55;
-var distanceBetweenCar = 0;
-var gameTime = 0;
-var laneIndex = ['001', '010', '011', '100', '101', '110'];
-var counter = 0; //to prevent two car of same road section to call obstacle generate function
-var laneInterval = null;
-
-var eventListener = null;
+var laneIndex = ['001', '010', '100', '011', '101'];
 
 function Bullet(x, y, parent) {
   this.x = x;
@@ -41,17 +34,6 @@ Bullet.prototype.create = function () {
 // }
 Bullet.prototype.draw = function () {
   this.element.style.top = this.y + 'px';
-}
-Bullet.prototype.fire = function () {
-
-  // var fireInterval = setInterval(function () {
-  //   console.log("fire")
-  //   this.move();
-  // }.bind(this), 16);
-  // setTimeout(function () {
-  //   clearInterval(fireInterval);
-  // }.bind(this), 5000);
-
 }
 
 
@@ -92,12 +74,19 @@ function Car(parentElement, x, y, flag, width, height) {
 }
 Car.prototype.createCar = function () {
   var car = document.createElement('div');
-  if (this.flag == 0) {
-    car.classList.add('main-car');
-  } else {
-    car.classList.add('other-car');
-    var randomCar = Math.floor(Math.random() * 5) + 1;
-    car.style.backgroundImage = 'url(./images/assets/car-' + randomCar + '.png)';
+  switch (this.flag) {
+    case 0:
+      car.classList.add('main-car');
+      break;
+    case 1:
+      car.classList.add('other-car');
+      var randomCar = Math.floor(Math.random() * 5) + 1;
+      car.style.backgroundImage = 'url(./images/assets/car-' + randomCar + '.png)';
+      break;
+    case 2:
+      car.classList.add('ammo-box');
+      break;
+
   }
   car.style.left = this.x + 'px';
   car.style.top = this.y + 'px';
@@ -151,7 +140,7 @@ Car.prototype.steerLeft = function () {
   if (this.currentLane != 1) {
     this.x = this.x - LANE_SHIFT;
     this.currentLane = this.currentLane - 1;
-    this.element.style.transform = 'rotate(-40deg)';
+    this.element.style.transform = 'rotate(-30deg)';
     this.laneSwitchAnimation(0);
     this.draw();
 
@@ -165,7 +154,7 @@ Car.prototype.steerRight = function () {
   if (this.currentLane != 3) {
     this.x = this.x + LANE_SHIFT;
     this.currentLane = this.currentLane + 1;
-    this.element.style.transform = 'rotate(40deg)';
+    this.element.style.transform = 'rotate(30deg)';
     this.laneSwitchAnimation(1);
     this.draw();
 
@@ -176,7 +165,7 @@ Car.prototype.laneSwitchAnimation = function (temp) {
   var audio = playSFX('./audio/cardrift.mp3', false);
   var steps = 0;
   var dx = 6;
-  laneInterval = setInterval(function () {
+  var laneInterval = setInterval(function () {
     steps += dx;
 
     if (steps >= 35) {
@@ -196,14 +185,17 @@ function Game(parentElement) {
   this.otherCar = [];
   this.highScore = 0;
   this.bullets = [];
+  this.gameLoop = null;
   this.speed = 7;
   this.bulletSpeed = 8;
   this.gameScore = 0;
   this.scoreContainer = null;
   this.highScoreContainer = null;
+  this.ammoValueContainer = null;
+  this.totalAmmo = 0;
   this.pointElement = null;
   this.gameStopFlag = false;
-
+  this.gameTime = 0;
 
 
   Game.prototype.init = function () {
@@ -231,6 +223,13 @@ function Game(parentElement) {
     this.parentElement.appendChild(highScoreCont);
     this.highScoreContainer = highScoreCont;
 
+
+    var ammoContainer = document.createElement('div');
+    ammoContainer.classList.add('ammo-container');
+    ammoContainer.innerText = "0";
+    this.parentElement.appendChild(ammoContainer);
+    this.ammoValueContainer = ammoContainer;
+
     //road asset creation
     for (var i = 0; i < 3; i++) {
       var lane = new Road(this.parentElement, 0, (270 + 50) * i)
@@ -245,8 +244,8 @@ function Game(parentElement) {
     this.animateLane();
     //car A D and event handler
 
-    document.addEventListener("keypress", eventListener = function (event) {
-      console.log("key press");
+    document.addEventListener("keypress", function (event) {
+
       //a=97 d =100
 
       if (!this.gameStopFlag) {
@@ -259,11 +258,18 @@ function Game(parentElement) {
           this.mainCar.steerRight();
         }
         if (event.keyCode == 32) {
-          console.log("bullet fire")
-          //fire bullet
-          var bullet = new Bullet(this.mainCar.x, this.mainCar.y, this.parentElement).create();
-          bullet.fire();
-          this.bullets.push(bullet);
+
+          //checking if there is bullet available
+          if (this.totalAmmo != 0) {
+            console.log("bullet fire");
+            var bullet = new Bullet(this.mainCar.x, this.mainCar.y, this.parentElement).create();
+            //bullet.fire();
+            this.bullets.push(bullet);
+            this.totalAmmo--;
+            this.ammoValueContainer.innerText = this.totalAmmo;
+          }
+
+
         }
       }
     }.bind(this));
@@ -273,18 +279,26 @@ function Game(parentElement) {
 
 
 Game.prototype.animateLane = function () {
-  gameLoop = setInterval(function () {
+  this.gameLoop = setInterval(function () {
     //make car move faster after each 15 sec
 
-    if (gameTime % 500 == 0) {
-      this.speed += 0.5;
+    if (this.gameTime % 1000 <= 50) {
+      this.speed += 0.005;
+      // console.log("time" + Math.floor(this.gameTime / 1000) + "second");
     }
+
 
     this.roadElements.forEach(function (roadElement, index) {
       if (roadElement.y >= 790) {
         roadElement.y = -170; //reset y into intial position
-        this.generateObstacle(2);
-        console.log("obstacle generated")
+        if (this.gameTime % 128 == 0) {
+          //generate ammo element
+          this.generateObstacle(2, 2); //2 =amm0 generation
+          console.log("ammo created")
+        } else {
+          this.generateObstacle(2);
+        }
+        //  console.log("obstacle generated")
 
 
       }
@@ -344,24 +358,38 @@ Game.prototype.animateLane = function () {
 
 
     //update game time
-    gameTime += Math.ceil((1000 / FPS) / 1000);
-  }.bind(this), 1000 / FPS);
+    this.gameTime += Math.floor((1000 / FPS));
+  }.bind(this), Math.floor(1000 / FPS));
 
 }
 
 
-Game.prototype.generateObstacle = function (index) {
+Game.prototype.generateObstacle = function (index, flag) {
+  //flag =0 maincar ,1 obstacles and 2 ammo box
+  var flag = flag || 1;
+  var pattern = [];
+
+  if (flag == 1) {
+    var random = Math.floor(Math.random() * 5);
+    pattern = laneIndex[random].split("");
+  } else if (flag == 2) {
+    var random = Math.floor(Math.random() * 3);
+    pattern = laneIndex[random].split("");
+  }
 
 
-  var random = Math.floor(Math.random() * 6);
-  console.log(random)
-  var pattern = laneIndex[random].split("");
 
   for (var i = 2; i >= 0; i--) {
     //creating max two car object in single lane element
     if (parseInt(pattern[i]) === 1) {
       //create car if pattern value =1
-      var car = new Car(this.parentElement, 0, -170 * index, 1).createCar();
+      var car = null;
+      if (flag == 2) {
+        car = new Car(this.parentElement, 0, -200 * index, flag, 60, 60).createCar();
+      } else {
+        car = new Car(this.parentElement, 0, -200 * index, flag).createCar();
+      }
+
       this.otherCar.push(car);
       //shifting position
       switch (i) {
@@ -393,21 +421,30 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
     mainObject.x + mainObject.width > otherCar.x &&
     mainObject.y < otherCar.y + otherCar.height &&
     mainObject.y + otherCar.height > otherCar.y) {
-    console.log('impact')
+
     if (flag == 0) {
-      // this.parentElement.removeEventListener('keypress', eventListener);
-      clearInterval(gameLoop);
-      //terminate game
-      playSFX('./audio/car-crash.ogg', false)
-      clearInterval(laneInterval);
-      this.gameStopFlag = true;
-      //move to
-      clearInterval(gameLoop);
-      //showing game over screen
-      tryAgainContainer();
-      this.storeScore();
+      if (otherCar.flag == 1) {
+        clearInterval(this.gameLoop);
+        //terminate game
+        playSFX('./audio/car-crash.ogg', false)
+
+        this.gameStopFlag = true;
+        //move to
+        //showing game over screen
+        tryAgainContainer();
+        this.storeScore();
+      } else if (otherCar.flag == 2) {
+        //ammo increase
+        this.totalAmmo += 1;
+        console.log("poinst up");
+        this.ammoValueContainer.innerText = this.totalAmmo;
+        this.otherCar = this.otherCar.filter(function (element) {
+          return element != otherCar;
+        }.bind(this));
+        otherCar.element.remove();
+      }
     }
-    if (flag == 1) {
+    if (flag == 1 && otherCar.flag == 1) {
       //removing event listenter
 
       //bullet impact with other object
@@ -416,7 +453,7 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
       this.pointElement.style.left = (otherCar.x + otherCar.width / 2 - 10) + 'px';
       this.pointElement.style.top = (otherCar.y + otherCar.height / 2) + 'px';
       this.pointElement.style.display = 'block';
-      this.pointElement.innerText = '5';
+      this.pointElement.innerText = '+5';
       setTimeout(function () {
         this.pointElement.style.display = 'none';
       }.bind(this), 210);
@@ -495,7 +532,7 @@ function playSFX(src, loop) {
 }
 
 function tryAgainContainer() {
-
+  console.log("try again called")
   var mainContainer = document.createElement('div');
   mainContainer.classList.add('game-over-container');
   var mainWrapper = document.createElement('div');
@@ -521,18 +558,16 @@ function tryAgainContainer() {
   parentElement.appendChild(mainContainer);
 
   tryAgain.addEventListener('click', function () {
-    // var allElement = parentElement.querySelectorAll('div');
-    // console.log(allElement);
-    // allElement.forEach(function (element) {
-    //   element.remove();
-    // });
-    // startScreen()
-    location.reload();
+    var allElement = parentElement.querySelectorAll('div');
+    console.log(allElement);
+    allElement.forEach(function (element) {
+      element.remove();
+      // });
+    });
+    startScreen()
+
+
 
   });
-
-
-
 }
-
 startScreen();

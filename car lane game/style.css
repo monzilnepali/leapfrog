@@ -82,6 +82,13 @@ body {
   border: 1.5px solid red;
 }
 
+.ammo-box {
+  position: absolute;
+  border: 1.5px solid red;
+  background-image: url(./images/assets/ammo.png);
+  background-repeat: no-repeat;
+}
+
 .score-top {
   position: absolute;
   top: 10px;
@@ -261,4 +268,26 @@ body {
   box-shadow: inset 0 0 5px rgb(138, 118, 21);
   border: 5px solid #F3D540;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.ammo-container {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  height: 45px;
+  text-align: center;
+  color: white;
+  padding-left: 55px;
+  padding-right: 20px;
+  font-size: 28px;
+  line-height: 45px;
+  background-color: #F3BB1D;
+  border-radius: 20px;
+  background-image: url('./images/assets/ammo.png');
+  background-size: 40px 40px;
+  background-position: 6px 2px;
+  background-repeat: no-repeat;
+  z-index: 100;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
 }
