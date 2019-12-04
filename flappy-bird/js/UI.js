@@ -34,7 +34,7 @@ class UI{
     this.score=Score;
     this.clear();
     let imageCount=0;
-    this.imageSrc=['../assets/restart.png','../assets/score.png'];
+    this.imageSrc=['https://monzilnepali.github.io/leapfrog/flappy-bird/assets/restart.png','https://monzilnepali.github.io/leapfrog/flappy-bird/assets/score.png'];
     this.images=[];
     //load image
     this.imageSrc.forEach((element,index) => {

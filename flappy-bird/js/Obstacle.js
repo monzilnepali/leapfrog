@@ -16,9 +16,9 @@ class Obstacle {
       this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
     if(this.rotate==0){
-        this.image.src = './assets/pipe.png';
+        this.image.src = 'https://monzilnepali.github.io/leapfrog/flappy-bird/assets/pipe.png';
     }else{
-      this.image.src = './assets/pipe-rotate.png';
+      this.image.src = 'https://monzilnepali.github.io/leapfrog/flappy-bird/assets/pipe-rotate.png';
     }
     return this;
     

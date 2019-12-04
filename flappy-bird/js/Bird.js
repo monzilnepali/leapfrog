@@ -19,7 +19,7 @@ class Bird {
     this.image.onload = () => {
     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
-    this.image.src = './assets/bird.png';
+    this.image.src ='https://monzilnepali.github.io/leapfrog/flappy-bird/assets/bird.png';
      return this;
   }
   update() {
