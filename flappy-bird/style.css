@@ -15,10 +15,13 @@ body{
   width: calc(70% - 100px);
   height: 100%;
   padding:50px;
+  /* background-color: red; */
 }
 #canvas-stage1{
   float: left;
   width: 40%;
+  margin-right: 150px;
+ 
 }
 #canvas-stage2{
   float: right;
@@ -39,7 +42,10 @@ canvas {
 }
 
 #ui-layer {
-  z-index: 3;
+  z-index: 4;
+}
+#bird-layer{
+  z-index:3;
 }
 
 #game-layer {

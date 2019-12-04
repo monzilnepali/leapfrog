@@ -1,10 +1,11 @@
 class UI{
-  constructor(parent,x,y,width,height){
+  constructor(parent,x,y,width,height,restartEventKey){
     this.parent=parent;
     this.x=x;
     this.y=y;
     this.width=width;
-    this.height=height
+    this.height=height;
+    this.restartEvent=restartEventKey;
   }
   init(score){
     this.uiCanvas=this.parent.children[2];
@@ -12,18 +13,26 @@ class UI{
     this.uiCanvas.height=this.height;
     this.ctx=this.uiCanvas.getContext('2d');
     this.ctx.font = "30px Arial";
-    this.ctx.fillText(score, this.x,this.y);
+    this.ctx.fillText(score, this.x,this.y);  
+   
     return this;
   }
   updateScore(score){
      this.clear();
-
      this.ctx.fillText(score, this.x, this.y);
+  }
+  showTip(){
+ if(this.restartEvent==1){
+     this.ctx.fillText("press  W to start",100,600)
+    }else{
+      this.ctx.fillText("press  arrow-up to start",100,600 )
+    }
   }
    clear() {
     this.ctx.clearRect(0, 0, this.uiCanvas.width, this.uiCanvas.height);
   }
   displayScore(Score){
+    this.score=Score;
     this.clear();
     let imageCount=0;
     this.imageSrc=['../assets/restart.png','../assets/score.png'];
@@ -35,7 +44,7 @@ class UI{
       image.onload=()=>{
           imageCount++;
           if(imageCount==this.imageSrc.length){
-             this.displayScoreElement(Score);
+             this.displayScoreElement();
           }
       }
       this.images.push(image);
@@ -44,14 +53,16 @@ class UI{
    
     
   }
-  displayScoreElement(Score){
+  displayScoreElement(){
     console.log(this.images);
     let highScore=localStorage.getItem('score');
     
-    this.ctx.drawImage(this.images[0], 190, 480,120,40);
+   // this.ctx.drawImage(this.images[0], 190, 480,120,40);
     this.ctx.drawImage(this.images[1], 150, 200,190,250);
-     this.ctx.fillText(Score, 230, 300);
+     this.ctx.fillText(this.score, 230, 300);
      this.ctx.fillText(highScore, 230, 390);
+      this.ctx.fillText('press '+this.restartEvent +' to restart', 120, 500);
+     
 
 
   }

@@ -13,11 +13,19 @@ class Game {
     this.score=0;
     this.highScore=0;
     this.key=key;
+    this.restartEventKey=0;
+
 
 
 
   }
   init() {
+    //different key event for multiple instance
+    if(this.key=='KeyW'){
+       this.restartEventKey=1;
+    }else if(this.key=='ArrowUp'){
+      this.restartEventKey=2;
+    }
     this.canvas=this.parent.children[1];
    // console.log(this.canvas)
     //getting hight value from local storage
@@ -30,7 +38,7 @@ class Game {
     this.canvas.height = this.height;
     this.ctx = this.canvas.getContext('2d');
     this.createBackground();
-    this.uiLayer=new UI(this.parent,this.width/2-30, this.height/2-250,this.width,this.height).init(this.score);
+    this.uiLayer=new UI(this.parent,this.width/2-30, this.height/2-250,this.width,this.height,this.restartEventKey).init(this.score);
     this.bird = new Bird(this.parent,this.ctx, this.width/2-40, this.height/2-30).init();
     this.gameLoop = setInterval(() => this.start(), 20);
 
@@ -39,16 +47,36 @@ class Game {
   }
 
   keyDownEventHandle(event){
-    console.log("ley press")
+    console.log("key press")
+    if(!this.collisionStatus){
      if(event.code==this.key){
        //move up
-        if(!this.collisionStatus){
        console.log("keydown");
        this.gameStatus=true;
        this.bird.jumpUp();
      }
+    }
+    if(this.collisionStatus){
+
+     if(event.code=='Digit1'){
+       console.log("restart");
+       this.clear();
+       this.uiLayer.clear();
+       this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+       game1=null;
+       startGame1(); 
+     }
+     if(event.code=='Digit2'){
+       console.log("restart");
+       this.clear();
+       this.uiLayer.clear();
+      this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+       game2=null;
+       startGame2(); 
+     }
+    }
    }
-  }
+  
    
   
   
@@ -60,10 +88,10 @@ class Game {
     const bgCanvas =this.parent.children[0];
     bgCanvas.width = 480;
     bgCanvas.height = 640;
-    const bgCanvasCtx = bgCanvas.getContext('2d');
+    this.bgCanvasCtx = bgCanvas.getContext('2d');
     const backgroundImage = new Image();
     backgroundImage.onload = () => {
-      bgCanvasCtx.drawImage(backgroundImage, 0, 0, this.width, this.height);
+      this.bgCanvasCtx.drawImage(backgroundImage, 0, 0, this.width, this.height);
     }
     backgroundImage.src = '../assets/background.png';
   }
@@ -92,12 +120,13 @@ class Game {
      //ui layer
     // this.uiLayer.updateScore(0);
     // console.log("score"+Math.floor(this.frameNo / 250));
-     this.score=Math.floor(this.frameNo/250);
+     this.score=Math.floor(this.frameNo/120);
      this.uiLayer.updateScore(this.score);
 
      if(!this.gameStatus){
            this.bird.float();
            this.bird.draw();
+           this.uiLayer.showTip();
 
 
      }else{
@@ -139,7 +168,7 @@ class Game {
      this.bird.draw();
   
     this.frameNo += 1;
-    if (this.frameNo == 1 || this.everyInterval(250)) {
+    if (this.frameNo == 1 || this.everyInterval(122)) {
         let x = this.height;
         let y = this.width;
         let minHeight = 100;
@@ -161,9 +190,16 @@ class Game {
 
 
 }
+var game1;
+function startGame1(){
 const parentELement1=document.getElementById('canvas-stage1'); 
-new Game(parentELement1,480, 640,'KeyW').init();
-
+game1=new Game(parentELement1,480, 640,'KeyW').init();
+}
+var game2;
+function startGame2(){
 const parentELement2=document.getElementById('canvas-stage2'); 
-new Game(parentELement2,480, 640,'ArrowUp').init();
+game2=new Game(parentELement2,480, 640,'ArrowUp').init();
+}
 
+startGame1();
+startGame2();
