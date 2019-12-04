@@ -10,13 +10,20 @@
 </head>
 
 <body>
-  <div class="canvas-stage">
-    <canvas id="background-layer"></canvas>
-    <canvas id="game-layer"></canvas>
-    <canvas id="ui-layer"></canvas>
-
-
+  <div class="container">
+  <div class="canvas-stage" id="canvas-stage1">
+    <canvas class="background-layer"></canvas>
+    <canvas class="game-layer"></canvas>
+    <canvas class="ui-layer"></canvas>
   </div>
+
+  <div class="canvas-stage" id="canvas-stage2">
+    <canvas class="background-layer"></canvas>
+    <canvas class="game-layer"></canvas>
+    <canvas class="ui-layer"></canvas>
+  </div>
+</div>
+  
 
   <script src="./js/UI.js"></script>
   <script src="./js/Obstacle.js"></script>

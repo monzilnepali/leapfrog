@@ -1,6 +1,7 @@
 class Bird {
 
-  constructor(ctx, x, y) {
+  constructor(parent,ctx, x, y) {
+    this.parentElement=parent;
     this.ctx = ctx;
     this.x = x;
     this.y = y;

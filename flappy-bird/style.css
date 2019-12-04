@@ -11,6 +11,19 @@ body{
   font-family: 'bold-font';
   background-color: #272B30;
 }
+.container{
+  width: calc(70% - 100px);
+  height: 100%;
+  padding:50px;
+}
+#canvas-stage1{
+  float: left;
+  width: 40%;
+}
+#canvas-stage2{
+  float: right;
+  width: 40%;
+}
 .canvas-stage {
   position: relative;
   width: 480px;

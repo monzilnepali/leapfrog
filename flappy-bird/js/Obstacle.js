@@ -1,6 +1,7 @@
 class Obstacle {
 
   constructor(ctx, x, y,width,height,rotate) {
+    this.parentElement=parent;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -9,6 +10,7 @@ class Obstacle {
     this.rotate=rotate;
   }
   init() {
+    console.log(this.ctx);
     this.image = new Image();
     this.image.onload = () => {
       this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
