@@ -1,4 +1,5 @@
 'use-strict'
+
 class Game {
 
   constructor(parent, width, height,key) {
@@ -21,6 +22,7 @@ class Game {
     this.gameLoop =null;
     this.bgCanvas=null;
     this.bgCanvasCtx=null;
+     this.backgroundImage=null;
   }
   init() {
     
@@ -52,33 +54,32 @@ class Game {
       if(this.collisionStatus){
      if(event.code=='Digit1'){
        console.log("restart 1");
+      
        this.clear();
        this.uiLayer.clear();
        this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+       this.backgroundImage=null;
          this.canvas=null;
-    this.ctx=null;
-    this.uiLayer=null;
-     this.bird=null;
-     this.gameLoop =null;
-      this.bgCanvas=null;
-      this.bgCanvasCtx=null;
-       game1=null;
+       this.uiLayer=null;
+       this.bird=null;
+       this.gameLoop =null;
+       this.bgCanvas=null;    
        
+       game1=null;
        startGame1(); 
      }
      if(event.code=='Digit2'){
        console.log("restart 2");
        this.clear();
        this.uiLayer.clear();
-      this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+       this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+       this.backgroundImage=null;
         this.canvas=null;
-    this.ctx=null;
-    this.uiLayer=null;
-     this.bird=null;
-     this.gameLoop =null;
+       this.uiLayer=null;
+       this.bird=null;
+      this.gameLoop =null;
       this.bgCanvas=null;
-      this.bgCanvasCtx=null;
-       game2=null;
+      game2=null;
        startGame2(); 
      }
     }
@@ -107,18 +108,18 @@ class Game {
   
   
   clear() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, this.width, this.height);
   }
   createBackground() {
     this.bgCanvas =this.parent.children[0];
     this.bgCanvas.width = this.width;
     this.bgCanvas.height = this.height;
     this.bgCanvasCtx = this.bgCanvas.getContext('2d');
-    const backgroundImage = new Image();
-    backgroundImage.onload = () => {
-      this.bgCanvasCtx.drawImage(backgroundImage, 0, 0, this.width, this.height);
+    this.backgroundImage = new Image();
+    this.backgroundImage.onload = () => {
+      this.bgCanvasCtx.drawImage(this.backgroundImage, 0, 0, this.width, this.height);
     }
-    backgroundImage.src ='https://monzilnepali.github.io/leapfrog/flappy-bird/assets/background.png';
+    this.backgroundImage.src ='https://monzilnepali.github.io/leapfrog/flappy-bird/assets/background.png';
   }
 
   
@@ -214,16 +215,19 @@ class Game {
 
 
 }
-var game1;
+
+var game1,game2;
 function startGame1(){
   console.log("starting new game")
-const parentELement1=document.getElementById('canvas-stage1'); 
-game1=new Game(parentELement1,480, 640,'KeyW').init();
+let parentELement1=document.getElementById('canvas-stage1'); 
+ game1=new Game(parentELement1,480, 640,'KeyW');
+ game1.init();
 }
-var game2;
+
 function startGame2(){
-const parentELement2=document.getElementById('canvas-stage2'); 
-game2=new Game(parentELement2,480, 640,'ArrowUp').init();
+let parentELement2=document.getElementById('canvas-stage2'); 
+ game2=new Game(parentELement2,480, 640,'ArrowUp');
+ game2.init();
 }
 
 startGame1();

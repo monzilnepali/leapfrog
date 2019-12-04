@@ -38,7 +38,7 @@ class UI{
     this.images=[];
     //load image
     this.imageSrc.forEach((element,index) => {
-      const image=new Image();
+      let image=new Image();
       image.src=this.imageSrc[index];
       image.onload=()=>{
           imageCount++;
