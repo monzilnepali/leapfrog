@@ -14,12 +14,9 @@ class Game {
     this.highScore=0;
     this.key=key;
     this.restartEventKey=0;
-
-
-
-
   }
   init() {
+    
     //different key event for multiple instance
     if(this.key=='KeyW'){
        this.restartEventKey=1;
@@ -47,19 +44,18 @@ class Game {
   }
 
   keyDownEventHandle(event){
-    console.log("key press")
+   
     if(!this.collisionStatus){
      if(event.code==this.key){
        //move up
-       console.log("keydown");
        this.gameStatus=true;
        this.bird.jumpUp();
      }
     }
-    if(this.collisionStatus){
 
+    if(this.collisionStatus){
      if(event.code=='Digit1'){
-       console.log("restart");
+       console.log("restart 1");
        this.clear();
        this.uiLayer.clear();
        this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
@@ -67,7 +63,7 @@ class Game {
        startGame1(); 
      }
      if(event.code=='Digit2'){
-       console.log("restart");
+       console.log("restart 2");
        this.clear();
        this.uiLayer.clear();
       this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
@@ -86,8 +82,8 @@ class Game {
   }
   createBackground() {
     const bgCanvas =this.parent.children[0];
-    bgCanvas.width = 480;
-    bgCanvas.height = 640;
+    bgCanvas.width = this.width;
+    bgCanvas.height = this.height;
     this.bgCanvasCtx = bgCanvas.getContext('2d');
     const backgroundImage = new Image();
     backgroundImage.onload = () => {
@@ -117,9 +113,6 @@ class Game {
 
   start() {
      this.clear();
-     //ui layer
-    // this.uiLayer.updateScore(0);
-    // console.log("score"+Math.floor(this.frameNo / 250));
      this.score=Math.floor(this.frameNo/120);
      this.uiLayer.updateScore(this.score);
 
@@ -130,12 +123,15 @@ class Game {
 
 
      }else{
+
      if(this.bird.y>590){
         //game over
        this.bird.y=590;
        this.velocity=0;
        this.updateHighScore();
+        this.collisionStatus=true;
        this.uiLayer.displayScore(this.score);
+        this.gameStatus=false;
        clearInterval(this.gameLoop);
      }
      
@@ -144,22 +140,21 @@ class Game {
         element.draw();
         //if obstacle is beyond x:0  then remove from list
 
-             
-
         if(element.checkCollision(this.bird)){
-          console.log("collision");
+          //console.log("collision");
           this.collisionStatus=true;
           
         }
         
      });
      if(this.collisionStatus){
-         console.log("falldown");
+        // console.log("falldown");
          //remove event listener
           this.bird.fallDown();
            this.bird.draw();
            this.updateHighScore();
            this.uiLayer.displayScore(this.score);
+            this.gameStatus=false;
             clearInterval(this.gameLoop);
          
 
@@ -177,8 +172,8 @@ class Game {
         let minGap = 130;
         let maxGap = 180;
        let gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-        console.log("obstacle created");
-        console.log(this.ctx);
+    //    console.log("obstacle created");
+      
         this.obstacles.push(new Obstacle(this.ctx,y,0,70,height,1).init());
         this.obstacles.push(new Obstacle(this.ctx,y,height + gap,70,x-height-gap,0).init());
 

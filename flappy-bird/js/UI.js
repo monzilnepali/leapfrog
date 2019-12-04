@@ -14,7 +14,6 @@ class UI{
     this.ctx=this.uiCanvas.getContext('2d');
     this.ctx.font = "30px Arial";
     this.ctx.fillText(score, this.x,this.y);  
-   
     return this;
   }
   updateScore(score){
@@ -54,7 +53,7 @@ class UI{
     
   }
   displayScoreElement(){
-    console.log(this.images);
+   
     let highScore=localStorage.getItem('score');
     
    // this.ctx.drawImage(this.images[0], 190, 480,120,40);

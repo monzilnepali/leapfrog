@@ -10,7 +10,7 @@ class Obstacle {
     this.rotate=rotate;
   }
   init() {
-    console.log(this.ctx);
+  
     this.image = new Image();
     this.image.onload = () => {
       this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
