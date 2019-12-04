@@ -118,7 +118,7 @@ class Game {
     backgroundImage.onload = () => {
       this.bgCanvasCtx.drawImage(backgroundImage, 0, 0, this.width, this.height);
     }
-    backgroundImage.src = '../assets/background.png';
+    backgroundImage.src = './assets/background.png';
   }
 
   
