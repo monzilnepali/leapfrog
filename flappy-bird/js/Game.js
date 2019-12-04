@@ -14,6 +14,13 @@ class Game {
     this.highScore=0;
     this.key=key;
     this.restartEventKey=0;
+    this.canvas=null;
+    this.ctx=null;
+    this.uiLayer=null;
+    this.bird=null;
+    this.gameLoop =null;
+    this.bgCanvas=null;
+    this.bgCanvasCtx=null;
   }
   init() {
     
@@ -40,6 +47,42 @@ class Game {
     this.gameLoop = setInterval(() => this.start(), 20);
 
     window.addEventListener('keydown', (e) =>this.keyDownEventHandle(e));
+    window.addEventListener('keypress',(event)=>{
+    
+      if(this.collisionStatus){
+     if(event.code=='Digit1'){
+       console.log("restart 1");
+       this.clear();
+       this.uiLayer.clear();
+       this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+         this.canvas=null;
+    this.ctx=null;
+    this.uiLayer=null;
+     this.bird=null;
+     this.gameLoop =null;
+      this.bgCanvas=null;
+      this.bgCanvasCtx=null;
+       game1=null;
+       
+       startGame1(); 
+     }
+     if(event.code=='Digit2'){
+       console.log("restart 2");
+       this.clear();
+       this.uiLayer.clear();
+      this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
+        this.canvas=null;
+    this.ctx=null;
+    this.uiLayer=null;
+     this.bird=null;
+     this.gameLoop =null;
+      this.bgCanvas=null;
+      this.bgCanvasCtx=null;
+       game2=null;
+       startGame2(); 
+     }
+    }
+    });
 
   }
 
@@ -52,26 +95,12 @@ class Game {
        this.bird.jumpUp();
      }
     }
+  }
 
-    if(this.collisionStatus){
-     if(event.code=='Digit1'){
-       console.log("restart 1");
-       this.clear();
-       this.uiLayer.clear();
-       this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
-       game1=null;
-       startGame1(); 
-     }
-     if(event.code=='Digit2'){
-       console.log("restart 2");
-       this.clear();
-       this.uiLayer.clear();
-      this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
-       game2=null;
-       startGame2(); 
-     }
-    }
-   }
+ 
+
+   
+
   
    
   
@@ -81,10 +110,10 @@ class Game {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
   createBackground() {
-    const bgCanvas =this.parent.children[0];
-    bgCanvas.width = this.width;
-    bgCanvas.height = this.height;
-    this.bgCanvasCtx = bgCanvas.getContext('2d');
+    this.bgCanvas =this.parent.children[0];
+    this.bgCanvas.width = this.width;
+    this.bgCanvas.height = this.height;
+    this.bgCanvasCtx = this.bgCanvas.getContext('2d');
     const backgroundImage = new Image();
     backgroundImage.onload = () => {
       this.bgCanvasCtx.drawImage(backgroundImage, 0, 0, this.width, this.height);
@@ -187,6 +216,7 @@ class Game {
 }
 var game1;
 function startGame1(){
+  console.log("starting new game")
 const parentELement1=document.getElementById('canvas-stage1'); 
 game1=new Game(parentELement1,480, 640,'KeyW').init();
 }

@@ -3,10 +3,7 @@
   margin: 0;
 }
 
-@font-face {
-  font-family: 'bold-font';
-  src: url('./assets/FB.woff');
-}
+
 body{
   font-family: 'bold-font';
   background-color: #272B30;
