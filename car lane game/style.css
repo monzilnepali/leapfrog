@@ -70,7 +70,7 @@ body {
   background-image: url(./images/assets/tank-main.png);
   background-repeat: no-repeat;
   z-index: 20;
-  border: 1.5px solid green;
+  /* border: 1.5px solid green; */
 }
 
 .other-car {
@@ -79,12 +79,12 @@ body {
   position: absolute;
   background-repeat: no-repeat;
   z-index: 20;
-  border: 1.5px solid red;
+  /* border: 1.5px solid red; */
 }
 
 .ammo-box {
   position: absolute;
-  border: 1.5px solid red;
+  /* border: 1.5px solid red; */
   background-image: url(./images/assets/ammo.png);
   background-repeat: no-repeat;
 }
@@ -140,6 +140,7 @@ body {
   background-color: rgba(255, 0, 0, 0.473);
   animation: bg-color;
   animation-duration: 0.5s;
+  display: none;
 }
 
 @keyframes bg-color {

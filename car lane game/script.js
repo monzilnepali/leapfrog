@@ -192,11 +192,12 @@ function Game(parentElement) {
   this.scoreContainer = null;
   this.highScoreContainer = null;
   this.ammoValueContainer = null;
-  this.totalAmmo = 0;
+  this.totalAmmo = 10;
   this.pointElement = null;
   this.pointAmmoElement = null;
   this.gameStopFlag = false;
   this.gameTime = 0;
+  this.gameLoopTime = 0;
 
 
   Game.prototype.init = function () {
@@ -234,7 +235,7 @@ function Game(parentElement) {
 
     var ammoContainer = document.createElement('div');
     ammoContainer.classList.add('ammo-container');
-    ammoContainer.innerText = "0";
+    ammoContainer.innerText = this.totalAmmo;
     this.parentElement.appendChild(ammoContainer);
     this.ammoValueContainer = ammoContainer;
 
@@ -285,27 +286,33 @@ function Game(parentElement) {
   }
 }
 
-
+var flag = 0;
 Game.prototype.animateLane = function () {
   this.gameLoop = setInterval(function () {
     //make car move faster after each 15 sec
 
-    if (this.gameTime % 1000 <= 50) {
+
+    if (Math.floor((this.gameLoopTime) % 1000) == 0) {
       this.speed += 0.005;
-      // console.log("time" + Math.floor(this.gameTime / 1000) + "second");
+      this.gameTime += Math.floor((this.gameLoopTime) / 1000);
+      console.log("game" + this.gameTime)
+      if (this.gameTime != 0 && this.gameTime % 5 === 0) {
+        console.log("ammmo created")
+        // console.log("ammo created>>" + this.gameTime % 5);
+        //generate ammo element
+        this.generateObstacle(2, 2); //2 =amm0 generation
+      }
+
     }
+
 
 
     this.roadElements.forEach(function (roadElement, index) {
       if (roadElement.y >= 790) {
         roadElement.y = -170; //reset y into intial position
-        if (this.gameTime % 128 == 0) {
-          //generate ammo element
-          this.generateObstacle(2, 2); //2 =amm0 generation
-          console.log("ammo created")
-        } else {
-          this.generateObstacle(2);
-        }
+
+        this.generateObstacle(2);
+
         //  console.log("obstacle generated")
 
 
@@ -366,7 +373,7 @@ Game.prototype.animateLane = function () {
 
 
     //update game time
-    this.gameTime += Math.floor((1000 / FPS));
+    this.gameLoopTime += Math.floor((1000 / FPS));
   }.bind(this), Math.floor(1000 / FPS));
 
 }
@@ -443,13 +450,13 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
         this.storeScore();
       } else if (otherCar.flag == 2) {
         //ammo increase
-        this.totalAmmo += 1;
+        this.totalAmmo += 3;
         console.log("poinst up");
         //create point element
         this.pointAmmoElement.style.left = (otherCar.x + otherCar.width / 2 - 10) + 'px';
         this.pointAmmoElement.style.top = (otherCar.y + otherCar.height / 2) + 'px';
         this.pointAmmoElement.style.display = 'block';
-        this.pointAmmoElement.innerText = '+1';
+        this.pointAmmoElement.innerText = '+3';
         setTimeout(function () {
           this.pointAmmoElement.style.display = 'none';
         }.bind(this), 210);
@@ -466,7 +473,7 @@ Game.prototype.checkCollision = function (mainObject, otherCar, flag) {
       //removing event listenter
 
       //bullet impact with other object
-
+      playSFX('./audio/coin.wav', false);
       //create point element
       this.pointElement.style.left = (otherCar.x + otherCar.width / 2 - 10) + 'px';
       this.pointElement.style.top = (otherCar.y + otherCar.height / 2) + 'px';
@@ -514,27 +521,22 @@ Game.prototype.storeScore = function () {
 
 var parentElement = document.getElementById('app');
 
-var startElement = document.getElementById('start-btn');
-var scoreElement = document.getElementById('score-value');
-var gameOverElement = document.getElementById('game-over-container');
-var tryAgainElement = document.getElementById('try-again');
+
 
 function startScreen() {
 
-  //start screen
-  var startContainer = document.createElement('div');
-  startContainer.classList.add('start-screen');
-  var startElement = document.createElement('div');
-  startElement.classList.add('start-btn');
-  startElement.setAttribute('id', 'start-btn');
-  startElement.innerText = 'play';
-  startContainer.appendChild(startElement);
-  parentElement.appendChild(startContainer);
-  startElement.addEventListener('click', function () {
+  var startScreen = document.getElementById('start-screen');
+  startScreen.style.display = 'block';
+  var startBtn = document.createElement('div');
+  startBtn.classList.add('start-btn');
+  startBtn.setAttribute('id', 'start-btn');
+  startBtn.innerText = 'play';
 
+  startScreen.appendChild(startBtn);
+  startBtn.addEventListener('click', function () {
     console.log("start")
     var game = new Game(parentElement);
-    startElement.parentElement.style.display = 'none';
+    startScreen.style.display = 'none';
     game.init()
   });
 
@@ -550,11 +552,13 @@ function playSFX(src, loop) {
 }
 
 Game.prototype.tryAgainContainer = function () {
-  console.log("try again called")
-  var mainContainer = document.createElement('div');
-  mainContainer.classList.add('game-over-container');
-  var mainWrapper = document.createElement('div');
-  mainWrapper.classList.add('game-over-wrapper');
+  console.log("try again called");
+
+
+  var mainContainer = document.getElementsByClassName('game-over-container')[0];
+  mainContainer.style.display = 'block';
+  var mainWrapper = document.getElementsByClassName('game-over-wrapper')[0];
+
   var heading = document.createElement('div');
   heading.classList.add('heading');
   heading.innerText = 'Game Over';
@@ -572,17 +576,23 @@ Game.prototype.tryAgainContainer = function () {
   mainWrapper.appendChild(scoreValue);
   mainWrapper.appendChild(tryAgain);
 
-  mainContainer.appendChild(mainWrapper);
-  parentElement.appendChild(mainContainer);
 
   tryAgain.addEventListener('click', function () {
     var allElement = parentElement.querySelectorAll('div');
     console.log(allElement);
     allElement.forEach(function (element) {
-      element.remove();
+      //
+      if (!element.className.includes('test')) {
+        element.remove();
+        console.log(element.className != 'start-screen');
+        console.log(element.className != 'game-over-container')
+      }
+
+
       // });
     });
-    startScreen()
+    startScreen();
+    mainContainer.style.display = 'none';
 
 
 
