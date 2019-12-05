@@ -6,10 +6,10 @@ class Circle {
     this.radius = width;
   }
 
-  draw() {
+  draw(color) {
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    this.context.fillStyle = 'green';
+    this.context.fillStyle = color;
     this.context.fill();
     this.context.closePath();
 
