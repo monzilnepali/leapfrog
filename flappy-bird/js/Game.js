@@ -59,7 +59,7 @@ class Game {
        this.uiLayer.clear();
        this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
        this.backgroundImage=null;
-         this.canvas=null;
+      this.canvas=null;
        this.uiLayer=null;
        this.bird=null;
        this.gameLoop =null;
