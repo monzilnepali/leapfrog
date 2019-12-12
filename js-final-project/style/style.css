@@ -38,6 +38,7 @@ textarea {
 .line-number {
   float: left;
   width: 30px;
+  overflow-y: hidden;
 }
 
 .text-area {
