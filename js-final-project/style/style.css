@@ -31,17 +31,28 @@ textarea {
   resize: none;
   height: 100%;
   outline: none;
-  background-color: rgb(238, 238, 238);
   margin: 0;
+  border: 0;
+  padding-top: 5px;
+  background-color: #282a36;
+  font-size: 18px;
+  line-height: 25px;
 }
 
 .line-number {
   float: left;
-  width: 30px;
+  width: 45px;
   overflow-y: hidden;
+  font-family: Consolas, "Courier New", monospace;
+  text-align: center;
+  border-right: 1.5px solid #424450;
+  color: #6272a4;
+
 }
 
 .text-area {
   float: right;
-  width: calc(100% - 30px);
+  width: calc(100% - 45px);
+  color: white;
+  padding-left: 1px;
 }

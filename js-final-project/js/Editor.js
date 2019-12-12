@@ -1,14 +1,16 @@
 class Editor {
-  constructor(params) {
+  constructor() {
     let container = document.getElementById('editor-container');
     //creating line number text area
     let lineElement = document.createElement('textarea');
     lineElement.classList.add('line-number');
     lineElement.setAttribute('readonly', true);
     this.lineNumberElement = lineElement;
+    this.lineNumberElement.value = "1";
     let textElement = document.createElement('textarea');
     textElement.classList.add('text-area');
     this.textArea = textElement;
+    this.textArea.setAttribute('autofocus', 'true')
     this.textArea.oninput = this.inputChanged.bind(this);
     this.textArea.onscroll = this.scrollChange.bind(this);
     container.appendChild(lineElement);
@@ -19,21 +21,14 @@ class Editor {
   inputChanged() {
     console.log("changesd");
     let numberOfLine = this.countLine(this.textArea.value);
-    if (numberOfLine == 0) {
-      numberOfLine = 1
-    };
     let temp_arr = this.lineNumberElement.value.split('\n');
     let oldNumberOfLine = parseInt(temp_arr[temp_arr.length - 1]);
     //if there was change in line count
     if (numberOfLine != oldNumberOfLine) {
       this.updateRow(numberOfLine);
     }
-
   }
   scrollChange() {
-    console.log("scoll change")
-    //this.textArea.scrollTop = this.lineNumberElement.scrollTop;
-    console.log(this.textArea.scrollTop)
     this.lineNumberElement.scrollTop = this.textArea.scrollTop;
   }
   updateRow(numberOfLine) {
@@ -47,7 +42,7 @@ class Editor {
     if (text == '') {
       return 1;
     }
-    return text.split('\n').length + 1;
+    return text.split('\n').length;
   }
 
 }
