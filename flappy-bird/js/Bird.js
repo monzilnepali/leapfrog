@@ -12,15 +12,22 @@ class Bird {
     this.lift=25;
     this.counter=0;
     this.hover=1;
+    this.images=[];
+    this.imageSrc=['../assets/bird-1.png','../assets/bird-2.png','../assets/bird-3.png'];
 
   }
   init() {
-    this.image = new Image();
-    this.image.onload = () => {
-    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    }
-    this.image.src ='https://monzilnepali.github.io/leapfrog/flappy-bird/assets/bird.png';
+    let imageCount=0;
+    this.imageSrc.forEach((element,index) => {
+      let image=new Image();
+      image.src=this.imageSrc[index];
+      image.onload=()=>{}
+      this.images.push(image);
+    });
      return this;
+  }
+  animate(){
+
   }
   update() {
     this.velocity+=this.gravity;

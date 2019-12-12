@@ -2,7 +2,7 @@
 
 class Game {
 
-  constructor(parent, width, height,key) {
+  constructor(parent, width, height,gamekey,restartKey,restartGameRef) {
     this.parent=parent;
     this.width = width;
     this.height = height;
@@ -13,16 +13,12 @@ class Game {
     this.collisionStatus=false;
     this.score=0;
     this.highScore=0;
-    this.key=key;
-    this.restartEventKey=0;
-    this.canvas=null;
-    this.ctx=null;
-    this.uiLayer=null;
-    this.bird=null;
-    this.gameLoop =null;
-    this.bgCanvas=null;
-    this.bgCanvasCtx=null;
-     this.backgroundImage=null;
+    this.key=gamekey;
+    this.restartKey=restartKey;
+    this.restartGameRef=restartGameRef;
+    
+    
+   
   }
   init() {
     
@@ -52,9 +48,10 @@ class Game {
     window.addEventListener('keypress',(event)=>{
     
       if(this.collisionStatus){
-     if(event.code=='Digit1'){
-       console.log("restart 1");
-      
+        console.log("restart",this.restartKey)
+     if(event.code==this.restartKey){
+
+       console.log("restart");
        this.clear();
        this.uiLayer.clear();
        this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
@@ -63,24 +60,9 @@ class Game {
        this.uiLayer=null;
        this.bird=null;
        this.gameLoop =null;
-       this.bgCanvas=null;    
-       
-       game1=null;
-       startGame1(); 
-     }
-     if(event.code=='Digit2'){
-       console.log("restart 2");
-       this.clear();
-       this.uiLayer.clear();
-       this.bgCanvasCtx.clearRect(0, 0, this.width, this.height);
-       this.backgroundImage=null;
-        this.canvas=null;
-       this.uiLayer=null;
-       this.bird=null;
-      this.gameLoop =null;
-      this.bgCanvas=null;
-      game2=null;
-       startGame2(); 
+       this.bgCanvas=null;   
+      //  game1=null;
+       this.restartGameRef(); 
      }
     }
     });
@@ -220,13 +202,13 @@ var game1,game2;
 function startGame1(){
   console.log("starting new game")
 let parentELement1=document.getElementById('canvas-stage1'); 
- game1=new Game(parentELement1,480, 640,'KeyW');
+ game1=new Game(parentELement1,480, 640,'KeyW','Digit1',startGame1);
  game1.init();
 }
 
 function startGame2(){
 let parentELement2=document.getElementById('canvas-stage2'); 
- game2=new Game(parentELement2,480, 640,'ArrowUp');
+ game2=new Game(parentELement2,480, 640,'ArrowUp','Digit2',startGame2);
  game2.init();
 }
 
