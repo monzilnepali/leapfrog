@@ -22,11 +22,11 @@ class Lexer {
       this.split(symbol3, instruction, 3, 'DOT_ARROW', message);
     } else if (symbol4.exec(instruction)) {
       let res = "";
-      if (instruction.search('right of') != -1) {
+      if (instruction.search('right of') !== -1) {
         res = instruction.replace("right of", "right_of");
-      } else if (instruction.search('left of') != -1) {
+      } else if (instruction.search('left of') !== -1) {
         res = instruction.replace("left of", "left_of");
-      } else if (instruction.search('over') != -1) {
+      } else if (instruction.search('over') !== -1) {
         res = instruction.replace("over", "over");
       }
       let resArray = res.split(" ");
@@ -49,7 +49,7 @@ class Lexer {
       actor1 += instruction[i];
     }
     let endIndex = startIndex + offset;
-    while (instruction[endIndex] != undefined) {
+    while (instruction[endIndex] !== undefined) {
       actor2 += instruction[endIndex++];
     }
     this.tokens.push({
