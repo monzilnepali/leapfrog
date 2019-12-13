@@ -1,84 +1,127 @@
-'use strict;'
 class Lexer {
-  constructor() {
-    this.current = 0;
-    this.tokens = [];
+  constructor(input) {
+    this.input = input;
+    this.keyword = " Note right of  left of ";
+    this.token = [];
   }
-  tokenize(input) {
-    console.log(input)
-    /* first spliting string using : seperator and check the type of operation in leftside of : */
-    let inputArray = input.split(":");
-    let instruction = inputArray[0];
-    let message = inputArray[1];
-    // let symbol1 = /\b->\b/; //for line arrow
-    let symbol1 = /\b->\b/; //for line arrow
-    let symbol2 = /\b->>\b/; //for open arrow
-    let symbol3 = /\b-->\b/; //for DOTLINE
-    let symbol4 = /\bNote/;
-    /* -> means message send  */
-    if (symbol1.exec(instruction)) {
-      console.log(symbol1.exec(instruction));
-      //this.split(symbol1, instruction, 2, 'LINE_ARROW', message);
-    } else if (symbol2.exec(instruction)) {
-      this.split(symbol2, instruction, 3, 'OPEN_ARROW', message);
-    } else if (symbol3.exec(instruction)) {
-      this.split(symbol3, instruction, 3, 'DOT_ARROW', message);
-    } else if (symbol4.exec(instruction)) {
-      let res = "";
-      if (instruction.search('right of') !== -1) {
-        res = instruction.replace("right of", "right_of");
-      } else if (instruction.search('left of') !== -1) {
-        res = instruction.replace("left of", "left_of");
-      } else if (instruction.search('over') !== -1) {
-        res = instruction.replace("over", "over");
+  is_char(ch) {
+    return /[a-zA-z]/.test(ch);
+  }
+  is_keyword(x) {
+    return this.keyword.indexOf(" " + x + " ") >= 0;
+  }
+
+  is_whitespace(ch) {
+    return " \t\n".indexOf(ch) >= 0;
+  }
+  is_arrow(ch) {
+    return "->".indexOf(ch) >= 0;
+  }
+  readWhile(predication) {
+    let str = "";
+    while (!this.input.eof() && predication(this.input.peek())) {
+      str += this.input.next();
+    }
+    return str;
+  }
+
+  readString() {
+    let str = "";
+    while (this.is_char(this.input.peek()) && !this.input.eof()) {
+      str += this.input.next();
+    }
+
+    return str;
+  }
+
+  readArrowSign() {
+    let str = "";
+    while (this.is_arrow(this.input.peek()) && !this.input.eof()) {
+      str += this.input.next();
+
+    }
+    return str;
+
+  }
+  readNext() {
+    //first skip white space
+    this.readWhile(this.is_whitespace);
+    //if eof return null;
+    if (this.input.eof()) return null;
+    let ch = this.input.peek();
+    if (this.is_char(ch)) {
+      let str = this.readString();
+      console.log("string" + str)
+      if (this.is_keyword(str)) {
+        this.token.push({
+          type: 'token',
+          value: str
+        });
+      } else {
+        this.token.push({
+          type: 'actor',
+          value: str
+        });
       }
-      let resArray = res.split(" ");
-      console.log(res)
-      this.tokens.push({
-        type: 'note',
-        position: resArray[1],
-        actor: resArray[2],
-        signal: message
+
+    } else if (ch === "-") {
+      /*
+      checking if there is any string before arrow sign
+      if not show error
+      */
+      if (this.token.length != 0) {
+        this.token.push({
+          type: 'arrow',
+          value: this.readArrowSign()
+        });
+      } else {
+        this.showError(ch);
+      }
+
+
+    } else if (ch == ":") {
+      this.token.push({
+        type: 'col',
+        value: this.input.next()
       });
+      //reading string after :
+      this.token.push({
+        type: 'message',
+        value: this.readString()
+
+      });
+
     } else {
-      return {
-        type: 'error',
-        value: 'unexpected error'
-      };
+      //throw erro
+      this.input.error(ch);
+
     }
 
-    return {
-      type: 'token',
-      value: this.tokens
-    };
-  }
 
-  /**
-   * split input to get its type,actors,arrow-type,signal
-   */
-  split(regrex, instruction, offset, lineType, message) {
-    var startIndex = regrex.exec(instruction)['index'];
-    let actor1 = "";
-    let actor2 = "";
-    for (let i = 0; i < startIndex; i++) {
-      actor1 += instruction[i];
-    }
-    let endIndex = startIndex + offset;
-    while (instruction[endIndex] !== undefined) {
-      actor2 += instruction[endIndex++];
-    }
-    this.tokens.push({
-      type: 'message',
-      actor: [actor1, actor2],
-      arrow: lineType,
-      signal: message
-    });
+
 
   }
 
+  showError(ch) {
+    this.input.error(ch);
+  }
 
 
+  tokenize() {
+    let counter = 0;
+    while (counter != this.input.length) {
+      this.readNext();
+      counter++;
+    }
+    if (!this.input.errorFlag) {
+      console.log("no error")
+      return this.token;
+    } else {
+      console.log(" error")
+      return null;
+    }
 
+  }
 
 
 

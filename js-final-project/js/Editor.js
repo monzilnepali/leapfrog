@@ -32,19 +32,14 @@ class Editor {
 
   }
   lexInput(inputValue) {
-    // console.log("value==>" + inputValue)
-    // let lexer = new Lexer();
-    // // let input = 'Andrew-china:hello china';
-    // let token = lexer.tokenize(inputValue);
-    // console.log(token);
-    // if (token.type === 'error') {
-    //   console.log(token.value);
-    // } else if (token.type === 'token') {
-    //   console.log(token.value);
-    //   //  let dig = new Diagram(this.context, 0);
-    //   //dig.draw(token.value);
-    // }
-    new LexerNew(new InputStream(inputValue));
+    let lex = new Lexer(new InputStream(inputValue)).tokenize();
+    if (lex != null) {
+      //draw
+
+      console.log(lex)
+    } else {
+      //show error
+    }
 
   }
 

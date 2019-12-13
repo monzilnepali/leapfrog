@@ -5,6 +5,7 @@ class InputStream {
     this.pos = 0;
     this.line = 1;
     this.col = 0;
+    this.errorFlag = false;
   }
   /**
    * read each character from input stream 
@@ -38,7 +39,9 @@ class InputStream {
    * return error message along with line number and column
    */
   error(char) {
+    this.errorFlag = true;
     console.log(`unexpected ${char} at line: ${this.line} ,column:  ${this.col}`);
+
   }
 
 }
