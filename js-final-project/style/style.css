@@ -7,20 +7,21 @@
 
 .container {
   width: 100%;
+
 }
 
 .wrapper-left {
   float: left;
   width: 30%;
-  height: 500px;
+  height: inherit;
 
 }
 
 .wrapper-right {
   float: right;
   width: 70%;
-  height: 500px;
-  background-color: black;
+  height: inherit;
+  /* background-color: black; */
 }
 
 #app {

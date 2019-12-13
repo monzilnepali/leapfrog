@@ -1,8 +1,9 @@
 class App {
   constructor() {
-    new Editor();
+
     this.createCanvas();
-    this.readInput();
+    new Editor(this.context);
+
   }
 
   createCanvas() {
@@ -11,16 +12,12 @@ class App {
     this.canvas.height = "400";
     this.context = this.canvas.getContext('2d');
 
-  }
-  readInput() {
-    let lexer = new Lexer();
-    let input = 'Andrew->china:hello china';
-    let token = lexer.tokenize(input);
-    let dig = new Diagram(this.context, 0);
-    dig.draw(token[0]);
 
   }
 }
 
-
-let app = new App();
+window.onload = function () {
+  var container = document.getElementById('container');
+  container.style.height = window.innerHeight + "px";
+  let app = new App();
+}

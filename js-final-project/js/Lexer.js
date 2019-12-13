@@ -5,17 +5,20 @@ class Lexer {
     this.tokens = [];
   }
   tokenize(input) {
+    console.log(input)
     /* first spliting string using : seperator and check the type of operation in leftside of : */
     let inputArray = input.split(":");
     let instruction = inputArray[0];
     let message = inputArray[1];
+    // let symbol1 = /\b->\b/; //for line arrow
     let symbol1 = /\b->\b/; //for line arrow
     let symbol2 = /\b->>\b/; //for open arrow
     let symbol3 = /\b-->\b/; //for DOTLINE
     let symbol4 = /\bNote/;
     /* -> means message send  */
     if (symbol1.exec(instruction)) {
-      this.split(symbol1, instruction, 2, 'LINE_ARROW', message);
+      console.log(symbol1.exec(instruction));
+      //this.split(symbol1, instruction, 2, 'LINE_ARROW', message);
     } else if (symbol2.exec(instruction)) {
       this.split(symbol2, instruction, 3, 'OPEN_ARROW', message);
     } else if (symbol3.exec(instruction)) {
@@ -37,10 +40,22 @@ class Lexer {
         actor: resArray[2],
         signal: message
       });
+    } else {
+      return {
+        type: 'error',
+        value: 'unexpected error'
+      };
     }
-    return this.tokens;
+
+    return {
+      type: 'token',
+      value: this.tokens
+    };
   }
 
+  /**
+   * split input to get its type,actors,arrow-type,signal
+   */
   split(regrex, instruction, offset, lineType, message) {
     var startIndex = regrex.exec(instruction)['index'];
     let actor1 = "";

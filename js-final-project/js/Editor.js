@@ -1,5 +1,6 @@
 class Editor {
-  constructor() {
+  constructor(context) {
+    this.context = context;
     let container = document.getElementById('editor-container');
     //creating line number text area
     let lineElement = document.createElement('textarea');
@@ -19,7 +20,6 @@ class Editor {
 
   }
   inputChanged() {
-    console.log("changesd");
     let numberOfLine = this.countLine(this.textArea.value);
     let temp_arr = this.lineNumberElement.value.split('\n');
     let oldNumberOfLine = parseInt(temp_arr[temp_arr.length - 1]);
@@ -27,7 +27,29 @@ class Editor {
     if (numberOfLine != oldNumberOfLine) {
       this.updateRow(numberOfLine);
     }
+    //checking the input validation using regrex and tokenize it using lexer
+    this.lexInput(this.textArea.value);
+
   }
+  lexInput(inputValue) {
+    // console.log("value==>" + inputValue)
+    // let lexer = new Lexer();
+    // // let input = 'Andrew-china:hello china';
+    // let token = lexer.tokenize(inputValue);
+    // console.log(token);
+    // if (token.type === 'error') {
+    //   console.log(token.value);
+    // } else if (token.type === 'token') {
+    //   console.log(token.value);
+    //   //  let dig = new Diagram(this.context, 0);
+    //   //dig.draw(token.value);
+    // }
+    new LexerNew(" input-> value");
+
+  }
+
+
+
   scrollChange() {
     this.lineNumberElement.scrollTop = this.textArea.scrollTop;
   }
