@@ -44,7 +44,7 @@ class Editor {
     //   //  let dig = new Diagram(this.context, 0);
     //   //dig.draw(token.value);
     // }
-    new LexerNew(" input-> value");
+    new LexerNew(new InputStream(inputValue));
 
   }
 
