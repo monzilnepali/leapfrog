@@ -3,6 +3,7 @@ class Lexer {
     this.input = input;
     this.keyword = " Note right of  left of ";
     this.token = [];
+    this.parseFlag = false;
   }
   is_char(ch) {
     return /[a-zA-z]/.test(ch);
@@ -51,7 +52,6 @@ class Lexer {
     let ch = this.input.peek();
     if (this.is_char(ch)) {
       let str = this.readString();
-      console.log("string" + str)
       if (this.is_keyword(str)) {
         this.token.push({
           type: 'token',
@@ -80,26 +80,32 @@ class Lexer {
 
 
     } else if (ch == ":") {
-      this.token.push({
-        type: 'col',
-        value: this.input.next()
-      });
-      //reading string after :
-      this.token.push({
-        type: 'message',
-        value: this.readString()
+      //before : there must be actor to be valid
+      console.log(this.token[this.token.length - 1].type)
+      if (this.token[this.token.length - 1].type === 'actor') {
+        this.parseFlag = true;
+        this.token.push({
+          type: 'col',
+          value: this.input.next()
+        });
+        //reading string after :
+        this.token.push({
+          type: 'message',
+          value: this.readString()
 
-      });
+        });
+      } else {
+        this.showError(ch);
+      }
+
+
 
     } else {
+      //if none of match
       //throw erro
-      this.input.error(ch);
+      this.showError(ch);
 
     }
-
-
-
-
   }
 
   showError(ch) {
@@ -113,11 +119,10 @@ class Lexer {
       this.readNext();
       counter++;
     }
-    if (!this.input.errorFlag) {
-      console.log("no error")
+    if (!this.input.errorFlag && this.parseFlag) {
       return this.token;
     } else {
-      console.log(" error")
+
       return null;
     }
 

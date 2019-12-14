@@ -36,7 +36,8 @@ class Editor {
     if (lex != null) {
       //draw
 
-      console.log(lex)
+      new DiagramNew(lex)
+
     } else {
       //show error
     }
