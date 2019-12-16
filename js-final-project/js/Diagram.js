@@ -16,9 +16,10 @@ class Diagram {
     let actor1Object = new Actor(0, 0, actor1, this.context).draw();
     //draw arrow
     let actor2Object = new Actor(this.drawArrow(signal, actor1Object.width), 0, actor2, this.context).draw();
+
   }
   drawArrow(signal, x) {
-    console.log("draw")
+    // console.log("draw")
     this.context.font = '18px Arial';
     let width = this.context.measureText(signal).width + 100;
     console.log(signal)

@@ -3,6 +3,8 @@ class Lexer {
     this.input = input;
     this.keyword = " Note right of  left of ";
     this.token = [];
+
+    this.tempToken = [];
     this.parseFlag = false;
   }
   is_char(ch) {
@@ -53,12 +55,13 @@ class Lexer {
     if (this.is_char(ch)) {
       let str = this.readString();
       if (this.is_keyword(str)) {
-        this.token.push({
+        this.tempToken.push({
           type: 'token',
           value: str
         });
       } else {
-        this.token.push({
+        this.tempToken.push({
+
           type: 'actor',
           value: str
         });
@@ -69,10 +72,11 @@ class Lexer {
       checking if there is any string before arrow sign
       if not show error
       */
-      if (this.token.length != 0) {
-        this.token.push({
+      if (this.tempToken.length != 0) {
+        this.tempToken.push({
           type: 'arrow',
           value: this.readArrowSign()
+
         });
       } else {
         this.showError(ch);
@@ -81,22 +85,24 @@ class Lexer {
 
     } else if (ch == ":") {
       //before : there must be actor to be valid
-      console.log(this.token[this.token.length - 1].type)
-      if (this.token[this.token.length - 1].type === 'actor') {
-        this.parseFlag = true;
-        this.token.push({
-          type: 'col',
-          value: this.input.next()
-        });
-        //reading string after :
-        this.token.push({
-          type: 'message',
-          value: this.readString()
+      // console.log(this.token[this.token.length - 1].type)
+      //  if (this.token[this.token.length - 1].type === 'actor') {
+      this.parseFlag = true;
+      this.tempToken.push({
+        type: 'col',
+        value: this.input.next()
+      });
+      //reading string after :
+      this.tempToken.push({
+        type: 'message',
+        value: this.readString()
 
-        });
-      } else {
-        this.showError(ch);
-      }
+      });
+      this.token.push(this.tempToken);
+      this.tempToken = [];
+
+
+
 
 
 
@@ -120,6 +126,7 @@ class Lexer {
       counter++;
     }
     if (!this.input.errorFlag && this.parseFlag) {
+
       return this.token;
     } else {
 
@@ -127,7 +134,6 @@ class Lexer {
     }
 
   }
-
 
 
 

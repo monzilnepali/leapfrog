@@ -12,10 +12,12 @@ class Editor {
     textElement.classList.add('text-area');
     this.textArea = textElement;
     this.textArea.setAttribute('autofocus', 'true')
+    this.textArea.setAttribute('spellcheck', 'false')
     this.textArea.oninput = this.inputChanged.bind(this);
     this.textArea.onscroll = this.scrollChange.bind(this);
     container.appendChild(lineElement);
     container.appendChild(textElement);
+    this.createCanvas();
 
 
   }
@@ -35,8 +37,9 @@ class Editor {
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
-
-      new DiagramNew(lex)
+      this.clearRect();
+      console.log(lex)
+      //  new DiagramNew(this.context, lex);
 
     } else {
       //show error
@@ -61,6 +64,17 @@ class Editor {
       return 1;
     }
     return text.split('\n').length;
+  }
+  createCanvas() {
+    this.canvas = document.getElementById('app');
+    this.canvas.width = "1000";
+    this.canvas.height = "400";
+    this.context = this.canvas.getContext('2d');
+  }
+  clearRect() {
+    console.log("clear rec")
+    this.context.clearRect(0, 0, 1000, 400);
+
   }
 
 }
