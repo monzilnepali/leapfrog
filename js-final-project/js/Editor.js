@@ -1,5 +1,6 @@
 class Editor {
   constructor(context) {
+    this.actors = [];
     this.context = context;
     let container = document.getElementById('editor-container');
     //creating line number text area
@@ -34,14 +35,18 @@ class Editor {
 
   }
   lexInput(inputValue) {
+    console.log(inputValue)
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
       this.clearRect();
       console.log(lex)
-      //  new DiagramNew(this.context, lex);
+      //  let diagram = new DiagramNew(this.context, lex, this.actors);
+      //diagram.draw();
+
 
     } else {
+      this.clearRect();
       //show error
     }
 
@@ -72,7 +77,7 @@ class Editor {
     this.context = this.canvas.getContext('2d');
   }
   clearRect() {
-    console.log("clear rec")
+
     this.context.clearRect(0, 0, 1000, 400);
 
   }

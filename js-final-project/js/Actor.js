@@ -11,26 +11,35 @@ class Actor {
     this.y = y;
     this.name = name;
     this.context = context;
-  }
-  /**
-   * draw actor along with bottom line
-   */
-  draw() {
-
+    this.width = this.context.measureText(this.name).width;
+    this.signalPositionOffset = 120;
+    this.rectWidth = this.width + 50;
     this.height = 50;
+
+  }
+
+  draw() {
     this.context.font = '18px Arial';
-    let text = this.context.measureText(this.name);
-    this.width = text.width + 50;
     //aligning text at center of rect
-    this.context.fillText(this.name, this.x + this.width / 2 - text.width / 2, this.y + this.height / 2 + 10 / 2);
-    this.context.strokeRect(this.x, this.y, this.width, this.height);
+    this.context.fillText(this.name, this.x + this.rectWidth / 2 - this.width / 2, this.y + this.height / 2 + 10 / 2);
+    this.context.strokeRect(this.x, this.y, this.rectWidth, this.height);
     //drawing line below actor
     this.drawLine();
-    return this;
-
   }
   drawLine() {
     this.context.fillStyle = "black";
-    this.context.fillRect(this.x + this.width / 2, this.y + this.height, 3, 400);
+    this.context.fillRect(this.x + this.rectWidth / 2, this.y + this.height, 3, 400);
   }
+  drawArrow(width, message) {
+    console.log("message" + message)
+    this.context.fillText(message, 50, this.signalPositionOffset - 20);
+    this.context.fillStyle = "black";
+    this.context.fillRect(this.x + this.rectWidth / 2, this.signalPositionOffset, width + 2, 3);
+
+  }
+  updateX(x) {
+    this.x = x;
+    this.draw()
+  }
+
 }

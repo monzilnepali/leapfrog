@@ -1,66 +1,76 @@
 class DiagramNew {
 
-  constructor(context, tokens) {
+  constructor(context, tokens, actors) {
     this.context = context;
-    this.actors = [];
+    this.actors = actors;
     this.signal = [];
-    this.tempActors = [];
-    this.actorsObject = [];
+
     tokens.forEach((element, index) => {
-      if (element.type == 'actor') {
-        if (this.tempActors.indexOf(element.value) == -1) {
-          this.actors.push({
-            index: index,
-            name: element.value
-          });
-          this.tempActors.push(element.value);
+
+      if (element.type === 'actor') {
+        if (!this.containActor(element.value)) {
+          console.log("pushing new object")
+          let x = 0;
+          if (this.actors.length !== 0) {
+            let prevActor = this.actors[this.actors.length - 1];
+            x = prevActor.x + prevActor.rectWidth + 10;
+          }
+          console.log(x)
+          this.actors.push(new Actor(x, 0, element.value, this.context));
+
         }
       }
       if (element.type == 'arrow') {
         this.signal.push({
-          index: index,
           arrowType: element.value,
-          actor1: tokens[index - 1],
-          actor2: tokens[index + 1],
+          actor1: tokens[index - 1].value,
+          actor2: tokens[index + 1].value,
           message: tokens[index + 3].value
         });
       }
 
     });
-
-
-    this.drawActor();
-    this.drawSignal();
-    // this.drawArrow("hlo", 0);
+    console.log(this.actors)
 
   }
 
-  drawActor() {
-    this.actors.forEach((element, index) => {
-      let actor1 = new Actor(index * 150, 0, element.name, this.context).draw();
-      this.actorsObject.push(actor1);
-    });
-
-
+  containActor(name) {
+    for (let i = 0; i < this.actors.length; i++) {
+      console.log(i)
+      if (this.actors[i].name === name) {
+        return true;
+      }
+    }
   }
-  drawSignal() {
+
+
+
+
+  draw() {
+    console.log(this.signal);
     this.signal.forEach((element, index) => {
+      let actor1 = this.findActorObject(element.actor1);
+      let actor2 = this.findActorObject(element.actor2);
 
-
-
+      if (actor1.name === actor2.name) {
+        actor1.draw();
+      } else {
+        let maxdistance = this.context.measureText(element.message).width + 30;
+        let mindistance = actor2.x - actor1.x;
+        let distance = (maxdistance > mindistance) ? maxdistance : mindistance;
+        actor1.draw();
+        actor2.updateX(distance);
+        actor1.drawArrow(actor2.x - actor1.x, element.message);
+      }
     });
+
   }
-  drawArrow(signal, x) {
-    console.log(this.actorsObject)
-    // console.log("draw")
-    this.context.font = '18px Arial';
-    let width = this.context.measureText(signal).width + 100;
-    console.log(signal)
-    console.log(width);
-    this.context.fillRect(x - x / 2, 40 + 40, width, 2);
-    //adding text on top of line
-    this.context.fillText(signal, 0 + 100, 70);
-    return width;
+  findActorObject(name) {
+    for (let i = 0; i < this.actors.length; i++) {
+      if (this.actors[i].name == name) {
+        return this.actors[i];
+      }
+    }
   }
 
 }

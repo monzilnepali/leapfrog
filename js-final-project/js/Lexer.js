@@ -36,6 +36,13 @@ class Lexer {
 
     return str;
   }
+  readMessage() {
+    let str = "";
+    while (!this.input.eof() && this.input.peek() != '\n') {
+      str += this.input.next();
+    }
+    return str;
+  }
 
   readArrowSign() {
     let str = "";
@@ -55,12 +62,12 @@ class Lexer {
     if (this.is_char(ch)) {
       let str = this.readString();
       if (this.is_keyword(str)) {
-        this.tempToken.push({
+        this.token.push({
           type: 'token',
           value: str
         });
       } else {
-        this.tempToken.push({
+        this.token.push({
 
           type: 'actor',
           value: str
@@ -72,8 +79,8 @@ class Lexer {
       checking if there is any string before arrow sign
       if not show error
       */
-      if (this.tempToken.length != 0) {
-        this.tempToken.push({
+      if (this.token.length != 0) {
+        this.token.push({
           type: 'arrow',
           value: this.readArrowSign()
 
@@ -88,27 +95,18 @@ class Lexer {
       // console.log(this.token[this.token.length - 1].type)
       //  if (this.token[this.token.length - 1].type === 'actor') {
       this.parseFlag = true;
-      this.tempToken.push({
+      this.token.push({
         type: 'col',
         value: this.input.next()
       });
       //reading string after :
-      this.tempToken.push({
+      this.token.push({
         type: 'message',
-        value: this.readString()
+        value: this.readMessage()
 
       });
-      this.token.push(this.tempToken);
-      this.tempToken = [];
-
-
-
-
-
 
     } else {
-      //if none of match
-      //throw erro
       this.showError(ch);
 
     }
