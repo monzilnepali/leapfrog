@@ -15,7 +15,7 @@ class DiagramNew {
             x = prevActor.x + prevActor.rectWidth + 50;
 
           }
-          this.actors.push(new Actor(x, 0, element.value, this.context));
+          this.actors.push(new Actor(x, 0, element.value, this.context, index));
 
         }
       }
@@ -30,9 +30,8 @@ class DiagramNew {
       }
 
     });
-    console.log(this.actors)
-
   }
+
 
   containActor(name) {
     for (let i = 0; i < this.actors.length; i++) {
@@ -42,26 +41,26 @@ class DiagramNew {
     }
   }
 
-
-
-
   draw() {
 
     this.signal.forEach((element, index) => {
 
       let actor1 = this.findActorObject(element.actor1);
       let actor2 = this.findActorObject(element.actor2);
-
       if (actor1.name === actor2.name) {
         actor1.draw();
       } else {
         let maxdistance = this.context.measureText(element.message).width + 20;
-        let mindistance = actor2.x - actor1.x;
+        let mindistance = Math.abs(actor2.x - actor1.x);
         let distance = (maxdistance > mindistance) ? maxdistance : mindistance;
         actor1.draw();
-        actor2.updateX(actor1.x + distance);
+        if (actor1.x < actor2.x) {
+          actor2.updateX(actor1.x + distance);
+        } else {
+          actor2.updateX(actor1.x - distance);
+        }
         actor2.draw();
-        actor1.drawArrow(actor2.x - actor1.x, element.message, index);
+        actor1.drawArrow(mindistance, element.message, index);
       }
     });
 

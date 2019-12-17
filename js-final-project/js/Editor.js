@@ -40,6 +40,7 @@ class Editor {
     if (lex != null) {
       //draw
       this.clearRect();
+
       let diagram = new DiagramNew(this.context, lex, this.actors);
       diagram.draw();
 

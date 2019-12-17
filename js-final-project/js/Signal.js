@@ -7,7 +7,6 @@ class Signal {
 
   }
   draw(width, msg) {
-
     this.width = width;
     let message = msg;
     let height = 3;

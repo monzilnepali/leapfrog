@@ -6,11 +6,12 @@ class Actor {
    * @param {string} name name of actor
    * @param {type} context context of canvas
    */
-  constructor(x, y, name, context) {
+  constructor(x, y, name, context, index) {
     this.x = x;
     this.y = y;
     this.name = name;
     this.context = context;
+    this.index = index;
     this.width = this.context.measureText(this.name).width;
     this.signalPositionOffset = 120;
     this.rectWidth = this.width + 50;
@@ -33,16 +34,20 @@ class Actor {
   }
   drawArrow(width, message, index) {
     let xpos = this.x + this.rectWidth / 2;
-    let ypos = 100;
+    let ypos = 40 * index + 100;
 
-    if (this.findSignal(index) === null) {
-      let lastSignal = this.signals[this.signals.length - 1];
-      if (lastSignal != null) {
-        ypos = lastSignal.y + 50;
-      }
+
+    if (this.signals.length == 0) {
+      //create new signal 
+      //creating first signal 
       this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
+    } else if (this.findSignal(index) == null) {
+      //create new unique signal
+      ypos = this.signals[this.signals.length - 1].y + 50;
+      this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
+      Editor.signalOffset(ypos);
     } else {
-
+      //update the existing signal width and message
       this.findSignal(index).draw(width, message)
     }
   }
