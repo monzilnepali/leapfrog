@@ -35,14 +35,13 @@ class Editor {
 
   }
   lexInput(inputValue) {
-    console.log(inputValue)
+
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
       this.clearRect();
-      console.log(lex)
-      //  let diagram = new DiagramNew(this.context, lex, this.actors);
-      //diagram.draw();
+      let diagram = new DiagramNew(this.context, lex, this.actors);
+      diagram.draw();
 
 
     } else {

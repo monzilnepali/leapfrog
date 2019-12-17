@@ -15,6 +15,7 @@ class Actor {
     this.signalPositionOffset = 120;
     this.rectWidth = this.width + 50;
     this.height = 50;
+    this.signals = [];
 
   }
 
@@ -30,16 +31,32 @@ class Actor {
     this.context.fillStyle = "black";
     this.context.fillRect(this.x + this.rectWidth / 2, this.y + this.height, 3, 400);
   }
-  drawArrow(width, message) {
-    console.log("message" + message)
-    this.context.fillText(message, 50, this.signalPositionOffset - 20);
-    this.context.fillStyle = "black";
-    this.context.fillRect(this.x + this.rectWidth / 2, this.signalPositionOffset, width + 2, 3);
+  drawArrow(width, message, index) {
+    let xpos = this.x + this.rectWidth / 2;
+    let ypos = 100;
 
+    if (this.findSignal(index) === null) {
+      let lastSignal = this.signals[this.signals.length - 1];
+      if (lastSignal != null) {
+        ypos = lastSignal.y + 50;
+      }
+      this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
+    } else {
+
+      this.findSignal(index).draw(width, message)
+    }
   }
   updateX(x) {
     this.x = x;
-    this.draw()
   }
+  findSignal(index) {
+    for (let i = 0; i < this.signals.length; i++) {
+      if (this.signals[i].index === index) {
+        return this.signals[i];
+      }
+    }
+    return null;
+  }
+
 
 }
