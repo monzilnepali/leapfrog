@@ -4,8 +4,10 @@ class InputStream {
     this.length = this.input.length;
     this.pos = 0;
     this.line = 1;
-    this.col = 0;
+    this.col = 1;
     this.errorFlag = false;
+    this.lineElement = document.getElementById('line');
+    this.colElement = document.getElementById('col');
   }
   /**
    * read each character from input stream 
@@ -13,13 +15,18 @@ class InputStream {
    * return the next character in inputstream
    */
   next() {
+
     var ch = this.input.charAt(this.pos++);
     if (ch == '\n') {
       this.line++;
-      this.col = 0;
+      this.col = 1;
     } else {
       this.col++;
     }
+
+    //display line and col num
+    this.lineElement.innerText = this.line;
+    this.colElement.innerText = this.col;
     return ch;
   }
 

@@ -1,37 +1,33 @@
 class Diagram {
-  constructor(context, signals) {
+  constructor(elements, context) {
+    this.elements = elements;
     this.context = context;
-    this.signals = signals;
   }
   draw() {
-    this.signals.forEach((element, index) => {
-      let actor1 = element.actor1;
-      let actor2 = element.actor2;
-      let swapStatus = false;
-      //drawing always from left side of canvas
-      if (actor1.index > actor2.index) {
-        let temp = actor2;
-        actor2 = actor1;
-        actor1 = temp;
-        swapStatus = true;
-      }
-      if (actor1.name === actor2.name) {
-        //do nothing
-        console.log("same actor")
-      } else {
-        let maxdistance = this.context.measureText(element.message).width + 10;
-        let mindistance = actor2.x - actor1.x;
-        let distance = (maxdistance > mindistance) ? maxdistance : mindistance;
-        actor1.draw();
-        actor2.updateX(actor1.x + distance);
-        actor2.draw();
-        if (swapStatus) {
-          actor1.drawArrow(distance, element.message, index, true);
-        } else {
-          actor1.drawArrow(distance, element.message, index, false);
-        }
-
-      }
+    this.drawActor(this.elements.actors);
+    this.drawSignal(this.elements.signals);
+  }
+  drawActor(actors) {
+    actors.forEach(element => {
+      element.draw();
     });
+  }
+  drawSignal(signals) {
+    signals.forEach((signal, index) => {
+      let actor1 = this.findActor(signal.actors[0]);
+      let actor2 = this.findActor(signal.actors[1]);
+      let ypos = index * 50 + 100;
+      signal.draw(actor1.x + actor1.rectWidth / 2, actor2.x + actor2.rectWidth / 2, ypos, this.context)
+
+    });
+  }
+
+  findActor(name) {
+    for (let i = 0; i < this.elements.actors.length; i++) {
+      if (this.elements.actors[i].name === name) {
+        return this.elements.actors[i];
+      }
+    }
+    return null;
   }
 }

@@ -22,6 +22,8 @@ class Editor {
 
   }
   inputChanged() {
+    document.getElementById('errorMsg').innerText = "";
+    document.getElementById('errorMsg').parentElement.style.backgroundColor = '#191a21'
     let numberOfLine = this.countLine(this.textArea.value);
     let temp_arr = this.lineNumberElement.value.split('\n');
     let oldNumberOfLine = parseInt(temp_arr[temp_arr.length - 1]);
@@ -34,17 +36,14 @@ class Editor {
 
   }
   lexInput(inputValue) {
-
+    console.log(inputValue)
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
       this.clearRect();
       let parse = new Parser(lex, this.context).parse();
-
-      let diagram = new DiagramNew(parse, this.context);
+      let diagram = new Diagram(parse, this.context);
       diagram.draw()
-      // let diagram = new Diagram(this.context, parse);
-      // diagram.draw();
 
     } else {
       this.clearRect();
@@ -76,6 +75,7 @@ class Editor {
     this.canvas.width = "1000";
     this.canvas.height = "400";
     this.context = this.canvas.getContext('2d');
+
   }
   clearRect() {
 

@@ -8,5 +8,9 @@ class App {
 window.onload = function () {
   var container = document.getElementById('container');
   container.style.height = window.innerHeight + "px";
-  let app = new App();
+  new App();
 }
+document.getElementById('new').addEventListener('click', () => {
+  console.log("new tab")
+  new App()
+});
