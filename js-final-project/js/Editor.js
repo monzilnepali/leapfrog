@@ -40,9 +40,10 @@ class Editor {
     if (lex != null) {
       //draw
       this.clearRect();
-
-      let diagram = new DiagramNew(this.context, lex, this.actors);
+      let parse = new Parser(lex, this.context).parse();
+      let diagram = new Diagram(this.context, parse);
       diagram.draw();
+
 
 
     } else {

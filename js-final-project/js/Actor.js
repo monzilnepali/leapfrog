@@ -45,15 +45,16 @@ class Actor {
       //create new unique signal
       ypos = this.signals[this.signals.length - 1].y + 50;
       this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
-      Editor.signalOffset(ypos);
     } else {
-      //update the existing signal width and message
-      this.findSignal(index).draw(width, message)
+      //update the existing signal width and message only
+      this.findSignal(index).draw(width, message);
     }
   }
   updateX(x) {
     this.x = x;
   }
+
+
   findSignal(index) {
     for (let i = 0; i < this.signals.length; i++) {
       if (this.signals[i].index === index) {
