@@ -40,7 +40,7 @@ class Editor {
       //draw
       this.clearRect();
       let parse = new Parser(lex, this.context).parse();
-      console.log(parse)
+
       let diagram = new DiagramNew(parse, this.context);
       diagram.draw()
       // let diagram = new Diagram(this.context, parse);

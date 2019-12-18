@@ -22,6 +22,7 @@ class Parser {
       let actor = [];
       let arrowType = "";
       let message = "";
+      let swapFlag = false;
       token.forEach((element) => {
         if (element.type === 'actor') {
           actor.push(element.value)
@@ -32,10 +33,10 @@ class Parser {
         }
       });
 
-      this.signals.push(new Signal(message, actor))
+
 
       //distance between actor
-      let textWidth = this.context.measureText(message).width;
+      let textWidth = this.context.measureText(message).width + 20;
       textWidth = (textWidth < 150) ? 150 : textWidth;
       actor.forEach((name, index) => {
 
@@ -53,28 +54,46 @@ class Parser {
           } else {
             //message receiver
 
-
-            let senderActor = this.actors[this.actors.length - 1];
-
-            this.actors.push(new Actor(senderActor.x + textWidth, 0, name, this.context));
+            let senderActorX = this.actors[this.actors.length - 1].x + 150;
+            let xpos = senderActorX;
+            if (textWidth > senderActorX) {
+              xpos = textWidth;
+            }
+            this.actors.push(new Actor(xpos, 0, name, this.context));
           }
         } else {
-          if (index == 0) {} else {
+
+          if (index == 0) {
+            // let actor1 = this.findActor(actor1(0));
+
+          } else {
+
             //getting first actor 
-            let actor1 = this.findActor(actor[0]).value;
-            let currentActor = this.findActor(actor[1]).value;
+            let from = this.findActor(actor[0]);
+            let to = this.findActor(actor[1]);
+            let actor1 = from.value;
+            let actor2 = to.value;
+            if (to.index < from.index) {
+              //swapping
+              console.log("Swapping")
+              swapFlag = true;
+              let temp = actor2;
+              actor2 = actor1;
+              actor1 = temp;
+            }
+
             //update x of actor 
             let width = actor1.x + textWidth;
-            if (width < currentActor.x) {
-              width = currentActor.x;
+            if (width < actor2.x) {
+              width = actor2.x;
             }
             console.log("width" + width)
-            currentActor.updateX(width);
+            actor2.updateX(width);
           }
         }
 
       });
-
+      this.signals.push(new Signal(message, actor, swapFlag))
     });
   }
   signalArray() {
