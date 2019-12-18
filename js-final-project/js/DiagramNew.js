@@ -14,7 +14,6 @@ class DiagramNew {
   }
   drawSignal(signals) {
     signals.forEach((signal, index) => {
-      console.log(signal)
       let actor1 = this.findActor(signal.actors[0]);
       let actor2 = this.findActor(signal.actors[1]);
       let ypos = index * 50 + 100;

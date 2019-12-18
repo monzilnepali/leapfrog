@@ -27,7 +27,7 @@ class Signal {
     this.drawArrowPointer(this.swap)
   }
   drawArrowPointer(direction) {
-    console.log("draw")
+
     //direction true:point to left side
     //direction false=point to right side
     this.context.beginPath();
