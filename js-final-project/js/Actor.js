@@ -41,7 +41,8 @@ class Actor {
     this.x = x;
   }
   clearActorRect() {
-    this.context.clearRect(this.x - 2, this.y, this.rectWidth + 15, this.height);
+    this.context.clearRect(this.x - 2, this.y, this.rectWidth + 3, this.rectHeight + 1);
+    this.context.clearRect(this.x + this.rectWidth / 2, this.y + this.rectHeight, 3.5, this.height);
 
   }
 
