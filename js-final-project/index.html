@@ -12,7 +12,11 @@
 <body>
   <div class="container" id="container">
     <div class="wrapper-left" id="editor-container">
-
+      <div class="wrapper-left-header"></div>
+      <div class="wrapper-left-footer">
+        <div class="lineNumber">Ln <span id="line">1</span>, Col <span id="col">1</span>
+        </div>
+      </div>
     </div>
     <div class="wrapper-right">
       <canvas id="app"></canvas>
@@ -25,9 +29,9 @@
   <script src="./js/Signal.js"></script>
   <script src="./js/Actor.js"></script>
   <script src="./js/Diagram.js"></script>
-  <script src="./js/DiagramNew.js"></script>
   <script src="./js/parser.js"></script>
   <script src="./js/InputStream.js"></script>
+  <script src="./js/ValidationError.js"></script>
   <script src="./js/Lexer.js"></script>
   <script src="./js/Editor.js"></script>
   <script src="./js/app.js"></script>

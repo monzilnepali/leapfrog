@@ -11,25 +11,48 @@
   flex-direction: row;
 }
 
-.wrapper-left {
-  width: 100%;
-  height: inherit;
-}
-
 .wrapper-right {
 
   width: 100%;
   height: inherit;
   /* background-color: black; */
+  background-color: #333646;
 }
 
 #app {
   padding: 20px;
+
 }
+
+.wrapper-left {
+  width: 100%;
+  height: inherit;
+  position: relative;
+}
+
+.wrapper-left-header {
+  height: 50px;
+  width: 100%;
+  background-color: red;
+}
+
+.wrapper-left-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 25px;
+  width: 100%;
+  padding: 5px;
+  color: white;
+  background-color: red;
+}
+
+
+
 
 textarea {
   resize: none;
-  height: 100%;
+  height: calc(100% - 50px - 25px);
   outline: none;
   margin: 0;
   border: 0;
@@ -40,6 +63,7 @@ textarea {
 }
 
 .line-number {
+  position: relative;
   float: left;
   width: 45px;
   overflow-y: hidden;

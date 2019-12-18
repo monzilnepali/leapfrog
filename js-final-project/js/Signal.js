@@ -32,9 +32,9 @@ class Signal {
     //direction false=point to right side
     this.context.beginPath();
     if (direction) {
-      this.context.moveTo(this.x1, this.y);
-      this.context.lineTo(this.x1 + 8, this.y + 8);
-      this.context.lineTo(this.x1 + 8, this.y - 8);
+      this.context.moveTo(this.x1 + 3, this.y);
+      this.context.lineTo(this.x1 + 11, this.y + 8);
+      this.context.lineTo(this.x1 + 11, this.y - 8);
     } else {
       this.context.moveTo(this.x2, this.y);
       this.context.lineTo(this.x2 - 8, this.y - 8);
