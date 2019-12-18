@@ -31,10 +31,10 @@ class Actor {
     this.context.fillStyle = "black";
     this.context.fillRect(this.x + this.rectWidth / 2, this.y + this.rectHeight, 3, this.height);
   }
-  drawArrow(width, message, index) {
+  drawArrow(width, message, index, direction) {
     let xpos = this.x + this.rectWidth / 2;
     let ypos = 40 * index + 100;
-    this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
+    this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message, direction));
   }
   updateX(x) {
     this.clearActorRect();

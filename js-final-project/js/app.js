@@ -1,7 +1,6 @@
 class App {
   constructor() {
     new Editor(this.context);
-
   }
 
 }
