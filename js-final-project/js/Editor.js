@@ -1,6 +1,5 @@
 class Editor {
   constructor(context) {
-    this.actors = [];
     this.context = context;
     let container = document.getElementById('editor-container');
     //creating line number text area
@@ -40,11 +39,12 @@ class Editor {
     if (lex != null) {
       //draw
       this.clearRect();
-      let parse = new Parser(lex, this.context, this.actors).parse();
-      let diagram = new Diagram(this.context, parse);
-      diagram.draw();
-
-
+      let parse = new Parser(lex, this.context).parse();
+      console.log(parse)
+      let diagram = new DiagramNew(parse, this.context);
+      diagram.draw()
+      // let diagram = new Diagram(this.context, parse);
+      // diagram.draw();
 
     } else {
       this.clearRect();
