@@ -10,7 +10,3 @@ window.onload = function () {
   container.style.height = window.innerHeight + "px";
   new App();
 }
-document.getElementById('new').addEventListener('click', () => {
-  console.log("new tab")
-  new App()
-});
