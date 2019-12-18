@@ -4,7 +4,6 @@ class Diagram {
     this.signals = signals;
   }
   draw() {
-
     this.signals.forEach((element, index) => {
       let actor1 = element.actor1;
       let actor2 = element.actor2;

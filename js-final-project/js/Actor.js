@@ -13,11 +13,9 @@ class Actor {
     this.context = context;
     this.index = index;
     this.width = this.context.measureText(this.name).width;
-    this.signalPositionOffset = 120;
     this.rectWidth = this.width + 50;
     this.height = 50;
     this.signals = [];
-
   }
 
   draw() {
@@ -36,7 +34,6 @@ class Actor {
     let xpos = this.x + this.rectWidth / 2;
     let ypos = 40 * index + 100;
     this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
-    console.log(this.signals)
   }
   updateX(x) {
     this.x = x;

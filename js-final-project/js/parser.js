@@ -1,14 +1,15 @@
 class Parser {
-  constructor(tokens, context) {
+  constructor(tokens, context, actors) {
     this.tokens = tokens;
     this.context = context;
     this.signals = [];
-    this.actors = [];
+    this.actors = actors;
   }
   parse() {
     this.uniqueActorArray();
-    this.signalArray();
     console.log(this.actors)
+    this.signalArray();
+
     return this.signals;
 
   }
@@ -19,6 +20,8 @@ class Parser {
           let x = 0;
           if (this.actors.length !== 0) {
             let prevActor = this.actors[this.actors.length - 1];
+            console.log("prev actor");
+            console.log(prevActor)
             x = prevActor.x + prevActor.rectWidth + 100;
           }
           this.actors.push(new Actor(x, 0, element.value, this.context, index));
