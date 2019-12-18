@@ -8,6 +8,7 @@ class Parser {
   parse() {
     this.uniqueActorArray();
     this.signalArray();
+    console.log(this.actors)
     return this.signals;
 
   }
@@ -18,7 +19,7 @@ class Parser {
           let x = 0;
           if (this.actors.length !== 0) {
             let prevActor = this.actors[this.actors.length - 1];
-            x = prevActor.x + prevActor.rectWidth + 50;
+            x = prevActor.x + prevActor.rectWidth + 100;
           }
           this.actors.push(new Actor(x, 0, element.value, this.context, index));
         }
@@ -44,7 +45,6 @@ class Parser {
   }
 
   findActor(name) {
-    console.log(name)
     for (let i = 0; i < this.actors.length; i++) {
       if (this.actors[i].name === name) {
         return this.actors[i];

@@ -35,20 +35,8 @@ class Actor {
   drawArrow(width, message, index) {
     let xpos = this.x + this.rectWidth / 2;
     let ypos = 40 * index + 100;
-
-
-    if (this.signals.length == 0) {
-      //create new signal 
-      //creating first signal 
-      this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
-    } else if (this.findSignal(index) == null) {
-      //create new unique signal
-      ypos = this.signals[this.signals.length - 1].y + 50;
-      this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
-    } else {
-      //update the existing signal width and message only
-      this.findSignal(index).draw(width, message);
-    }
+    this.signals.push(new Signal(xpos, ypos, this.context, index).draw(width, message));
+    console.log(this.signals)
   }
   updateX(x) {
     this.x = x;
