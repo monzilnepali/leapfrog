@@ -19,7 +19,7 @@ class Diagram {
         //do nothing
         console.log("same actor")
       } else {
-        let maxdistance = this.context.measureText(element.message).width + 20;
+        let maxdistance = this.context.measureText(element.message).width + 10;
         let mindistance = actor2.x - actor1.x;
         let distance = (maxdistance > mindistance) ? maxdistance : mindistance;
         actor1.draw();

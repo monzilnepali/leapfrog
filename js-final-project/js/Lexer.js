@@ -3,7 +3,6 @@ class Lexer {
     this.input = input;
     this.keyword = " Note right of  left of ";
     this.token = [];
-
     this.tempToken = [];
     this.parseFlag = false;
   }
@@ -105,6 +104,8 @@ class Lexer {
         value: this.readMessage()
 
       });
+      this.tempToken.push(this.token);
+      this.token = [];
 
     } else {
       this.showError(ch);
@@ -124,8 +125,7 @@ class Lexer {
       counter++;
     }
     if (!this.input.errorFlag && this.parseFlag) {
-
-      return this.token;
+      return this.tempToken;
     } else {
 
       return null;
