@@ -9,7 +9,6 @@ class Parser {
     this.uniqueActorArray();
     console.log(this.actors)
     this.signalArray();
-
     return this.signals;
 
   }
@@ -19,12 +18,15 @@ class Parser {
         if (this.findActor(element.value) === null) {
           let x = 0;
           if (this.actors.length !== 0) {
-            let prevActor = this.actors[this.actors.length - 1];
-            console.log("prev actor");
-            console.log(prevActor)
-            x = prevActor.x + prevActor.rectWidth + 100;
+            let lastActor = this.actors[this.actors.length - 1];
+            x = lastActor.x + lastActor.rectWidth + 100;
           }
           this.actors.push(new Actor(x, 0, element.value, this.context, index));
+        } else {
+          let lastActor = this.actors[this.actors.length - 1];
+          let secondLastActor = this.actors[this.actors.length - 2]
+          lastActor.updateX(secondLastActor.x + secondLastActor.rectWidth + 100);
+          lastActor.draw();
         }
       }
     });
