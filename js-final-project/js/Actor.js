@@ -20,6 +20,7 @@ class Actor {
   draw() {
     this.context.font = '18px Arial';
     //aligning text at center of rect
+
     this.context.fillText(this.name, this.x + this.rectWidth / 2 - (this.rectWidth - 50) / 2, this.y + this.rectHeight / 2 + 10 / 2);
     this.context.strokeRect(this.x, this.y, this.rectWidth, this.rectHeight);
     //drawing line below actor
