@@ -22,11 +22,12 @@ class Parser {
             x = lastActor.x + lastActor.rectWidth + 100;
           }
           this.actors.push(new Actor(x, 0, element.value, this.context, index));
-        } else {
-          let lastActor = this.actors[this.actors.length - 1];
-          let secondLastActor = this.actors[this.actors.length - 2]
-          lastActor.updateX(secondLastActor.x + secondLastActor.rectWidth + 100);
-          lastActor.draw();
+          // } else {
+          //   let lastActor = this.actors[this.actors.length - 1];
+          //   let secondLastActor = this.actors[this.actors.length - 2]
+          //   lastActor.updateX(secondLastActor.x + secondLastActor.rectWidth + 100);
+          //   lastActor.draw();
+          // }
         }
       }
     });
