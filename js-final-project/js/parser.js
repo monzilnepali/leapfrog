@@ -53,7 +53,7 @@ class Parser {
             this.actors.push(new Actor(lastActor.x + 150, 0, name, this.context));
           } else {
             //message receiver
-            console.log("new receiver")
+
 
             let senderActorX = this.actors[this.actors.length - 1].x + 20;
             let xpos = senderActorX;

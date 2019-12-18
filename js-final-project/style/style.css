@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .container {
@@ -16,7 +18,7 @@
   width: 100%;
   height: inherit;
   /* background-color: black; */
-  background-color: #333646;
+  /* background-color: #333646; */
 }
 
 #app {
@@ -28,12 +30,14 @@
   width: 100%;
   height: inherit;
   position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .wrapper-left-header {
   height: 50px;
   width: 100%;
-  background-color: red;
+  background-color: #21222c;
+
 }
 
 .wrapper-left-footer {
@@ -42,11 +46,25 @@
   left: 0;
   height: 25px;
   width: 100%;
-  padding: 5px;
+  line-height: 25px;
   color: white;
-  background-color: red;
+  background-color: #191a21;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row-reverse;
+  font-weight: 300;
 }
 
+#lineInfo {
+  width: 15%;
+}
+
+#errorMsg {
+  width: 85%;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
 
 
 
@@ -58,8 +76,9 @@ textarea {
   border: 0;
   padding-top: 5px;
   background-color: #282a36;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 25px;
+  font-weight: 400;
 }
 
 .line-number {

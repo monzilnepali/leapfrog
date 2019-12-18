@@ -5,6 +5,7 @@ class Lexer {
     this.token = [];
     this.tempToken = [];
     this.parseFlag = false;
+    this.errorElement = null;
   }
   is_char(ch) {
     return /[a-zA-z]/.test(ch);
@@ -51,6 +52,7 @@ class Lexer {
 
   }
   readNext() {
+
     //first skip white space
     this.readWhile(this.is_whitespace);
     //if eof return null;
@@ -77,39 +79,41 @@ class Lexer {
         if not show error
         */
         if (this.token.length != 0 && this.token[this.token.length - 1].type === 'actor') {
-          console.log("no error")
           this.token.push({
             type: 'arrow',
             value: this.readArrowSign()
           });
         } else {
-          console.log("erro")
-          throw new ReferenceError("unexpected " + ch);
-
+          throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
         }
+
 
 
       } else if (ch == ":") {
         //before : there must be actor to be valid
-        // console.log(this.token[this.token.length - 1].type)
-        //  if (this.token[this.token.length - 1].type === 'actor') {
-        this.parseFlag = true;
-        this.token.push({
-          type: 'col',
-          value: this.input.next()
-        });
-        //reading string after :
-        this.token.push({
-          type: 'message',
-          value: this.readMessage()
+        console.log(this.token[this.token.length - 1])
+        if (this.token[this.token.length - 1].type === 'actor') {
+          this.parseFlag = true;
+          this.token.push({
+            type: 'col',
+            value: this.input.next()
+          });
+          //reading string after :
+          this.token.push({
+            type: 'message',
+            value: this.readMessage()
 
-        });
-        this.tempToken.push(this.token);
-        this.token = [];
-
+          });
+          this.tempToken.push(this.token);
+          this.token = [];
+        } else {
+          throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
+        }
       }
     } catch (error) {
-      new DisplayError(error.message).display();
+
+      document.getElementById('errorMsg').innerText = error.message;
+      document.getElementById('errorMsg').parentElement.style.backgroundColor = 'red'
     }
   }
 
@@ -125,7 +129,6 @@ class Lexer {
     if (!this.input.errorFlag && this.parseFlag) {
       return this.tempToken;
     } else {
-
       return null;
     }
 

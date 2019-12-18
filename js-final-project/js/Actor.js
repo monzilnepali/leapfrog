@@ -18,20 +18,18 @@ class Actor {
     this.x = x;
   }
   draw() {
-    this.context.strokeStyle = 'white';
-    this.context.fillStyle = "white";
+    // this.context.strokeStyle = 'blac';
+    // this.context.fillStyle = "white";
     this.context.font = '18px Arial';
     //aligning text at center of rect
 
     this.context.fillText(this.name, this.x + this.rectWidth / 2 - (this.rectWidth - 40) / 2, this.y + this.rectHeight / 2 + 10 / 2);
     this.context.strokeRect(this.x, this.y, this.rectWidth, this.rectHeight);
-
-
     //drawing line below actor
     this.drawLine();
   }
   drawLine() {
-    this.context.fillStyle = "white";
+    // this.context.fillStyle = "white";
     this.context.fillRect(this.x + this.rectWidth / 2, this.y + this.rectHeight, 3.5, this.height);
   }
 }

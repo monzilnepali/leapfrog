@@ -22,6 +22,8 @@ class Editor {
 
   }
   inputChanged() {
+    document.getElementById('errorMsg').innerText = "";
+    document.getElementById('errorMsg').parentElement.style.backgroundColor = '#191a21'
     let numberOfLine = this.countLine(this.textArea.value);
     let temp_arr = this.lineNumberElement.value.split('\n');
     let oldNumberOfLine = parseInt(temp_arr[temp_arr.length - 1]);
@@ -34,12 +36,11 @@ class Editor {
 
   }
   lexInput(inputValue) {
-
+    console.log(inputValue)
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
       this.clearRect();
-      console.log(lex)
       let parse = new Parser(lex, this.context).parse();
       let diagram = new Diagram(parse, this.context);
       diagram.draw()
