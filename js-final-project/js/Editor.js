@@ -1,26 +1,15 @@
 class Editor {
-  constructor(context) {
-    this.context = context;
-    let container = document.getElementById('editor-container');
-    //creating line number text area
-    let lineElement = document.createElement('textarea');
-    lineElement.classList.add('line-number');
-    lineElement.setAttribute('readonly', true);
-    this.lineNumberElement = lineElement;
-    this.lineNumberElement.value = "1";
-    let textElement = document.createElement('textarea');
-    textElement.classList.add('text-area');
-    this.textArea = textElement;
-    this.textArea.setAttribute('autofocus', 'true')
-    this.textArea.setAttribute('spellcheck', 'false')
+  constructor() {
+
+    this.textArea = document.getElementsByClassName('code-area')[0];
+    this.lineNumberElement = document.getElementsByClassName('line-number')[0];
     this.textArea.oninput = this.inputChanged.bind(this);
     this.textArea.onscroll = this.scrollChange.bind(this);
-    container.appendChild(lineElement);
-    container.appendChild(textElement);
+    this.canvas = document.getElementById('app');
+    this.canvas.onchange = this.removeCanvas.bind(this);
     this.createCanvas();
     this.saveBtnElement = document.getElementById('saveBtn');
     this.saveBtnElement.onclick = this.saveImage.bind(this);
-
   }
   saveImage() {
     //save canvas asimage
@@ -59,9 +48,8 @@ class Editor {
 
   }
 
-
-
   scrollChange() {
+
     this.lineNumberElement.scrollTop = this.textArea.scrollTop;
   }
   updateRow(numberOfLine) {
@@ -78,14 +66,20 @@ class Editor {
     return text.split('\n').length;
   }
   createCanvas() {
-    this.canvas = document.getElementById('app');
+
     let wrapper = document.getElementById('wrapper-right');
     console.log(wrapper.style.height)
     //checking for landscape or portrait mode status
     let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
     let wrapperHeight = parseInt(wrapper.style.height);
+    if (document.getElementById('rotateBtn').getAttribute('data-id') == 0) {
+      //for portait mode
+      this.canvas.width = wrapperWidth * 0.965;
+    } else {
+      //for landscape mode
+      this.canvas.width = wrapperWidth * 0.974;
+    }
 
-    this.canvas.width = wrapperWidth * 0.965;
     //making canvas height responsive as canvas content push it down
     //getting wrapper right
     this.canvas.height = wrapperHeight * 0.945;
@@ -96,23 +90,20 @@ class Editor {
     this.context.fill();
     this.context.font = '18px Arial';
 
-
   }
-  resizeCanvas() {
-    console.log("resize canvas");
+  removeCanvas() {
+    console.log("remove canvas");
     let wrapper = document.getElementById('wrapper-right');
     let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
     let wrapperHeight = parseInt(wrapper.style.height);
-    this.canvas.width = wrapperWidth * 0.965;
-    //making canvas height responsive as canvas content push it down
-    //getting wrapper right
-    this.canvas.height = wrapperHeight * 0.945;
-    this.context = this.canvas.getContext('2d');
-    this.context.beginPath();
-    this.context.rect(0, 0, this.canvas.width, this.canvas.height);
-    this.context.fillStyle = 'white';
-    this.context.fill();
-    this.context.font = '18px Arial';
+    console.log(wrapperWidth)
+    //removing canvas
+    this.context = null;
+    this.createCanvas()
+    //redraw()
+    let event = new Event('input');
+    this.textArea.dispatchEvent(event);
+
   }
   clearRect() {
     this.context.clearRect(0, 0, 1000, 752);

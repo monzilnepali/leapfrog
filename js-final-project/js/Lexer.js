@@ -13,7 +13,6 @@ class Lexer {
   is_keyword(x) {
     return this.keyword.indexOf(" " + x + " ") >= 0;
   }
-
   is_whitespace(ch) {
     return " \t\n".indexOf(ch) >= 0;
   }
