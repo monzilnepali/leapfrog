@@ -48,7 +48,7 @@ class Editor {
     if (lex != null) {
       //draw
       this.clearRect();
-
+      console.log(lex)
       let parse = new Parser(lex, this.context).parse();
       let diagram = new Diagram(parse, this.context);
       diagram.draw()
@@ -87,6 +87,7 @@ class Editor {
     this.context.rect(0, 0, this.canvas.width, this.canvas.height);
     this.context.fillStyle = 'white';
     this.context.fill();
+    this.context.font = '18px Arial';
 
   }
   clearRect() {
@@ -95,6 +96,7 @@ class Editor {
     this.context.rect(0, 0, this.canvas.width, this.canvas.height);
     this.context.fillStyle = 'white';
     this.context.fill();
+    this.context.font = '18px Arial';
   }
 
 }

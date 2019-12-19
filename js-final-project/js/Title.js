@@ -5,7 +5,7 @@ class Title {
   }
   draw() {
     //getting text width
-    console.log(this.title)
+
     let textWidth = this.context.measureText(this.title).width + 15;
     console.log(textWidth)
     let rectHeight = 40;
