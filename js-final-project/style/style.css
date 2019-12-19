@@ -28,7 +28,7 @@
 }
 
 #app {
-  /* padding: 20px; */
+  padding: 20px;
 
 }
 
@@ -185,7 +185,7 @@ textarea {
 
 }
 
-.text-area {
+.code-area {
   float: right;
   width: calc(100% - 45px);
   color: white;

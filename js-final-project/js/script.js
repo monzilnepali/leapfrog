@@ -11,6 +11,7 @@ window.onload = function () {
       element.myParam = exampleJson;
     });
   });
+  new App();
 }
 
 function changeOrientation() {
@@ -38,9 +39,8 @@ function changeOrientation() {
 }
 
 function switchExample(e) {
-  console.log(e.currentTarget.myParam)
   let jsonData = e.currentTarget.myParam;
-  let textAreaElement = document.getElementsByClassName('text-area')[0];
+  let textAreaElement = document.getElementsByClassName('code-area')[0];
   let prevActiveElement = document.getElementsByClassName('active')[0];
   if (prevActiveElement) {
     //removing active class from prev active element

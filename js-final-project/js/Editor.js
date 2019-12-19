@@ -1,14 +1,13 @@
 class Editor {
-  constructor(context) {
-    this.context = context;
+  constructor() {
+    console.log("editor called")
     this.textArea = document.getElementsByClassName('code-area')[0];
+    this.lineNumberElement = document.getElementsByClassName('line-number')[0];
     this.textArea.oninput = this.inputChanged.bind(this);
     this.textArea.onscroll = this.scrollChange.bind(this);
-
     this.createCanvas();
     this.saveBtnElement = document.getElementById('saveBtn');
     this.saveBtnElement.onclick = this.saveImage.bind(this);
-
   }
   saveImage() {
     //save canvas asimage
