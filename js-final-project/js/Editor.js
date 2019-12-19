@@ -43,7 +43,7 @@ class Editor {
 
   }
   lexInput(inputValue) {
-
+    console.log("input changed")
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
@@ -62,6 +62,7 @@ class Editor {
 
 
   scrollChange() {
+    console.log("scrollchange")
     this.lineNumberElement.scrollTop = this.textArea.scrollTop;
   }
   updateRow(numberOfLine) {
@@ -98,7 +99,7 @@ class Editor {
 
 
   }
-  resizeCanvas() {
+  removeCanvas() {
     console.log("resize canvas");
     let wrapper = document.getElementById('wrapper-right');
     let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
@@ -107,12 +108,7 @@ class Editor {
     //making canvas height responsive as canvas content push it down
     //getting wrapper right
     this.canvas.height = wrapperHeight * 0.945;
-    this.context = this.canvas.getContext('2d');
-    this.context.beginPath();
-    this.context.rect(0, 0, this.canvas.width, this.canvas.height);
-    this.context.fillStyle = 'white';
-    this.context.fill();
-    this.context.font = '18px Arial';
+
   }
   clearRect() {
     this.context.clearRect(0, 0, 1000, 752);
