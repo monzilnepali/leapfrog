@@ -16,6 +16,7 @@ class Title {
     this.context.fillStyle = "black";
     this.context.fillText(this.title, xpos + 8 + rectWidth / 2 - textWidth / 2, ypos + 5 + rectHeight / 2);
     this.context.strokeStyle = 'black';
+    this.context.setLineDash([]);
     this.context.strokeRect(xpos, ypos, rectWidth, rectHeight);
 
   }

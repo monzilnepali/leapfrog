@@ -5,23 +5,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Text-to-sequence-diagram</title>
+  <!-- font -->
+  <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css'>
   <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
   <div class="container" id="container">
     <div class="wrapper-left" id="editor-container">
-      <div class="wrapper-left-header">
-        <div class="left">
-          <div class="example">
-            <li id="example1">Example1</li>
-            <li id="example2">Example2</li>
-          </div>
-          <a href="#" class="saveBtn" id="saveBtn">Save</a>
-
-        </div>
+      <div class="wrapper-left-heading">
+        <p class="title">Text-to-sequence-diagram</p>
+        <ul>
+          <li class="example" data-id="1">example1</li>
+          <li class="example" data-id="2">example2</li>
+          <li class="example" data-id="3">example3</li>
+        </ul>
       </div>
+
       <div class="wrapper-left-footer">
         <div id="lineInfo">Ln <span id="line">1</span>, Col <span id="col">1</span></div>
         <span id="errorMsg"></span>
@@ -29,6 +30,7 @@
     </div>
     <div class="wrapper-right">
       <canvas id="app"></canvas>
+      <a href="#" class="saveButton" id="saveBtn">save</a>
     </div>
 
   </div>

@@ -20,6 +20,7 @@ class Lexer {
   is_arrow(ch) {
     return "->".indexOf(ch) >= 0;
   }
+
   readWhile(predication) {
     let str = "";
     while (!this.input.eof() && predication(this.input.peek())) {
@@ -79,9 +80,19 @@ class Lexer {
         if not show error
         */
         if (this.token.length != 0 && this.token[this.token.length - 1].type === 'actor') {
+          let readArrowSign = this.readArrowSign();
+          let arrowSign = "";
+          if (readArrowSign === '->') {
+            arrowSign = 'msg'
+          } else if (readArrowSign === '-->') {
+            arrowSign = 'reply'
+          } else {
+            throw new ValidationError(`unexpected ' ${arrowSign} ' at [${this.input.line},${this.input.col}]`);
+          }
+
           this.token.push({
             type: 'arrow',
-            value: this.readArrowSign()
+            value: arrowSign
           });
         } else {
           throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);

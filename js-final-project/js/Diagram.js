@@ -10,22 +10,23 @@ class Diagram {
 
   }
   drawTitle(title) {
-    console.log(title)
     if (title != "") {
       new Title(title, this.context).draw();
     }
 
   }
   drawActor(actors) {
+    console.log(actors)
     actors.forEach(element => {
       element.draw();
     });
   }
   drawSignal(signals) {
+
     signals.forEach((signal, index) => {
       let actor1 = this.findActor(signal.actors[0]);
       let actor2 = this.findActor(signal.actors[1]);
-      let ypos = index * 50 + 150;
+      let ypos = index * 70 + 150;
       signal.draw(actor1.x + actor1.rectWidth / 2, actor2.x + actor2.rectWidth / 2, ypos, this.context)
 
     });
