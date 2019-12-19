@@ -17,13 +17,11 @@
 
   width: 100%;
   height: inherit;
-  /* background-color: black; */
-  /* background-color: #333646; */
+  background-color: #333646;
 }
 
 #app {
   padding: 20px;
-
 }
 
 .wrapper-left {
@@ -37,8 +35,58 @@
   height: 50px;
   width: 100%;
   background-color: #21222c;
-
+  display: flex;
+  flex-direction: row;
+  line-height: 50px;
 }
+
+
+
+.wrapper-left-header .left {
+  width: 100%;
+  color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.left .example {
+  list-style-type: none;
+  width: 78%;
+  padding-left: 15px;
+}
+
+.left .example li {
+  float: left;
+  padding-right: 5px;
+  color: rgb(199, 199, 199);
+  cursor: pointer;
+}
+
+.left .example li:hover {
+  color: white;
+}
+
+.left .saveBtn {
+  line-height: 0px;
+  width: 20%;
+  text-align: center;
+  background-color: #43A047;
+  height: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+}
+
+.left .saveBtn:hover {
+  background-color: #2E7D32;
+}
+
+
 
 .wrapper-left-footer {
   position: absolute;

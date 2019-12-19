@@ -42,7 +42,7 @@ class Parser {
 
         //first actor:(0,0)
         if (this.actors.length == 0) {
-          this.actors.push(new Actor(0, 0, name, this.context));
+          this.actors.push(new Actor(50, 50, name, this.context));
         } else if (this.actors.length != 0 && this.findActor(name) === null) {
           //new actor element
           if (index == 0) {
@@ -50,7 +50,7 @@ class Parser {
 
             let lastActor = this.actors[this.actors.length - 1];
             //message is send to identify width
-            this.actors.push(new Actor(lastActor.x + 150, 0, name, this.context));
+            this.actors.push(new Actor(lastActor.x + 150, 50, name, this.context));
           } else {
             //message receiver
 
@@ -60,7 +60,7 @@ class Parser {
             if (textWidth + senderActorX > xpos) {
               xpos = textWidth + senderActorX;
             }
-            this.actors.push(new Actor(xpos, 0, name, this.context));
+            this.actors.push(new Actor(xpos, 50, name, this.context));
           }
         } else {
 

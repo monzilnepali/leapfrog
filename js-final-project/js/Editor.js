@@ -18,10 +18,18 @@ class Editor {
     container.appendChild(lineElement);
     container.appendChild(textElement);
     this.createCanvas();
-
+    this.saveBtnElement = document.getElementById('saveBtn');
+    this.saveBtnElement.onclick = this.saveImage.bind(this);
 
   }
+  saveImage() {
+    //save canvas asimage
+    //saving context
+    this.saveBtnElement.href = this.canvas.toDataURL();
+    this.saveBtnElement.download = 'canvas.jpg';
+  }
   inputChanged() {
+    console.log("input chanage")
     document.getElementById('errorMsg').innerText = "";
     document.getElementById('errorMsg').parentElement.style.backgroundColor = '#191a21'
     let numberOfLine = this.countLine(this.textArea.value);
@@ -73,14 +81,20 @@ class Editor {
   createCanvas() {
     this.canvas = document.getElementById('app');
     this.canvas.width = "1000";
-    this.canvas.height = "400";
+    this.canvas.height = "752";
     this.context = this.canvas.getContext('2d');
+    this.context.beginPath();
+    this.context.rect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.fillStyle = 'white';
+    this.context.fill();
 
   }
   clearRect() {
-
-    this.context.clearRect(0, 0, 1000, 400);
-
+    this.context.clearRect(0, 0, 1000, 752);
+    this.context.beginPath();
+    this.context.rect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.fillStyle = 'white';
+    this.context.fill();
   }
 
 }

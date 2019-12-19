@@ -16,7 +16,7 @@ class Diagram {
     signals.forEach((signal, index) => {
       let actor1 = this.findActor(signal.actors[0]);
       let actor2 = this.findActor(signal.actors[1]);
-      let ypos = index * 50 + 100;
+      let ypos = index * 50 + 120;
       signal.draw(actor1.x + actor1.rectWidth / 2, actor2.x + actor2.rectWidth / 2, ypos, this.context)
 
     });
