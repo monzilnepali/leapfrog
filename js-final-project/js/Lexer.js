@@ -104,7 +104,6 @@ class Lexer {
         //before : there must be actor to be valid
 
         if (this.token[this.token.length - 1].type === 'token') {
-          console.log(this.input.peek())
           this.input.next();
           this.token.push({
             type: 'Title',

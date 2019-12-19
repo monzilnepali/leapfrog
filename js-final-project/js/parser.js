@@ -56,7 +56,7 @@ class Parser {
             this.actors.push(new Actor(lastActor.x + 150, this.ypos, name, this.context));
           } else {
             //message receiver
-            console.log("new receiver")
+
             let lastActor = this.actors[this.actors.length - 1];
             let senderActorX = this.findActor(actor[0]).value.x;
             //getting text width
@@ -89,7 +89,7 @@ class Parser {
             } else {
               if (to.index < from.index) {
                 //swapping
-                console.log("Swapping")
+
                 swapFlag = true;
                 let temp = actor2;
                 actor2 = actor1;
@@ -103,7 +103,6 @@ class Parser {
               if (width < actor2.x) {
                 width = actor2.x;
               }
-              console.log("width" + width)
               actor2.updateX(width);
             }
           }

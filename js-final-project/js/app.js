@@ -28,6 +28,12 @@ window.onload = function () {
   let textAreaEelement = document.getElementsByClassName('text-area')[0];
   Array.from(exampleElements).forEach(element => {
     element.addEventListener('click', () => {
+      //getting other active element
+      let prevActiveElement = document.getElementsByClassName('active')[0];
+      if (prevActiveElement) {
+        prevActiveElement.className = 'element';
+      }
+      element.classList.add('active')
       let id = element.getAttribute('data-id');
       let data = this.exampleJson['example' + id].join('\n');
       textAreaEelement.value = data;

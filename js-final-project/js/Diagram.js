@@ -1,12 +1,17 @@
+let ymax = 0;
 class Diagram {
   constructor(elements, context) {
     this.elements = elements;
     this.context = context;
   }
+  static get yMax() {
+    //getting y value for all signal 
+    return ymax;
+  }
   draw() {
     this.drawTitle(this.elements.title);
-    this.drawActor(this.elements.actors);
     this.drawSignal(this.elements.signals);
+    this.drawActor(this.elements.actors);
 
   }
   drawTitle(title) {
@@ -16,17 +21,16 @@ class Diagram {
 
   }
   drawActor(actors) {
-    console.log(actors)
     actors.forEach(element => {
       element.draw();
     });
   }
   drawSignal(signals) {
-
     signals.forEach((signal, index) => {
       let actor1 = this.findActor(signal.actors[0]);
       let actor2 = this.findActor(signal.actors[1]);
-      let ypos = index * 70 + 150;
+      let ypos = index * 65 + 140;
+      ymax = ypos;
       signal.draw(actor1.x + actor1.rectWidth / 2, actor2.x + actor2.rectWidth / 2, ypos, this.context)
 
     });
