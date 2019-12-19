@@ -7,6 +7,7 @@ class Actor {
     this.rectWidth = this.context.measureText(name).width + 40;
     this.rectHeight = 30;
     this.height = 600;
+    this.width = 0;
 
   }
   updateWidth(message) {

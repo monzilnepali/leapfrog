@@ -44,7 +44,6 @@ class Signal {
         this.x1 = temp;
       }
       let distance = Math.abs(x2 - x1);
-      console.log(distance)
       let centerX = this.x1 + distance / 2 - textWidth / 2;
       this.context.fillText(this.message, centerX, y - 8);
       this.drawArrowPointer(this.swap);
