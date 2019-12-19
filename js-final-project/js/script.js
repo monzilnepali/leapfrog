@@ -15,10 +15,12 @@ window.onload = function () {
 }
 
 function changeOrientation() {
+  console.log("changeOrientation")
   let mainContainer = document.getElementsByClassName('container')[0];
   let rotateFlag = rotateBtn.getAttribute('data-id');
   let leftContainer = document.getElementById('editor-container');
   let rightContainer = document.getElementById('wrapper-right');
+
   if (rotateFlag == 0) {
     //current rotate data=0 mean portrait mode
     //change to landscape mode
@@ -36,6 +38,9 @@ function changeOrientation() {
     leftContainer.style.width = (window.innerWidth * 0.32) + 'px';
 
   }
+  let canvasEvent = new Event('change');
+  let canvas = document.getElementById('app');
+  canvas.dispatchEvent(canvasEvent);
 }
 
 function switchExample(e) {
@@ -50,6 +55,7 @@ function switchExample(e) {
   let id = e.target.getAttribute('data-id');
   let data = jsonData['example' + id].join('\n');
   textAreaElement.value = data;
+
   let event = new Event('input');
   textAreaElement.dispatchEvent(event);
 }

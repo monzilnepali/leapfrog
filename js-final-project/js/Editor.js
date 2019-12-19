@@ -1,10 +1,12 @@
 class Editor {
   constructor() {
-    console.log("editor called")
+
     this.textArea = document.getElementsByClassName('code-area')[0];
     this.lineNumberElement = document.getElementsByClassName('line-number')[0];
     this.textArea.oninput = this.inputChanged.bind(this);
     this.textArea.onscroll = this.scrollChange.bind(this);
+    this.canvas = document.getElementById('app');
+    this.canvas.onchange = this.removeCanvas.bind(this);
     this.createCanvas();
     this.saveBtnElement = document.getElementById('saveBtn');
     this.saveBtnElement.onclick = this.saveImage.bind(this);
@@ -30,7 +32,7 @@ class Editor {
 
   }
   lexInput(inputValue) {
-    console.log("input changed")
+
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw
@@ -46,10 +48,8 @@ class Editor {
 
   }
 
-
-
   scrollChange() {
-    console.log("scrollchange")
+
     this.lineNumberElement.scrollTop = this.textArea.scrollTop;
   }
   updateRow(numberOfLine) {
@@ -66,14 +66,20 @@ class Editor {
     return text.split('\n').length;
   }
   createCanvas() {
-    this.canvas = document.getElementById('app');
+
     let wrapper = document.getElementById('wrapper-right');
     console.log(wrapper.style.height)
     //checking for landscape or portrait mode status
     let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
     let wrapperHeight = parseInt(wrapper.style.height);
+    if (document.getElementById('rotateBtn').getAttribute('data-id') == 0) {
+      //for portait mode
+      this.canvas.width = wrapperWidth * 0.965;
+    } else {
+      //for landscape mode
+      this.canvas.width = wrapperWidth * 0.974;
+    }
 
-    this.canvas.width = wrapperWidth * 0.965;
     //making canvas height responsive as canvas content push it down
     //getting wrapper right
     this.canvas.height = wrapperHeight * 0.945;
@@ -84,17 +90,19 @@ class Editor {
     this.context.fill();
     this.context.font = '18px Arial';
 
-
   }
   removeCanvas() {
-    console.log("resize canvas");
+    console.log("remove canvas");
     let wrapper = document.getElementById('wrapper-right');
     let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
     let wrapperHeight = parseInt(wrapper.style.height);
-    this.canvas.width = wrapperWidth * 0.965;
-    //making canvas height responsive as canvas content push it down
-    //getting wrapper right
-    this.canvas.height = wrapperHeight * 0.945;
+    console.log(wrapperWidth)
+    //removing canvas
+    this.context = null;
+    this.createCanvas()
+    //redraw()
+    let event = new Event('input');
+    this.textArea.dispatchEvent(event);
 
   }
   clearRect() {
