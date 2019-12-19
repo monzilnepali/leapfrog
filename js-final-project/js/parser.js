@@ -58,13 +58,11 @@ class Parser {
             //message receiver
             console.log("new receiver")
             let lastActor = this.actors[this.actors.length - 1];
-            let lastActorWidth = lastActor.width;
-            console.log(lastActor)
             let senderActorX = this.findActor(actor[0]).value.x;
             //getting text width
             let txtWidth = this.context.measureText(message).width + 40;
             //text width from sender actor
-            let xpos = senderActorX + txtWidth + lastActorWidth;
+            let xpos = senderActorX + txtWidth;
             let secondX = lastActor.x + 150;
             if (secondX > xpos) {
               xpos = secondX;
@@ -84,7 +82,7 @@ class Parser {
             let to = this.findActor(actor[1]);
             let actor1 = from.value;
             let actor2 = to.value;
-            if (actor1.index == actor2.index) {
+            if (actor1.name == actor2.name) {
               console.log("same actor")
               actor1.updateWidth(message);
 
