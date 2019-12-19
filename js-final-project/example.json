@@ -18,5 +18,13 @@
     "Database->Application:user is created",
     "Application-->GUI:usercreated()",
     "GUI-->Guest:usercreated(),homepage()"
+  ],
+  "example3": [
+    "Title:Search Book",
+    "Customer->searchPage:onSearch(author)",
+    "searchPage->searchPage:validationSearchCriteria()",
+    "searchPage->catalog:searchByAuthor(author)",
+    "catalog->searchResult:create()",
+    "searchResult->searchPage:display()"
   ]
 }
