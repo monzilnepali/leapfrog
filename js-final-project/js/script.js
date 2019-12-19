@@ -62,7 +62,7 @@ function creationOfTextArea() {
   lineElement.setAttribute('readonly', true);
   lineElement.value = "1";
   let textElement = document.createElement('textarea');
-  textElement.classList.add('text-area');
+  textElement.classList.add('code-area');
   textElement.setAttribute('autofocus', 'true')
   textElement.setAttribute('spellcheck', 'false')
   container.appendChild(lineElement);
