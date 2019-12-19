@@ -1,11 +1,8 @@
 window.onload = function () {
   settingWrapperWidthHeight();
   creationOfTextArea();
-  //adding eventhandler to all example li
-
+  document.getElementById('rotateBtn').addEventListener('click', changeOrientation, false);
   let exampleElements = document.getElementsByClassName('example');
-
-
   loadJSON(function (response) {
     // Parsing JSON string into object
     let exampleJson = JSON.parse(response);
@@ -14,6 +11,30 @@ window.onload = function () {
       element.myParam = exampleJson;
     });
   });
+}
+
+function changeOrientation() {
+  let mainContainer = document.getElementsByClassName('container')[0];
+  let rotateFlag = rotateBtn.getAttribute('data-id');
+  let leftContainer = document.getElementById('editor-container');
+  let rightContainer = document.getElementById('wrapper-right');
+  if (rotateFlag == 0) {
+    //current rotate data=0 mean portrait mode
+    //change to landscape mode
+    mainContainer.style.flexDirection = 'column';
+    rotateBtn.setAttribute('data-id', 1);
+    leftContainer.style.width = (document.body.scrollWidth) + 'px';
+    rightContainer.style.width = (document.body.scrollWidth) + 'px';
+
+  } else {
+    //current rotate data=1 mean landscape mode
+    //change to portait mode
+    mainContainer.style.flexDirection = 'row';
+    rotateBtn.setAttribute('data-id', 0);
+    rightContainer.style.width = (window.innerWidth * 0.68) + 'px';
+    leftContainer.style.width = (window.innerWidth * 0.32) + 'px';
+
+  }
 }
 
 function switchExample(e) {
