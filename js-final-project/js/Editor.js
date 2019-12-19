@@ -80,7 +80,10 @@ class Editor {
   createCanvas() {
     this.canvas = document.getElementById('app');
     this.canvas.width = "1000";
-    this.canvas.height = "752";
+    //making canvas height responsive as canvas content push it down
+    //getting wrapper right
+    console.log(document.getElementsByClassName('wrapper-right')[0])
+    this.canvas.height = "745";
     this.context = this.canvas.getContext('2d');
     this.context.beginPath();
     this.context.rect(0, 0, this.canvas.width, this.canvas.height);

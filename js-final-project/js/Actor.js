@@ -6,7 +6,6 @@ class Actor {
     this.context = context;
     this.rectWidth = this.context.measureText(name).width + 40;
     this.rectHeight = 30;
-    this.height = 600;
     this.width = 0;
 
   }
@@ -34,7 +33,7 @@ class Actor {
   }
   drawLine() {
     this.context.beginPath();
-    this.context.rect(this.x + this.rectWidth / 2, this.y + this.rectHeight, 2, this.height);
+    this.context.rect(this.x + this.rectWidth / 2, this.y + this.rectHeight, 2, Diagram.yMax - 70);
     this.context.fillStyle = 'black';
     this.context.fill();
   }

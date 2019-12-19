@@ -19,7 +19,8 @@
   height: inherit;
   background-color: #333646;
   flex-shrink: 0;
-
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #app {
@@ -57,11 +58,16 @@
   float: left;
   color: white;
   cursor: pointer;
-  background-color: #1565C0;
+  background-color: #34364d;
   border-radius: 3px;
   padding: 4px;
   font-size: 10px;
   margin-right: 5px;
+  text-transform: capitalize;
+}
+
+.wrapper-left-heading ul .active {
+  background-color: #1E88E5;
 }
 
 .wrapper-left-heading ul li:hover {
