@@ -4,12 +4,14 @@ class Parser {
     this.context = context;
     this.signals = [];
     this.actors = [];
+    this.title = [];
+    this.ypos = 75;
+    this.xposFirst = 40;
   }
   parse() {
     this.uniqueActorArray1();
-    //console.log(this.actors)
-    // this.signalArray();
     return {
+      title: this.title,
       actors: this.actors,
       signals: this.signals
     };
@@ -30,6 +32,9 @@ class Parser {
           arrowType = element.value;
         } else if (element.type === 'message') {
           message = element.value
+        } else if (element.type === 'Title') {
+          this.title = element.value
+
         }
       });
 
@@ -41,7 +46,7 @@ class Parser {
 
         //first actor:(0,0)
         if (this.actors.length == 0) {
-          this.actors.push(new Actor(50, 50, name, this.context));
+          this.actors.push(new Actor(this.xposFirst, this.ypos, name, this.context));
         } else if (this.actors.length != 0 && this.findActor(name) === null) {
           //new actor element
           if (index == 0) {
@@ -49,15 +54,13 @@ class Parser {
 
             let lastActor = this.actors[this.actors.length - 1];
             //message is send to identify width
-            this.actors.push(new Actor(lastActor.x + 150, 50, name, this.context));
+            this.actors.push(new Actor(lastActor.x + 150, this.ypos, name, this.context));
           } else {
             //message receiver
 
-            console.log("new receiver")
+
             let lastActorX = this.actors[this.actors.length - 1].x;
             let senderActorX = this.findActor(actor[0]).value.x;
-            console.log("last actor" + lastActorX);
-            console.log("send actgor" + senderActorX);
             //getting text width
             let txtWidth = this.context.measureText(message).width + 40;
             //text width from sender actor
@@ -67,7 +70,7 @@ class Parser {
               xpos = secondX;
             }
 
-            this.actors.push(new Actor(xpos, 50, name, this.context));
+            this.actors.push(new Actor(xpos, this.ypos, name, this.context));
           }
         } else {
 
@@ -103,7 +106,9 @@ class Parser {
         }
 
       });
-      this.signals.push(new Signal(message, actor, swapFlag))
+      if (actor.length != 0) {
+        this.signals.push(new Signal(message, actor, swapFlag));
+      }
     });
   }
   signalArray() {

@@ -1,7 +1,7 @@
 class Lexer {
   constructor(input) {
     this.input = input;
-    this.keyword = " Note right of  left of ";
+    this.keyword = " Title Note right of  left of ";
     this.token = [];
     this.tempToken = [];
     this.parseFlag = false;
@@ -91,23 +91,37 @@ class Lexer {
 
       } else if (ch == ":") {
         //before : there must be actor to be valid
-        if (this.token[this.token.length - 1].type === 'actor') {
-          this.parseFlag = true;
-          this.token.push({
-            type: 'col',
-            value: this.input.next()
-          });
-          //reading string after :
-          this.token.push({
-            type: 'message',
-            value: this.readMessage()
 
+        if (this.token[this.token.length - 1].type === 'token') {
+          console.log(this.input.peek())
+          this.input.next();
+          this.token.push({
+            type: 'Title',
+            value: this.readMessage()
           });
           this.tempToken.push(this.token);
           this.token = [];
-        } else {
-          throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
+          this.parseFlag = true;
+        } else if (this.token[this.token.length - 2].type === 'arrow') {
+          if (this.token[this.token.length - 1].type === 'actor') {
+            this.parseFlag = true;
+            this.token.push({
+              type: 'col',
+              value: this.input.next()
+            });
+            //reading string after :
+            this.token.push({
+              type: 'message',
+              value: this.readMessage()
+
+            });
+            this.tempToken.push(this.token);
+            this.token = [];
+          } else {
+            throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
+          }
         }
+
       }
     } catch (error) {
 
@@ -126,6 +140,7 @@ class Lexer {
       counter++;
     }
     if (!this.input.errorFlag && this.parseFlag) {
+
       return this.tempToken;
     } else {
       return null;

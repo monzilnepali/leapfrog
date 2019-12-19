@@ -48,6 +48,7 @@ class Editor {
     if (lex != null) {
       //draw
       this.clearRect();
+
       let parse = new Parser(lex, this.context).parse();
       let diagram = new Diagram(parse, this.context);
       diagram.draw()
