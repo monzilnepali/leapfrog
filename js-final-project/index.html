@@ -15,12 +15,18 @@
   <div class="container" id="container">
     <div class="wrapper-left" id="editor-container">
       <div class="wrapper-left-heading">
-        <p class="title">Text-to-sequence-diagram</p>
-        <ul>
-          <li class="example" data-id="1">example1</li>
-          <li class="example" data-id="2">example2</li>
-          <li class="example" data-id="3">example3</li>
-        </ul>
+        <div class="left-header-section">
+          <p class="title">Text-to-sequence-diagram</p>
+          <ul>
+            <li class="example" data-id="1">example1</li>
+            <li class="example" data-id="2">example2</li>
+            <li class="example" data-id="3">example3</li>
+          </ul>
+        </div>
+        <div class="right-header-section">
+          <img src="./img/orientation.png" class="rotateBtn" id="rotateBtn" data-id="0"></img>
+        </div>
+
       </div>
 
       <div class="wrapper-left-footer">
@@ -28,7 +34,7 @@
         <span id="errorMsg"></span>
       </div>
     </div>
-    <div class="wrapper-right">
+    <div class="wrapper-right" id="wrapper-right">
       <canvas id="app"></canvas>
       <a href="#" class="saveButton" id="saveBtn">save</a>
     </div>

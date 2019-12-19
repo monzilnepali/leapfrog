@@ -79,11 +79,16 @@ class Editor {
   }
   createCanvas() {
     this.canvas = document.getElementById('app');
-    this.canvas.width = "1000";
+    let wrapper = document.getElementById('wrapper-right');
+    console.log(wrapper.style.height)
+    //checking for landscape or portrait mode status
+    let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
+    let wrapperHeight = parseInt(wrapper.style.height);
+
+    this.canvas.width = wrapperWidth * 0.965;
     //making canvas height responsive as canvas content push it down
     //getting wrapper right
-    console.log(document.getElementsByClassName('wrapper-right')[0])
-    this.canvas.height = "745";
+    this.canvas.height = wrapperHeight * 0.945;
     this.context = this.canvas.getContext('2d');
     this.context.beginPath();
     this.context.rect(0, 0, this.canvas.width, this.canvas.height);
@@ -92,6 +97,22 @@ class Editor {
     this.context.font = '18px Arial';
 
 
+  }
+  resizeCanvas() {
+    console.log("resize canvas");
+    let wrapper = document.getElementById('wrapper-right');
+    let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
+    let wrapperHeight = parseInt(wrapper.style.height);
+    this.canvas.width = wrapperWidth * 0.965;
+    //making canvas height responsive as canvas content push it down
+    //getting wrapper right
+    this.canvas.height = wrapperHeight * 0.945;
+    this.context = this.canvas.getContext('2d');
+    this.context.beginPath();
+    this.context.rect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.fillStyle = 'white';
+    this.context.fill();
+    this.context.font = '18px Arial';
   }
   clearRect() {
     this.context.clearRect(0, 0, 1000, 752);
