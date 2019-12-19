@@ -91,7 +91,6 @@ class Lexer {
 
       } else if (ch == ":") {
         //before : there must be actor to be valid
-        console.log(this.token[this.token.length - 1])
         if (this.token[this.token.length - 1].type === 'actor') {
           this.parseFlag = true;
           this.token.push({

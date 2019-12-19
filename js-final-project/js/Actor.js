@@ -18,7 +18,6 @@ class Actor {
     this.x = x;
   }
   draw() {
-    console.log("drawing")
     this.context.beginPath();
     this.context.font = '18px Arial';
     //aligning text at center of rect

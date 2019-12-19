@@ -29,7 +29,6 @@ class Editor {
     this.saveBtnElement.download = 'canvas.jpg';
   }
   inputChanged() {
-    console.log("input chanage")
     document.getElementById('errorMsg').innerText = "";
     document.getElementById('errorMsg').parentElement.style.backgroundColor = '#191a21'
     let numberOfLine = this.countLine(this.textArea.value);
@@ -44,7 +43,7 @@ class Editor {
 
   }
   lexInput(inputValue) {
-    console.log(inputValue)
+
     let lex = new Lexer(new InputStream(inputValue)).tokenize();
     if (lex != null) {
       //draw

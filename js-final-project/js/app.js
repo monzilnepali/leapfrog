@@ -15,8 +15,6 @@ window.onload = function () {
     "\natm->bank:check this details";
   let example1 = document.getElementById("example1");
   example1.addEventListener('click', () => {
-    console.log("example 1  ");
-    console.log(example1Data)
     let element = document.getElementsByClassName('text-area')[0];
     element.value = example1Data;
     let event = new Event('input');

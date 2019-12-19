@@ -36,8 +36,7 @@ class Parser {
 
 
       //distance between actor
-      let textWidth = this.context.measureText(message).width + 20;
-      textWidth = (textWidth < 150) ? 150 : textWidth;
+
       actor.forEach((name, index) => {
 
         //first actor:(0,0)
@@ -54,12 +53,20 @@ class Parser {
           } else {
             //message receiver
 
-
-            let senderActorX = this.actors[this.actors.length - 1].x + 20;
-            let xpos = senderActorX;
-            if (textWidth + senderActorX > xpos) {
-              xpos = textWidth + senderActorX;
+            console.log("new receiver")
+            let lastActorX = this.actors[this.actors.length - 1].x;
+            let senderActorX = this.findActor(actor[0]).value.x;
+            console.log("last actor" + lastActorX);
+            console.log("send actgor" + senderActorX);
+            //getting text width
+            let txtWidth = this.context.measureText(message).width + 40;
+            //text width from sender actor
+            let xpos = senderActorX + txtWidth;
+            let secondX = lastActorX + 150;
+            if (secondX > xpos) {
+              xpos = secondX;
             }
+
             this.actors.push(new Actor(xpos, 50, name, this.context));
           }
         } else {
@@ -84,8 +91,8 @@ class Parser {
             }
 
             //update x of actor 
-            console.log(actor1);
-            console.log(actor2)
+            let textWidth = this.context.measureText(message).width + 20;
+            textWidth = (textWidth < 150) ? 150 : textWidth;
             let width = actor1.x + textWidth;
             if (width < actor2.x) {
               width = actor2.x;
