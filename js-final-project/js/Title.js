@@ -5,9 +5,7 @@ class Title {
   }
   draw() {
     //getting text width
-
     let textWidth = this.context.measureText(this.title).width + 15;
-
     let rectHeight = 40;
     let rectWidth = (textWidth > 30) ? textWidth : 30;
     let xpos = 40;

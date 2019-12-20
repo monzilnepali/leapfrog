@@ -6,6 +6,7 @@ class Diagram {
   }
   static get yMax() {
     //getting y value for all signal 
+    //drawing line below actor upto that position
     return ymax;
   }
   draw() {
@@ -32,16 +33,13 @@ class Diagram {
       let ypos = index * 60 + 155;
       ymax = ypos;
       signal.draw(actor1.x + actor1.rectWidth / 2, actor2.x + actor2.rectWidth / 2, ypos, this.context)
-
     });
   }
 
   findActor(name) {
-    for (let i = 0; i < this.elements.actors.length; i++) {
-      if (this.elements.actors[i].name === name) {
-        return this.elements.actors[i];
-      }
-    }
-    return null;
+    let actor = this.elements.actors.filter((element) => {
+      return element.name == name
+    });
+    return actor[0];
   }
 }

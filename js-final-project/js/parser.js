@@ -130,6 +130,8 @@ class Parser {
   }
 
   findActor(name) {
+    //find actor along with index
+    //index is used to check which actor defined first 
     for (let i = 0; i < this.actors.length; i++) {
       if (this.actors[i].name === name) {
         return {
