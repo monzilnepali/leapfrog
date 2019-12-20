@@ -19,7 +19,6 @@ class Lexer {
   is_arrow(ch) {
     return "->".indexOf(ch) >= 0;
   }
-
   readWhile(predication) {
     let str = "";
     while (!this.input.eof() && predication(this.input.peek())) {
@@ -52,7 +51,6 @@ class Lexer {
 
   }
   readNext() {
-
     //first skip white space
     this.readWhile(this.is_whitespace);
     //if eof return null;
@@ -100,7 +98,6 @@ class Lexer {
 
       } else if (ch == ":") {
         //before : there must be actor or Title keyword to be valid
-        console.log(this.token.length)
 
         if (this.token.length == 1) {
           // 1 length before : expected title keyword
@@ -128,7 +125,6 @@ class Lexer {
               this.token.push({
                 type: 'message',
                 value: this.readMessage()
-
               });
               this.tempToken.push(this.token);
               this.token = [];
@@ -144,7 +140,7 @@ class Lexer {
 
       }
     } catch (error) {
-
+      //showing error message
       document.getElementById('errorMsg').innerText = error.message;
       document.getElementById('errorMsg').parentElement.style.backgroundColor = 'red'
     }
@@ -160,7 +156,6 @@ class Lexer {
       counter++;
     }
     if (!this.input.errorFlag && this.parseFlag) {
-
       return this.tempToken;
     } else {
       return null;

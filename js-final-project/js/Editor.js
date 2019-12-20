@@ -68,7 +68,6 @@ class Editor {
   createCanvas() {
 
     let wrapper = document.getElementById('wrapper-right');
-    console.log(wrapper.style.height)
     //checking for landscape or portrait mode status
     let wrapperWidth = parseInt(wrapper.style.width); //only parsing int from like 120px;
     let wrapperHeight = parseInt(wrapper.style.height);
