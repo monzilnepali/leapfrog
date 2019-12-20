@@ -26,5 +26,16 @@
     "searchPage->catalog:searchByAuthor(author)",
     "catalog->searchResult:create()",
     "searchResult->searchPage:display()"
+  ],
+  "example4": [
+    "Title:example 4",
+    "one->two:hello",
+    "two-->one:hi",
+    "three->four:whasspp",
+    "four-->one:suppp",
+    "one->four:wrong person",
+    "four-->one:ooh sorry",
+    "four-->three:yoyoyo",
+    "three->four:lorem lorem lorem lorem lorem "
   ]
 }

@@ -59,6 +59,9 @@ class Parser {
             //text width from sender actor
             let xpos = senderActorX + txtWidth;
             let secondX = lastActor.x + 150;
+            //new actor shifting
+            //lastactor +150 or sendactor.x+textwidth 
+            //new actor position will be maxinum between above
             if (secondX > xpos) {
               xpos = secondX;
             }
@@ -67,10 +70,7 @@ class Parser {
           }
         } else {
 
-          if (index == 0) {
-            // let actor1 = this.findActor(actor1(0));
-
-          } else {
+          if (index != 0) {
 
             //getting first actor 
             let from = this.findActor(actor[0]);
