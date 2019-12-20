@@ -86,9 +86,8 @@ class Lexer {
           } else if (readArrowSign === '-->') {
             arrowSign = 'reply'
           } else {
-            throw new ValidationError(`unexpected ' ${arrowSign} ' at [${this.input.line},${this.input.col}]`);
+            throw new ValidationError(`unexpected ' ${ch} ' at [${this.input.line},${this.input.col}]`);
           }
-
           this.token.push({
             type: 'arrow',
             value: arrowSign
@@ -100,36 +99,77 @@ class Lexer {
 
 
       } else if (ch == ":") {
-        //before : there must be actor to be valid
+        //before : there must be actor or Title keyword to be valid
+        console.log(this.token.length)
 
-        if (this.token[this.token.length - 1].type === 'token') {
-          this.input.next();
-          this.token.push({
-            type: 'Title',
-            value: this.readMessage()
-          });
-          this.tempToken.push(this.token);
-          this.token = [];
-          this.parseFlag = true;
-        } else if (this.token[this.token.length - 2].type === 'arrow') {
-          if (this.token[this.token.length - 1].type === 'actor') {
-            this.parseFlag = true;
+        if (this.token.length == 1) {
+          console.log("1 length")
+          if (this.token[this.token.length - 1].type === 'token') {
+            this.input.next();
             this.token.push({
-              type: 'col',
-              value: this.input.next()
-            });
-            //reading string after :
-            this.token.push({
-              type: 'message',
+              type: 'Title',
               value: this.readMessage()
-
             });
             this.tempToken.push(this.token);
             this.token = [];
+            this.parseFlag = true;
           } else {
-            throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
+            throw new ValidationError(`unexpected '${ch}' at [${this.input.line},${this.input.col}]`);
+          }
+        } else {
+          if (this.token[this.token.length - 2].type === 'arrow') {
+            if (this.token[this.token.length - 1].type === 'actor') {
+              this.parseFlag = true;
+              this.token.push({
+                type: 'col',
+                value: this.input.next()
+              });
+              //reading string after :
+              this.token.push({
+                type: 'message',
+                value: this.readMessage()
+
+              });
+              this.tempToken.push(this.token);
+              this.token = [];
+            } else {
+              throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
+            }
+          } else {
+            throw new ValidationError(`unexpected at [${this.input.line},${this.input.col}]`);
           }
         }
+
+        // if (this.token[this.token.length - 1].type === 'token') {
+        //   this.input.next();
+        //   this.token.push({
+        //     type: 'Title',
+        //     value: this.readMessage()
+        //   });
+        //   this.tempToken.push(this.token);
+        //   this.token = [];
+        //   this.parseFlag = true;
+        // } else if (this.token[this.token.length - 2].type === 'arrow') {
+        //   if (this.token[this.token.length - 1].type === 'actor') {
+        //     this.parseFlag = true;
+        //     this.token.push({
+        //       type: 'col',
+        //       value: this.input.next()
+        //     });
+        //     //reading string after :
+        //     this.token.push({
+        //       type: 'message',
+        //       value: this.readMessage()
+
+        //     });
+        //     this.tempToken.push(this.token);
+        //     this.token = [];
+        //   } else {
+        //     throw new ValidationError(`Actor expected at [${this.input.line},${this.input.col}]`);
+        //   }
+        // } else {
+        //   throw new ValidationError(`unexpected at [${this.input.line},${this.input.col}]`);
+        // }
 
       }
     } catch (error) {

@@ -26,6 +26,7 @@ function changeOrientation() {
     //change to landscape mode
     mainContainer.style.flexDirection = 'column';
     rotateBtn.setAttribute('data-id', 1);
+    rotateBtn.classList.add('active')
     leftContainer.style.width = (document.body.scrollWidth) + 'px';
     rightContainer.style.width = (document.body.scrollWidth) + 'px';
 
@@ -34,6 +35,7 @@ function changeOrientation() {
     //change to portait mode
     mainContainer.style.flexDirection = 'row';
     rotateBtn.setAttribute('data-id', 0);
+    rotateBtn.classList.remove('active')
     rightContainer.style.width = (window.innerWidth * 0.68) + 'px';
     leftContainer.style.width = (window.innerWidth * 0.32) + 'px';
 
