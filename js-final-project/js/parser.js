@@ -9,7 +9,7 @@ class Parser {
     this.xposFirst = 40;
   }
   parse() {
-    this.uniqueActorArray1();
+    this.uniqueActorArray();
     return {
       title: this.title,
       actors: this.actors,
@@ -18,8 +18,7 @@ class Parser {
 
   }
 
-  uniqueActorArray1() {
-
+  uniqueActorArray() {
     this.tokens.forEach((token, index) => {
       let actor = [];
       let arrowType = "";
@@ -37,10 +36,6 @@ class Parser {
 
         }
       });
-
-
-
-      //distance between actor
 
       actor.forEach((name, index) => {
 

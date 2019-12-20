@@ -14,7 +14,6 @@ class Signal {
     this.context = context;
     //display line
 
-
     if (this.arrowType == 'msg') {
       this.context.setLineDash([]);
     } else if (this.arrowType == 'reply') {
@@ -45,6 +44,7 @@ class Signal {
       }
       let distance = Math.abs(x2 - x1);
       let centerX = this.x1 + distance / 2 - textWidth / 2;
+      this.context.fillStyle = 'black';
       this.context.fillText(this.message, centerX, y - 8);
       this.drawArrowPointer(this.swap);
     }
