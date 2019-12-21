@@ -125,7 +125,7 @@ class Game {
 
   start() {
      this.clear();
-     this.score=Math.floor(this.frameNo/120);
+     this.score=Math.floor(this.frameNo/150);
      this.uiLayer.updateScore(this.score);
 
      if(!this.gameStatus){

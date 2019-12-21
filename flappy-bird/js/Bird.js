@@ -26,9 +26,7 @@ class Bird {
     });
      return this;
   }
-  animate(){
-
-  }
+  
   update() {
     this.velocity+=this.gravity;
    // this.x += 0.5;
@@ -47,7 +45,6 @@ class Bird {
     
   }
   draw(){
-    
       this.ctx.drawImage(this.images[0],this.x,this.y,this.width,this.height);
   }
 
