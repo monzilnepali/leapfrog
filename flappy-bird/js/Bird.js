@@ -13,7 +13,7 @@ class Bird {
     this.counter=0;
     this.hover=1;
     this.images=[];
-    this.imageSrc=['../assets/bird-1.png','../assets/bird-2.png','../assets/bird-3.png'];
+    this.imageSrc=['https://raw.githubusercontent.com/monzilnepali/leapfrog/master/flappy-bird/assets/bird-1.png','../assets/bird-2.png','../assets/bird-3.png'];
 
   }
   init() {
