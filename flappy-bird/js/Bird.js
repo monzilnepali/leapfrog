@@ -47,7 +47,8 @@ class Bird {
     
   }
   draw(){
-      this.ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
+    
+      this.ctx.drawImage(this.images[0],this.x,this.y,this.width,this.height);
   }
 
   float(){
